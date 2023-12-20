@@ -20,6 +20,7 @@ const Dashboard = () => {
   const closeProductModal = () => {
     setProductModalVisible(false);
   };
+
   const handleAddProduct = () => {
     // Add logic to handle adding a product (e.g., update state, send to server)
     alert(`Product added: ${productName}, ${productPrice}, ${productDescription}, ${selectedCategory}`);
@@ -118,6 +119,7 @@ const Dashboard = () => {
       <header>
         <img src={Logo} alt="Icon" />
         <h1>Cup Joe</h1>
+        <h3>hello</h3>
       </header>
       
       <div className="logo-container">
