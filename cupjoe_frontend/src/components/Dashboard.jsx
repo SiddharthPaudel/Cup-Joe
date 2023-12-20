@@ -119,7 +119,7 @@ const Dashboard = () => {
       <header>
         <img src={Logo} alt="Icon" />
         <h1>Cup Joe</h1>
-        <h3>hello</h3>
+        
       </header>
       
       <div className="logo-container">
