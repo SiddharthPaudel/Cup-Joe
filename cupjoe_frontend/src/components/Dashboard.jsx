@@ -9,6 +9,23 @@ const Dashboard = () => {
   const [categoryModalVisible, setCategoryModalVisible] = useState(true);
   const [emptyCategoryMessageVisible, setEmptyCategoryMessageVisible] = useState(true);
   const [errorMessage, setErrorMessage] = useState(""); // Add this line for error message
+  const [productModalVisible, setProductModalVisible] = useState(false);
+  const [productName, setProductName] = useState('');
+  const [productPrice, setProductPrice] = useState('');
+  const [productDescription, setProductDescription] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const showManageProduct = () => {
+    setProductModalVisible(true);
+  };
+  const closeProductModal = () => {
+    setProductModalVisible(false);
+  };
+
+  const handleAddProduct = () => {
+    // Add logic to handle adding a product (e.g., update state, send to server)
+    alert(`Product added: ${productName}, ${productPrice}, ${productDescription}, ${selectedCategory}`);
+    closeProductModal();
+  };
 
   const toggleProfile = () => {
     var profileContainer = document.getElementById("profileContainer");
@@ -33,7 +50,7 @@ const Dashboard = () => {
   };
 
   const showTotalProduct = () => {
-    toggleCard("totalProductCard");
+    setProductModalVisible(true);
   };
 
   const showTotalBill = () => {
@@ -102,14 +119,16 @@ const Dashboard = () => {
       <header>
         <img src={Logo} alt="Icon" />
         <h1>Cup Joe</h1>
+        
       </header>
-
+      
       <div className="logo-container">
         <img src={Profile} alt="Logo" id="logo" onClick={toggleProfile} />
       </div>
 
+       
        <div className="profile-container" id="profileContainer">
-         
+       
         <div className="profile" id="customerProfile">
           <h3>Customer Profile</h3>
           <p id="customerName">Customer Name: Jane Doe</p>
@@ -143,7 +162,6 @@ const Dashboard = () => {
           <span className="text">Manage User</span>
         </a>
       </nav>
-
       <main>
         <div className="dashboard-card" id="dashboardCard">
           <h2>Total category </h2>
@@ -171,6 +189,32 @@ const Dashboard = () => {
           <button onClick={closeCategoryModal}>Close</button>
         </div>
 )}
+   {productModalVisible && (
+      <div className="product-modal">
+        <h3>Add Product</h3>
+
+        <label htmlFor="productName">Product Name:</label>
+        <input type="text" id="Name" value={productName} onChange={(e) => setProductName(e.target.value)} />
+
+        <label htmlFor="productPrice">Product Price:</label>
+        <input type="text" id="Price" value={productPrice} onChange={(e) => setProductPrice(e.target.value)} />
+
+        <label htmlFor="productDescription">Product Description:</label>
+        <textarea id="Description" value={productDescription} onChange={(e) => setProductDescription(e.target.value)} />
+
+        <label htmlFor="categoryDropdown">Category:</label>
+        <select id="categoryDropdown" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+          {/* Add options dynamically based on your categories */}
+          <option value="category1">Category 1</option>
+          <option value="category2">Category 2</option>
+          {/* Add more options as needed */}
+        </select>
+
+        <button onClick={handleAddProduct}>Add Product</button>
+        <button onClick={closeProductModal}>Close</button>
+      </div>
+    )}
+
       </main>
     </div>
   );
