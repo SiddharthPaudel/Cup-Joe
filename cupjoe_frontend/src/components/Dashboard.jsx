@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import '../css/dashboard.css'; // Make sure to import your CSS file
-import Profile from '../Images/Last profile.png';
-import Logo from '../Images/logo cup.png';
+import Profile from '../Images/prof.jpg';
+import Logo from '../Images/cup.png';
 const Dashboard = () => {
   const [profileVisible, setProfileVisible] = useState(false);
   const [categoryModalVisible, setCategoryModalVisible] = useState(true);

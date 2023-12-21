@@ -13,13 +13,13 @@
          }
  
          header {
-             font-family: 'Poppins', sans-serif;
+             font-family:  Georgia;
              display: flex;
-             background-color: #4E598C;
-             color: #fff;
+             background-color: #ecf0f1;
+             color:black;
              padding: 20px;
              align-items: center; /* Center align items */
-             border-radius: 10px;
+             border-radius: 20px;
          }
          
          header img {
