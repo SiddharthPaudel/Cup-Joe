@@ -161,25 +161,29 @@ const Dashboard = () => {
         <a href="#" onClick={showDashboard} className="dashboard-link">
           Dashboard
         </a>
-        <br />
+        
         <a href="#" onClick={openCategoryModal} className="category-link">
           Manage category
         </a>
-        <br />
+        
         <a href="#" className="order-link">
           <span className="text">Manage Order</span>
         </a>
-        <br />
+        
         <a href="#" onClick={showTotalProduct} className="product-link">
           Manage Product
         </a>
-        <br />
+        
         <a href="#" onClick={showTotalBill} className="Bill-link">
           View Bill
         </a>
-        <br />
+        
         <a href="#" className="user-link">
           <span className="text">Manage User</span>
+        </a>
+        
+        <a href="#" className="logout-link">
+          <span className="text">Logout</span>
         </a>
       </nav>
       <main>
