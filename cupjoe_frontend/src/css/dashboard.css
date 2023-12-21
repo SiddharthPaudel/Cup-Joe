@@ -414,13 +414,40 @@
   }
   
   .product-modal button:last-child {
-    background-color: #d9534f; /* Use a different color for the "Close" button */
+    background-color: rgb(126, 126, 234); /* Use a different color for the "Close" button */
   }
   
   .product-modal button:hover {
     background-color: #45a049;
   }
   
+  .product-modal {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  
+  .success-box {
+    background-color:#f8f8f8;
+    color: black;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  
+  
+  
+  
+
+
   /* Add additional styling as needed */
   
   

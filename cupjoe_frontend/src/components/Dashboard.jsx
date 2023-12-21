@@ -14,6 +14,7 @@ const Dashboard = () => {
   const [productPrice, setProductPrice] = useState('');
   const [productDescription, setProductDescription] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [isProductAdded, setProductAdded] = useState(false);
   const showManageProduct = () => {
     setProductModalVisible(true);
   };
@@ -21,11 +22,30 @@ const Dashboard = () => {
     setProductModalVisible(false);
   };
 
+
   const handleAddProduct = () => {
+    if (!productName.trim()) {
+      setErrorMessage("Product name cannot be empty.");
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
+  
+      return;// Set product added to false immediately for the case of an empty name
+
+    }
+  
+    setProductAdded(true);
+  
+    // Reset the success message and error message after a certain time (e.g., 3 seconds)
+    setTimeout(() => {
+      setProductAdded(false);
+      setErrorMessage("");
+    }, 3000);
+  
     // Add logic to handle adding a product (e.g., update state, send to server)
-    alert(`Product added: ${productName}, ${productPrice}, ${productDescription}, ${selectedCategory}`);
     closeProductModal();
   };
+  
 
   const toggleProfile = () => {
     var profileContainer = document.getElementById("profileContainer");
@@ -54,7 +74,7 @@ const Dashboard = () => {
   };
 
   const showTotalBill = () => {
-    toggleCard("totalBillCard");
+    
     
   };
 
@@ -198,7 +218,8 @@ const Dashboard = () => {
 
         <label htmlFor="productPrice">Product Price:</label>
         <input type="text" id="Price" value={productPrice} onChange={(e) => setProductPrice(e.target.value)} />
-
+       <br/>
+       <br/>
         <label htmlFor="productDescription">Product Description:</label>
         <textarea id="Description" value={productDescription} onChange={(e) => setProductDescription(e.target.value)} />
 
@@ -210,7 +231,18 @@ const Dashboard = () => {
           {/* Add more options as needed */}
         </select>
 
-        <button onClick={handleAddProduct}>Add Product</button>
+        <div>
+      <button onClick={handleAddProduct}>Add Product</button>
+    </div>
+    <div className='success-box'>
+    {isProductAdded && productName.trim() && (
+        <p>Product added successfully!</p>
+      )}
+      {errorMessage && (
+        <p>{errorMessage}</p>
+      )}
+    </div>
+        <br/>
         <button onClick={closeProductModal}>Close</button>
       </div>
     )}
