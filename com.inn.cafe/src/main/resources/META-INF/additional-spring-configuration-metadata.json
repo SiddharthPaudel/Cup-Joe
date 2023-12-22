@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "description": "Description for com.sun.tools.javac.tree.JCTree.",
+      "name": "com.sun.tools.javac.tree.JCTree",
+      "type": "java.lang.String"
+    }
+] }
