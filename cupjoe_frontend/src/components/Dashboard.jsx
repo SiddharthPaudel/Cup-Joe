@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import '../css/dashboard.css'; // Make sure to import your CSS file
-import Profile from '../Images/prof.jpg';
+import Profile from '../Images/man.jpg';
 import Logo from '../Images/cup.png';
 const Dashboard = () => {
-  const [profileVisible, setProfileVisible] = useState(false);
-  const [categoryModalVisible, setCategoryModalVisible] = useState(true);
+  const [profileVisible, setProfileVisible] = useState("");
+  const [categoryModalVisible, setCategoryModalVisible] = useState("");
   const [emptyCategoryMessageVisible, setEmptyCategoryMessageVisible] = useState(true);
   const [errorMessage, setErrorMessage] = useState(""); // Add this line for error message
   const [productModalVisible, setProductModalVisible] = useState(false);
@@ -15,12 +15,16 @@ const Dashboard = () => {
   const [productDescription, setProductDescription] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [isProductAdded, setProductAdded] = useState(false);
-  const showManageProduct = () => {
-    setProductModalVisible(true);
-  };
+  // const showManageProduct = () => {
+  //   setProductModalVisible(true);
+  // };
   const closeProductModal = () => {
     setProductModalVisible(false);
   };
+// Example: JavaScript code that scrolls to a specific position on page load
+window.onload = function() {
+  window.scrollTo(0, 0);
+};
 
 
   const handleAddProduct = () => {
