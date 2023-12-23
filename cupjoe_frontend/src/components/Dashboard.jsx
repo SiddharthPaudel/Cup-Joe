@@ -10,46 +10,48 @@ const Dashboard = () => {
   const [emptyCategoryMessageVisible, setEmptyCategoryMessageVisible] = useState(true);
   const [errorMessage, setErrorMessage] = useState(""); // Add this line for error message
   const [productModalVisible, setProductModalVisible] = useState(false);
-  const [productName, setProductName] = useState('');
-  const [productPrice, setProductPrice] = useState('');
-  const [productDescription, setProductDescription] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [isProductAdded, setProductAdded] = useState(false);
-  // const showManageProduct = () => {
-  //   setProductModalVisible(true);
-  // };
+ // Add these state variables
+  const [addProductName, setAddProductName] = useState('');
+  const [addProductDescription, setAddProductDescription] = useState('');
+  const [addProductCategory, setAddProductCategory] = useState('');
+  const [addProductPrice, setAddProductPrice] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [productList, setProductList] = useState([]); 
+  const [addProductFormVisible, setAddProductFormVisible] = useState(false);
+
+  const showTotalProduct = () => {
+    // Add logic to fetch and set product list (e.g., from the server)
+    // For now, let's assume productList is an array of product objects
+    setProductList([
+      { id: 1, name: 'Product 1', category: 'Category 1', description: 'Description 1', price: 10.0 },
+      { id: 2, name: 'Product 2', category: 'Category 2', description: 'Description 2', price: 15.0 },
+      // Add more products as needed
+    ]);
+
+    // Show product-related elements
+    setProductModalVisible(true);
+  };
   const closeProductModal = () => {
     setProductModalVisible(false);
   };
 // Example: JavaScript code that scrolls to a specific position on page load
-window.onload = function() {
-  window.scrollTo(0, 0);
+const handleAddProduct = () => {
+  // Validate input fields
+  closeCategoryModal();
+  setAddProductName('');
+  setAddProductDescription('');
+  setAddProductCategory('');
+  setAddProductPrice('');
+
+  // Close the add product form
+  setAddProductFormVisible(false);
+  
+  
 };
 
+const handleSearch =()=>{
 
-  const handleAddProduct = () => {
-    if (!productName.trim()) {
-      setErrorMessage("Product name cannot be empty.");
-      setTimeout(() => {
-        setErrorMessage("");
-      }, 3000);
-  
-      return;// Set product added to false immediately for the case of an empty name
-
-    }
-  
-    setProductAdded(true);
-  
-    // Reset the success message and error message after a certain time (e.g., 3 seconds)
-    setTimeout(() => {
-      setProductAdded(false);
-      setErrorMessage("");
-    }, 3000);
-  
-    // Add logic to handle adding a product (e.g., update state, send to server)
-    closeProductModal();
-  };
-  
+}
 
   const toggleProfile = () => {
     var profileContainer = document.getElementById("profileContainer");
@@ -59,29 +61,21 @@ window.onload = function() {
         profileContainer.style.display = "none";
     }
   };
-
   const editProfile = (type) => {
     const newName = prompt(`Enter new name for ${type}:`);
     const newEmail = prompt(`Enter new email for ${type}:`);
     
     // Add logic to update profile data in state or send to server
   };
-
   const showDashboard = () => {
     toggleCard("dashboardCard");
     toggleCard("totalProductCard");  
     toggleCard("totalBillCard");
   };
-
-  const showTotalProduct = () => {
-    setProductModalVisible(true);
-  };
-
   const showTotalBill = () => {
     
-    
+ 
   };
-
   const toggleCard = (cardId) => {
     var card = document.getElementById(cardId);
             if (card.style.display === "none") {
@@ -90,7 +84,6 @@ window.onload = function() {
                 card.style.display = "none";
             }
   };
-
   const openCategoryModal = (event) => {
     event.preventDefault();
     setCategoryModalVisible(true);
@@ -219,41 +212,73 @@ window.onload = function() {
 )}
    {productModalVisible && (
       <div className="product-modal">
-        <h3>Add Product</h3>
+        <h3>Manage product</h3>
+         {/* Wider Search bar similar to Google */}
+            <div className="google-search-wide">
+              <input type="text" id="searchProduct" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search for products..." />
+              <button className='search' onClick={handleSearch}>Search</button>
+              <button className="add-product-button" onClick={() => setAddProductFormVisible(!addProductFormVisible)}>Add Product</button>
+            </div>
+            {addProductFormVisible && (
+              
+        <div className="add-product-form">
+          <form>
+            <label htmlFor="addProductName">Name:</label>
+            <input type="text" id="addProductName" value={addProductName} onChange={(e) => setAddProductName(e.target.value)} />
 
-        <label htmlFor="productName">Product Name:</label>
-        <input type="text" id="Name" value={productName} onChange={(e) => setProductName(e.target.value)} />
+            <label htmlFor="addProductDescription">Description:</label>
+            <textarea type="text" id="addProductDescription" value={addProductDescription} onChange={(e) => setAddProductDescription(e.target.value)} />
 
-        <label htmlFor="productPrice">Product Price:</label>
-        <input type="text" id="Price" value={productPrice} onChange={(e) => setProductPrice(e.target.value)} />
-       <br/>
-       <br/>
-        <label htmlFor="productDescription">Product Description:</label>
-        <textarea id="Description" value={productDescription} onChange={(e) => setProductDescription(e.target.value)} />
+            <label htmlFor="addProductCategory">Category:</label>
+            <select id="addProductCategory" value={addProductCategory} onChange={(e) => setAddProductCategory(e.target.value)}>
+              {/* Add options dynamically based on your category data */}
+              <option value="Category1">Category 1</option>
+              <option value="Category2">Category 2</option>
+              {/* Add more options as needed */}
+            </select>
 
-        <label htmlFor="categoryDropdown">Category:</label>
-        <select id="categoryDropdown" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
-          {/* Add options dynamically based on your categories */}
-          <option value="category1">Category 1</option>
-          <option value="category2">Category 2</option>
-          {/* Add more options as needed */}
-        </select>
+            <label htmlFor="addProductPrice">Price:</label>
+            <input type="text" id="addProductPrice" value={addProductPrice} onChange={(e) => setAddProductPrice(e.target.value)} />
 
-        <div>
-      <button onClick={handleAddProduct}>Add Product</button>
-    </div>
-    <div className='success-box'>
-    {isProductAdded && productName.trim() && (
-        <p>Product added successfully!</p>
+            <button type="button" onClick={handleAddProduct}>Add Product</button>
+            <button type="button" onClick={() => setAddProductFormVisible(false)}>Cancel</button>
+          </form>
+        </div>
       )}
-      {errorMessage && (
-        <p>{errorMessage}</p>
-      )}
-    </div>
-        <br/>
-        <button onClick={closeProductModal}>Close</button>
-      </div>
-    )}
+            {/* Wider Product table */}
+            <table className="product-table-wide">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {productList.map((product) => (
+                  <tr key={product.id}>
+                    <td>{product.name}</td>
+                    <td>{product.description}</td>
+                    <td>{product.category}</td>
+                    <td>${product.price.toFixed(2)}</td>
+                    <td>
+                      <button>Edit</button>
+                      <button>Delete</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            {/* Add product button */}
+            <div>
+              <button onClick={closeProductModal}>Close</button>
+            </div>
+          </div>
+        )}
+
 
       </main>
     </div>
