@@ -18,45 +18,6 @@ import java.util.Map;
 @RestController
 public class UserRestImpl implements UserRest {
     private final UserService userService;
-    @Override
-    public ResponseEntity<String> signUp(Map<String, String> requestMap) {
-        try{
-            return userService.signup(requestMap);
-        } catch (Exception exception){
-            exception.printStackTrace();
-        }
-        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @Override
-    public ResponseEntity<String> login(Map<String, String> requestMap) {
-        try{
-            return userService.login(requestMap);
-        } catch (Exception exception){
-            exception.printStackTrace();
-        }
-        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @Override
-    public ResponseEntity<List<UserWrapper>> getAllUsers() {
-        try {
-            return userService.getAllUsers();
-        } catch (Exception exception){
-            exception.printStackTrace();
-        }
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @Override
-    public ResponseEntity<String> update(Map<String, String> requestMap) {
-        try {
-            return userService.update(requestMap);
-        } catch (Exception exception){
-            exception.printStackTrace();
-        }
-        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 
     @Override
     public ResponseEntity<String> checkToken() {
