@@ -37,13 +37,13 @@
  .logo-container {
      cursor: pointer;
      border-radius: 50%;
-     transform: translate(96%,-80%);
+     transform: translate(96%,-90%);
 
  }
  
  #logo {
-     width: 35px;
-     height: 35px;
+     width: 30px;
+     height: 30px;
  }
  /* Add this CSS to your existing dashboard.css or create a new CSS file */
 
@@ -321,7 +321,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-40%, -40%);
-    background-color: #fff;
+    background-color: #ecf0f1;
     padding: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
      /* Set the width as per your design */
@@ -475,7 +475,7 @@
   transform: translate(20%,5%);
   width: 610px;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: #ecf0f1;
   height:auto;
   
 }
@@ -606,6 +606,21 @@ transform: translate(-5%,2%);
   background-color: #bbb;
 }
 
+.close-category{
+  font-family: 'Poppins', sans-serif;
+  margin-right: 5px;
+  padding: 3px 3px;
+  color: black;
+  width: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  
+  transform: translate(670%);
+}
+.close-category:hover{
+  background-color: #2980b9;
+}
 
 
 

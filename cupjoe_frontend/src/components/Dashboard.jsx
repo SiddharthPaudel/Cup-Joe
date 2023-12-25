@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import '../css/dashboard.css'; // Make sure to import your CSS file
-import Profile from '../Images/man.jpg';
+import Profile from '../Images/profile.png';
 import Logo from '../Images/cup.png';
 const Dashboard = () => {
   const [profileVisible, setProfileVisible] = useState("");
@@ -244,7 +244,7 @@ const handleSearch =()=>{
           ))}
         </tbody>
       </table>
-      <button onClick={closeCategoryModal}>Close</button>
+      <button className='close-category' onClick={closeCategoryModal}>Close</button>
     </div>
 
    
