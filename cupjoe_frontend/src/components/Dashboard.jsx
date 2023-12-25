@@ -25,8 +25,17 @@ const Dashboard = () => {
     { id: 2, name: 'Category 2' },
     // Add more categories as needed
   ]);
+  const [addCategoryFormVisible, setAddCategoryFormVisible] = useState(false);
+  const [categoryName, setCategoryName] = useState('');
   
 
+  
+  const handleAddCategory = () => {
+    // Validate input fields
+    setAddCategoryFormVisible(false);
+  };
+  
+  
 
   const showTotalProduct = () => {
     // Add logic to fetch and set product list (e.g., from the server)
@@ -107,19 +116,10 @@ const handleSearch =()=>{
   };
 
   const addCategory = () => {
-    const categoryNameInput = document.getElementById("categoryName");
-    const categoryName = categoryNameInput.value.trim();
-  
-    if (categoryName !== '') {
-      // Add logic to add the category (e.g., update state, send to server)
-      alert(`Category added: ${categoryName}`);
-      closeCategoryModal();
-      setErrorMessage("");
-    } else {
-      setErrorMessage("Category name cannot be empty.");
-      setEmptyCategoryMessageVisible(true);
-    }
+    // Set the visibility of the add category form
+    setAddCategoryFormVisible(true);
   };
+  
   
   
   const deleteCategory =()=>{
@@ -212,8 +212,17 @@ const handleSearch =()=>{
       <div className="search-category">
         <input type="text" id="searchCategory" placeholder="Search for categories..." />
         <button className="barsearch">Search</button>
-        <button className="add-category" onClick={() => setAddProductFormVisible(!addProductFormVisible)}>Add Category</button>
+        <button className="add-category" onClick={() => setAddCategoryFormVisible(!addCategoryFormVisible)}>Add Category</button>
       </div>
+      {addCategoryFormVisible && (
+  <div className="add-category-form">
+    <label htmlFor="categoryName">Category Name:</label>
+    <input type="text" id="categoryName" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} />
+    <button onClick={handleAddCategory}>Add Category</button>
+    <button onClick={() => setAddCategoryFormVisible(false)}>Close</button>
+  </div>
+)}
+
 
       <table className="category-table">
         <thead>
