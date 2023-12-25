@@ -29,76 +29,66 @@
              height: 100px;
              margin-right: 20px; /* Adjusted margin for better spacing */
          }
+
+
+        
+    
          
  .logo-container {
-   
      cursor: pointer;
      border-radius: 50%;
-     margin-left: 1490px;
-     margin-right: 20px;
-     border-radius: 50%;
+     transform: translate(96%,-80%);
+
  }
  
  #logo {
      width: 35px;
      height: 35px;
  }
- /* Add or update these styles in your existing CSS file */
+ /* Add this CSS to your existing dashboard.css or create a new CSS file */
+
+.profile-popup {
+  position: absolute;
+  top: 150px; /* Adjust the top position as needed */
+  right: 100px; /* Adjust the right position as needed */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
  
- /* Profile container styles */
- /* Add or update these styles in your existing CSS file */
- 
- /* Profile container styles */
- #profileContainer {
-     display: flex;
-     
-     margin-top: 20px;
-     margin-left: 1190px; /* Move the profile container to the right */
- }
- 
- /* Profile styles */
- .profile {
-     background-color: #fff;
-     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-     border-radius: 8px;
-     padding-left: 20px;
-     width: 300px;
-     height: 180px;
-     text-align: center;
-     margin: 10px;
-     transition: transform 0.3s ease;
-     color:black;
- }
- 
- /* Profile header styles */
- .profile {
-     /* color: #3498db; */
-     margin-bottom: 10px;
- }
- 
- /* Profile button styles */
- .profile button {
-     background-color: #3498db;
-     color: #fff;
-     padding: 8px 15px;
-     border: none;
-     border-radius: 5px;
-     cursor: pointer;
-     transition: background-color 0.3s ease;
- }
- 
- /* Hover effect for profiles */
- .profile:hover {
-     transform: scale(1.05);
- }
- 
- /* Hover effect for profile buttons */
- .profile button:hover {
-     background-color: #2077b1;
- }
- 
- 
- 
+}
+
+
+.profile-popup label {
+  margin-bottom: 5px;
+}
+
+.profile-popup input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.profile-popup button {
+  padding: 8px 12px;
+  margin: 5px;
+  cursor: pointer;
+  background-color:rgb(214, 214, 214);
+  color:black;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.profile-popup button:hover {
+  background-color: #45a049;
+}
  /* Sidebar navigation styles */
  nav {
     
@@ -243,17 +233,7 @@
  
  }
 
- .logout-link{
-    display: inline-block;
-    padding-left: 40px; /* Adjust the padding according to your preference */
-     background-image: url('../Images/logout.jpeg');
-    background-size: 25px 25px;
-    background-repeat: no-repeat;
-    background-position:1vh; /* Adjust the position of the icon */
-    text-decoration: none; /* Remove underline from the link */
-    transition: background-color 0.3s ease; /* Add smooth transition */
-    
- }
+
 
  
  
@@ -328,56 +308,7 @@
  } */
 
   /* Adjust the styles based on your design preferences */
-  .categorypart {
-    background-color:#fff;
-    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 20px;
-    width: 1000px; /* Adjusted width */
-    text-align: center;
-    margin: 20px;
-    transition: transform 0.3s ease;
-    font-family: 'Poppins', sans-serif; }
-  
-  .categorypart h3 {
-    color: #333;
-    margin-bottom: 15px;
-  }
-  
-  .categorypart label {
-    display: block;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .categorypart input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    box-sizing: border-box;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  .categorypart button {
-    background-color: #3498db;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    margin: 5px;
-  }
-  
-  .categorypart button:hover {
-    background-color: #2077b1;
-    transform: scale(1.05);
-  }
-  
+
   /* Adjust the styles based on your design preferences */
 
   .product-modal {
@@ -544,6 +475,107 @@
 .search{
     transform: translate(800%,-180%);
 }
+/* CSS */
+/* CSS */
+
+/* CSS */
+
+.category-form {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  transform: translate(20%,5%);
+  width: 610px;
+  border-radius: 8px;
+  background-color: #ecf0f1;
+  height:350px;
+  
+}
+
+.search-category {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+#searchCategory {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+  margin-right: 10px;
+
+}
+
+.barsearch {
+  font-family: 'Poppins', sans-serif; 
+  padding: 10px 15px;
+transform: translate(-5%,2%);
+  color: black;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-category button:hover {
+  background-color: #2980b9;
+}
+
+.add-category {
+  font-family: 'Poppins', sans-serif;
+  padding: 10px 15px;
+  color:black;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-category:hover {
+  background-color: #27ae60;
+}
+
+.category-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.category-table th, .category-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+  border-radius: 20px;
+}
+
+.category-table th {
+  color:black;
+}
+
+.category-table td button {
+  font-family: 'Poppins', sans-serif;
+  margin-right: 5px;
+  padding: 8px 15px;
+  color: blak;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.category-table td button:hover {
+  background-color: #2980b9;
+}
+
+
+
+
+
+
+
+
+
   
 
   

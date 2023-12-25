@@ -18,6 +18,15 @@ const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [productList, setProductList] = useState([]); 
   const [addProductFormVisible, setAddProductFormVisible] = useState(false);
+  const [profilePopUpVisible, setProfilePopUpVisible] = useState(false);
+  const [changePasswordVisible, setChangePasswordVisible] = useState(false);
+  const [categoryList, setCategoryList] = useState([
+    { id: 1, name: 'Category 1' },
+    { id: 2, name: 'Category 2' },
+    // Add more categories as needed
+  ]);
+  
+
 
   const showTotalProduct = () => {
     // Add logic to fetch and set product list (e.g., from the server)
@@ -42,31 +51,35 @@ const handleAddProduct = () => {
   setAddProductDescription('');
   setAddProductCategory('');
   setAddProductPrice('');
-
   // Close the add product form
   setAddProductFormVisible(false);
   
   
 };
-
 const handleSearch =()=>{
 
 }
 
+
   const toggleProfile = () => {
-    var profileContainer = document.getElementById("profileContainer");
-    if (profileContainer.style.display === "none" || profileContainer.style.display === "") {
-        profileContainer.style.display = "flex";
-    } else {
-        profileContainer.style.display = "none";
-    }
+    setProfilePopUpVisible(!profilePopUpVisible);
+    setChangePasswordVisible(false);
   };
-  const editProfile = (type) => {
-    const newName = prompt(`Enter new name for ${type}:`);
-    const newEmail = prompt(`Enter new email for ${type}:`);
-    
-    // Add logic to update profile data in state or send to server
+  const toggleChangePassword = () => {
+    setChangePasswordVisible(!changePasswordVisible);
   };
+
+  const handleChangePassword = () => {
+    // Implement logic to handle password change
+    alert('Password changed successfully!');
+    toggleChangePassword(); // Close the change password form
+  };
+
+  const handleLogout = () => {
+    // Implement logic for logout (e.g., redirect to login page, clear session)
+    alert('Logged out successfully!');
+  };
+ 
   const showDashboard = () => {
     toggleCard("dashboardCard");
     toggleCard("totalProductCard");  
@@ -136,23 +149,19 @@ const handleSearch =()=>{
       <header>
         <img src={Logo} alt="Icon" />
         <h1>Cup Joe</h1>
-        
       </header>
       
       <div className="logo-container">
         <img src={Profile} alt="Logo" id="logo" onClick={toggleProfile} />
+        
       </div>
+      {profilePopUpVisible && (
+          <div className="profile-popup">
+            <button onClick={toggleChangePassword}>Change Password</button>
+            <button className='button2 icon-button' onClick={handleLogout}>Logout</button>
+          </div>
+        )}
 
-       
-       <div className="profile-container" id="profileContainer">
-       
-        <div className="profile" id="customerProfile">
-          <h3>Customer Profile</h3>
-          <p id="customerName">Customer Name: Jane Doe</p>
-          <p id="customerEmail">Email: customer@example.com</p>
-          <button onClick={() => editProfile('Customer')}>Edit Profile</button>
-        </div>
-      </div>
 
       <nav>
         <a href="#" onClick={showDashboard} className="dashboard-link">
@@ -179,9 +188,6 @@ const handleSearch =()=>{
           <span className="text">Manage User</span>
         </a>
         
-        <a href="#" className="logout-link">
-          <span className="text">Logout</span>
-        </a>
       </nav>
       <main>
         <div className="dashboard-card" id="dashboardCard">
@@ -198,18 +204,45 @@ const handleSearch =()=>{
           <h2>Total bill</h2>
         </div>
 
-{categoryModalVisible &&  (
-        <div className='categorypart' id="categoryModal">
-          <h3>Manage Category</h3>
+        {categoryModalVisible && (
+      <div className="category-modal">
+     
+        <div className="category-form">
+        <h3>Manage Category</h3>
+      <div className="search-category">
+        <input type="text" id="searchCategory" placeholder="Search for categories..." />
+        <button className="barsearch">Search</button>
+        <button className="add-category" onClick={() => setAddProductFormVisible(!addProductFormVisible)}>Add Category</button>
+      </div>
 
-          <label htmlFor="categoryName">Category Name:</label>
-          <input type="text" id="categoryName" />
-          <button onClick={addCategory}>Add Category</button>
-          <button onClick={editCategory}>Edit Category</button>
-          <button onClick={deleteCategory}>Delete Category</button>
-          <button onClick={closeCategoryModal}>Close</button>
-        </div>
-)}
+      <table className="category-table">
+        <thead>
+          <tr>
+            <th>Category Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* Map through your category list and render each category */}
+          {categoryList.map((category) => (
+            <tr key={category.id}>
+              <td>{category.name}</td>
+              <td>
+                <button onClick={() => editCategory(category)}>Edit</button>
+                <button onClick={() => deleteCategory(category)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <button onClick={closeCategoryModal}>Close</button>
+    </div>
+
+   
+  </div>
+    )}
+
+
    {productModalVisible && (
       <div className="product-modal">
         <h3>Manage product</h3>
