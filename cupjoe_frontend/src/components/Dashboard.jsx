@@ -47,7 +47,9 @@ const Dashboard = () => {
     ]);
 
     // Show product-related elements
+    closeCategoryModal(true);
     setProductModalVisible(true);
+    
   };
   const closeProductModal = () => {
     setProductModalVisible(false);
@@ -68,8 +70,6 @@ const handleAddProduct = () => {
 const handleSearch =()=>{
 
 }
-
-
   const toggleProfile = () => {
     setProfilePopUpVisible(!profilePopUpVisible);
     setChangePasswordVisible(false);
@@ -109,6 +109,8 @@ const handleSearch =()=>{
   const openCategoryModal = (event) => {
     event.preventDefault();
     setCategoryModalVisible(true);
+    closeProductModal(true);
+    
   };
 
   const closeCategoryModal = () => {

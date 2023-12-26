@@ -136,7 +136,7 @@
      box-shadow: 100px;
      padding: 20px;
      margin-top: 20px;
-     border-radius: 10px;
+     border-radius: 10px;   
      flex-basis: calc(33.333% - 20px);
      box-sizing: border-box;
      font-family: 'Poppins', sans-serif;
@@ -326,6 +326,7 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
      /* Set the width as per your design */
     border-radius: 20px;
+
     
 
   }
@@ -333,6 +334,7 @@
   .product-modal h3 {
     font-size: 1.5em;
     margin-bottom: 15px;
+    display:flex;
   }
   
   .product-modal label {
@@ -473,9 +475,9 @@
   display: flex;
   flex-direction: column;
   transform: translate(20%,5%);
-  width: 610px;
+  width: 650px;
   border-radius: 8px;
-  background-color: #ecf0f1;
+  background-color: #edf3f3;
   height:auto;
   
 }
@@ -616,7 +618,7 @@ transform: translate(-5%,2%);
   border-radius: 5px;
   cursor: pointer;
   
-  transform: translate(670%);
+  transform: translate(700%);
 }
 .close-category:hover{
   background-color: #2980b9;
