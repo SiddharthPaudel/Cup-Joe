@@ -18,15 +18,28 @@ body {
   justify-content: center;
   align-items: center;
 }
-
-.container {
+.container.signup {
   background-color: rgba(248, 238, 238, 0.538);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 40px;
-  margin-top: 40px;
+  margin-top: 10px;
   border-radius: 40px;
   height: auto;
   box-shadow: 100px;
+}
+.container.login {
+  background-color: rgba(248, 238, 238, 0.538);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  margin-top: 150px;
+  border-radius: 40px;
+}
+.container-forgotpassword {
+  background-color: rgba(248, 238, 238, 0.538);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  margin-top: 150px;
+  border-radius: 40px;
 }
 
 h1 {

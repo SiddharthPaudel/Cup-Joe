@@ -80,7 +80,10 @@ class Home extends React.Component {
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root">
           {forgotPassword ? (
-            <div className="container" id="forgotPasswordContainer">
+            <div
+              className="container-forgotpassword"
+              id="forgotPasswordContainer"
+            >
               <h1 className="sign-up">Forgot Password</h1>
               <form onSubmit={this.handleForgotPasswordSubmit}>
                 <div className="form-group">
@@ -103,7 +106,10 @@ class Home extends React.Component {
               </form>
             </div>
           ) : (
-            <div className="container" id="mainContainer">
+            <div
+              className={`container ${showRegistration ? "signup" : "login"}`}
+              id="mainContainer"
+            >
               <h1 className="sign-up">
                 {showRegistration ? "Sign Up" : "Login"}
               </h1>
