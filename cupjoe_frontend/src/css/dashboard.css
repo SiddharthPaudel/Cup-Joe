@@ -464,11 +464,6 @@
 .search{
     transform: translate(800%,-180%);
 }
-/* CSS */
-/* CSS */
-
-/* CSS */
-
 
 .category-form {
   font-family: 'Poppins', sans-serif;
@@ -498,7 +493,7 @@
 }
 
 .barsearch {
-  font-family: 'Poppins', sans-serif; 
+  /* Add these styles to your existing CSS or create a new CSS file */
   padding: 10px 15px;
 transform: translate(-5%,2%);
   color: black;
@@ -624,6 +619,90 @@ transform: translate(-5%,2%);
   background-color: #2980b9;
 }
 
+/* Add these styles to your existing CSS or create a new CSS file */
+
+/* Styles for the entire bill modal */
+bill-modal {
+  font-family: 'Poppins', sans-serif;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 80%; /* Set a default width for larger screens */
+}
+
+/* Styles for the header */
+.bill-modal h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+/* Styles for the search bar */
+.bill-search {
+  margin-bottom: 15px;
+}
+
+.bill-search input {
+  width: 70%; /* Adjust the width based on your design */
+  padding: 8px;
+  margin-right: 8px;
+  border: 1px solid #ccc;
+}
+
+.bill-search button {
+ /* Adjust the width based on your design */
+
+  color: whitesmoke;
+  border: none;
+  cursor: pointer;
+}
+
+/* Styles for the bill table */
+.bill-table {
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.bill-table th, .bill-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+/* Styles for action buttons in the table */
+.bill-table button {
+  font-family: 'Poppins', sans-serif;
+  width: 40px; /* Adjust the width based on your design */
+  padding: 8px 12px;
+  margin-right: 5px;
+ background-color: whitesmoke;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* Style for the close button */
+.bill-modal button {
+  font-family: 'Poppins', sans-serif;
+  width: 50px; /* Set full width for smaller screens */
+  padding: 10px 0;
+  color:black;
+  border: none;
+  cursor: pointer;
+  border-radius: 7px;
+}
+
+/* Add hover effect to buttons */
+.bill-table button:hover, .bill-modal button:hover {
+  background-color: #0056b3;
+}
 
 
 
@@ -681,8 +760,16 @@ transform: translate(-5%,2%);
        width: 100%;
        text-align: center;
    }
+   .bill-modal {
+    width: 90%; /* Adjust the width for smaller screens */
+  }
+
+  .bill-search input, .bill-search button, .bill-table button {
+    width: 100%; /* Set full width for smaller screens */
+  }
+}
    
- }
+ 
  
  
  

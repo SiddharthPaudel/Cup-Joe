@@ -27,6 +27,9 @@ const Dashboard = () => {
   ]);
   const [addCategoryFormVisible, setAddCategoryFormVisible] = useState(false);
   const [categoryName, setCategoryName] = useState('');
+  const [billModalVisible, setBillModalVisible] = useState(false);
+  const [billList, setBillList] = useState([]); // Assuming bill data structure
+
   
 
   
@@ -94,10 +97,7 @@ const handleSearch =()=>{
     toggleCard("totalProductCard");  
     toggleCard("totalBillCard");
   };
-  const showTotalBill = () => {
-    
- 
-  };
+
   const toggleCard = (cardId) => {
     var card = document.getElementById(cardId);
             if (card.style.display === "none") {
@@ -130,22 +130,41 @@ const handleSearch =()=>{
     closeCategoryModal();
   }
 
-  const closeEmptyCategory = () => {
-    var emptyCategoryMessage = document.getElementById("emptyCategoryMessage");
-    emptyCategoryMessage.style.display = "none";
-  };
+ 
   const editCategory =()=>{
     alert("Edit category functionality to be implemented.");
     closeCategoryModal();
   }
-  const toggleCategoryDetails =()=>{
-    var categoryDetailsContainer = document.getElementById("categoryDetailsContainer");
-    if (categoryDetailsContainer.style.display === "none" || categoryDetailsContainer.style.display === "") {
-        categoryDetailsContainer.style.display = "block";
-    } else {
-        categoryDetailsContainer.style.display = "none";
-    }
-  }
+  const showTotalBill = () => {
+    // Fetch bill data or simulate fetching
+    setBillList([
+      {
+        id: 1,
+        name: 'Siddharth',
+        email: '',
+        contactNumber: '',
+        paymentMethod: 'Credit Card',
+        total: 50.0,
+      },
+      // Add more bills as needed
+    ]);
+    
+  
+    // Update the bill list with the formatted values
+   
+    closeCategoryModal();
+    closeProductModal();
+    setBillModalVisible(true);
+   
+  };
+  const handleSearchBill = () => {
+  };
+  
+  const closeBillModal = () => {
+    setBillModalVisible(false);
+  };
+  
+  
   return (
     <div>
       <header>
@@ -252,7 +271,7 @@ const handleSearch =()=>{
    
   </div>
     )}
-
+{/* Manage product */}
 
    {productModalVisible && (
       <div className="product-modal">
@@ -322,6 +341,51 @@ const handleSearch =()=>{
             </div>
           </div>
         )}
+      {/* View bill */}
+{billModalVisible && (
+  <div className="bill-modal">
+    <h3>View Bill</h3>
+    {/* Search bar */}
+    <div className="bill-search">
+      <input type="text" id="searchBill" placeholder="Search for bills..." />
+      <button className='Searchill' onClick={handleSearchBill}>Search</button>
+    </div>
+
+    {/* Bill table */}
+    <table className="bill-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Contact Number</th>
+          <th>Payment Method</th>
+          <th>Total</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {billList.map((bill) => (
+          <tr key={bill.id}>
+            <td>{bill.name}</td>
+            <td>{bill.email}</td>
+            <td>{bill.contactNumber}</td>
+            <td>{bill.paymentMethod}</td>
+            <td>${bill.total.toFixed(2)}</td>
+            <td>
+              <button>Edit</button>
+              <button>Delete</button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    {/* Close button */}
+    <button onClick={closeBillModal}>Close</button>
+  </div>
+)}
+
+      
 
 
       </main>
