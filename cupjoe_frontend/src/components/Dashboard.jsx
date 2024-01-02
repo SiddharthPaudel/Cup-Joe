@@ -7,7 +7,6 @@ import Logo from '../Images/cup.png';
 const Dashboard = () => {
   const [profileVisible, setProfileVisible] = useState("");
   const [categoryModalVisible, setCategoryModalVisible] = useState("");
-  const [emptyCategoryMessageVisible, setEmptyCategoryMessageVisible] = useState(true);
   const [errorMessage, setErrorMessage] = useState(""); // Add this line for error message
   const [productModalVisible, setProductModalVisible] = useState(false);
  // Add these state variables
@@ -21,16 +20,58 @@ const Dashboard = () => {
   const [profilePopUpVisible, setProfilePopUpVisible] = useState(false);
   const [changePasswordVisible, setChangePasswordVisible] = useState(false);
   const [categoryList, setCategoryList] = useState([
-    { id: 1, name: 'Category 1' },
-    { id: 2, name: 'Category 2' },
+    { id: 1, name: 'Food' },
+    { id: 2, name: 'Beverage' },
     // Add more categories as needed
   ]);
   const [addCategoryFormVisible, setAddCategoryFormVisible] = useState(false);
   const [categoryName, setCategoryName] = useState('');
   const [billModalVisible, setBillModalVisible] = useState(false);
   const [billList, setBillList] = useState([]); // Assuming bill data structure
+  const [manageUsersVisible, setManageUsersVisible] = useState(false);
+  const [userList, setUserList] = useState([]);
+ 
+  const handleSearchCategory = () => {
+    
+  };
+   
+
 
   
+  // Function to reset the searched categories and close the manage category modal
+  
+
+
+  const getUserList = () => {
+    // Replace this with your actual logic to fetch the user list
+    return [
+      { id: 1, name: 'Alex Karmacharya ', email: 'Alex@example.com', contactNumber: '1234567' },
+      { id: 2, name: 'Miroz', email: 'jane@example.com', contactNumber: '987-654-3210' },
+      // Add more users as needed
+    ];
+  };
+  // Function to handle searching for users
+  const handleSearchUser = () => {
+    // Filter the userList based on the search query
+    const query = searchQuery.toLowerCase();
+    const filteredUsers = getUserList().filter(
+      (user) =>
+        user.name.toLowerCase().includes(query) ||
+        user.email.toLowerCase().includes(query) ||
+        user.contactNumber.includes(query)
+    );
+    setUserList(filteredUsers);
+  };
+ 
+
+  const openManageUsers = () => {
+    setManageUsersVisible(true);
+  };
+  const closeManageUsers=()=>{
+    setManageUsersVisible(false);
+  }
+
+
 
   
   const handleAddCategory = () => {
@@ -44,8 +85,8 @@ const Dashboard = () => {
     // Add logic to fetch and set product list (e.g., from the server)
     // For now, let's assume productList is an array of product objects
     setProductList([
-      { id: 1, name: 'Product 1', category: 'Category 1', description: 'Description 1', price: 10.0 },
-      { id: 2, name: 'Product 2', category: 'Category 2', description: 'Description 2', price: 15.0 },
+      { id: 1, name: 'Coffee', category: 'Category 1', description: 'Description 1', price: 10.0 },
+      { id: 2, name: 'Noodles', category: 'Category 2', description: 'Description 2', price: 15.0 },
       // Add more products as needed
     ]);
 
@@ -70,7 +111,22 @@ const handleAddProduct = () => {
   
   
 };
-const handleSearch =()=>{
+const handleSearchproduct =()=>{
+
+  const query = searchQuery.toLowerCase();
+  
+  const filteredProducts = productList.filter((product) => {
+    const nameMatch = product.name.toLowerCase().includes(query);
+    const descriptionMatch = product.description.toLowerCase().includes(query);
+    const categoryMatch = product.category.toLowerCase().includes(query);
+    const priceMatch = product.price.toString().includes(query);
+
+    // Return true if any of the fields match the query
+    return nameMatch || descriptionMatch || categoryMatch || priceMatch;
+  });
+
+  // Update the productList state with the filtered products
+  setProductList(filteredProducts);
 
 }
   const toggleProfile = () => {
@@ -113,10 +169,7 @@ const handleSearch =()=>{
     
   };
 
-  const closeCategoryModal = () => {
-    setCategoryModalVisible(false);
-  };
-
+ 
   const addCategory = () => {
     // Set the visibility of the add category form
     setAddCategoryFormVisible(true);
@@ -141,11 +194,19 @@ const handleSearch =()=>{
       {
         id: 1,
         name: 'Siddharth',
-        email: '',
-        contactNumber: '',
+        email: 'sid@gail',
+        contactNumber: '123343',
         paymentMethod: 'Credit Card',
         total: 50.0,
       },
+      {
+        id:2,
+        name: 'Ram',
+        email: 'ram@gmail.com',
+        contactNumber: '122341',
+        paymentMethod: 'Credit Card',
+        total: 50.0,
+      }
       // Add more bills as needed
     ]);
     
@@ -158,10 +219,31 @@ const handleSearch =()=>{
    
   };
   const handleSearchBill = () => {
+    const query = searchQuery.toLowerCase();
+  
+    const filteredBills = billList.filter((bill) => {
+      const nameMatch = bill.name.toLowerCase().includes(query);
+      const emailMatch = bill.email.toLowerCase().includes(query);
+      const contactNumberMatch = bill.contactNumber.includes(query);
+      const paymentMethodMatch = bill.paymentMethod.toLowerCase().includes(query);
+      const totalMatch = bill.total.toString().includes(query);
+  
+      // Return true if any of the fields match the query
+      return nameMatch || emailMatch || contactNumberMatch || paymentMethodMatch || totalMatch;
+    });
+  
+    // Update the billList state with the filtered bills
+    setBillList(filteredBills);
   };
+  
+  
   
   const closeBillModal = () => {
     setBillModalVisible(false);
+  };
+  const closeCategoryModal = () => {
+
+    setCategoryModalVisible(false);
   };
   
   
@@ -205,10 +287,9 @@ const handleSearch =()=>{
           View Bill
         </a>
         
-        <a href="#" className="user-link">
+        <a href="#" onClick={openManageUsers} className="user-link">
           <span className="text">Manage User</span>
         </a>
-        
       </nav>
       <main>
         <div className="dashboard-card" id="dashboardCard">
@@ -232,7 +313,7 @@ const handleSearch =()=>{
         <h3>Manage Category</h3>
       <div className="search-category">
         <input type="text" id="searchCategory" placeholder="Search for categories..." />
-        <button className="barsearch">Search</button>
+        <button onClick={handleSearchCategory} className="barsearch">Search</button>
         <button className="add-category" onClick={() => setAddCategoryFormVisible(!addCategoryFormVisible)}>Add Category</button>
       </div>
       {addCategoryFormVisible && (
@@ -279,7 +360,7 @@ const handleSearch =()=>{
          {/* Wider Search bar similar to Google */}
             <div className="google-search-wide">
               <input type="text" id="searchProduct" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search for products..." />
-              <button className='search' onClick={handleSearch}>Search</button>
+              <button className='search-product-button' onClick={handleSearchproduct}>Search</button>
               <button className="add-product-button" onClick={() => setAddProductFormVisible(!addProductFormVisible)}>Add Product</button>
             </div>
             {addProductFormVisible && (
@@ -347,7 +428,9 @@ const handleSearch =()=>{
     <h3>View Bill</h3>
     {/* Search bar */}
     <div className="bill-search">
-      <input type="text" id="searchBill" placeholder="Search for bills..." />
+      <input type="text" id="searchBill" placeholder="Search for bills..." 
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}/>
       <button className='Searchill' onClick={handleSearchBill}>Search</button>
     </div>
 
@@ -383,11 +466,54 @@ const handleSearch =()=>{
     {/* Close button */}
     <button onClick={closeBillModal}>Close</button>
   </div>
+
+  
 )}
 
-      
+{manageUsersVisible && (
+          <div className="manage-users-container">
+            <div className="search-users">
+            <h3>Manage Users</h3>
+              <input
+                type="text"
+                id="searchUsers"
+                placeholder="Search for users..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button className="usersearch" onClick={handleSearchUser}>
+                Search
+              </button>
+            </div>
 
+            <table className="user-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Contact Number</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {userList.map((user) => (
+                  <tr key={user.id}>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>{user.contactNumber}</td>
+                    <td>
+                      <button className='user'>Edit</button>
+                      <button className='user'>Delete</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
 
+            <button  className='user' onClick={closeManageUsers}>Close</button>
+          </div>
+        )}
+  
       </main>
     </div>
   );

@@ -461,8 +461,8 @@
     transform: translate(500%,-180%);
 
 }
-.search{
-    transform: translate(800%,-180%);
+.search-product-button{
+    transform: translate(300%,-20%);
 }
 
 .category-form {
@@ -703,6 +703,87 @@ bill-modal {
 .bill-table button:hover, .bill-modal button:hover {
   background-color: #0056b3;
 }
+/* Manageuser */
+.manage-users-container {
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.search-users {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+h3 {
+  margin: 0;
+}
+
+input[type="text"] {
+  width: 60%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+button.usersearch {
+  font-family: 'Poppins', sans-serif;
+  padding: 8px;
+  background-color:whitesmoke;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+}
+button.usersearch:hover{
+  background-color: #0056b3;
+  
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+
+.user-table th, .user-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.user-table th {
+  background-color: #f2f2f2;
+}
+
+.user-table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.user-table-button {
+  font-family: 'Poppins', sans-serif;
+  padding: 8px;
+  background-color: whitesmoke;
+  color:black;
+  border: none;
+  cursor: pointer;
+  
+}
+button.user{
+  font-family: 'Poppins','sans-seriff';
+  background-color: whitesmoke;
+  border:none;
+  border-radius:10px ;
+
+}
+button.user:hover{
+  background-color: #0056b3 ;
+}
 
 
 
@@ -766,6 +847,15 @@ bill-modal {
 
   .bill-search input, .bill-search button, .bill-table button {
     width: 100%; /* Set full width for smaller screens */
+  }
+
+  .search-users {
+    flex-direction: column;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    margin-top: 10px;
   }
 }
    
