@@ -8,6 +8,7 @@ import com.s3project.cupjoymanagement.wrapper.UserWrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -18,7 +19,18 @@ import java.util.Map;
 @RestController
 public class UserRestImpl implements UserRest {
     private final UserService userService;
-
+    
+     @PostMapping(path = "/signup")
+     @Override
+     public ResponseEntity<String> signUp(Map<String, String> requestMap) {
+         try {
+             return userService.signUp(requestMap);
+         } catch (Exception ex) {
+             ex.printStackTrace();
+         }
+         return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG,HttpStatus.INTERNAL_SERVER_ERROR);
+     }
+     
     @Override
     public ResponseEntity<String> checkToken() {
         try {
