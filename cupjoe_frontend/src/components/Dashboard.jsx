@@ -573,7 +573,9 @@ const handleSearchproduct =()=>{
   <div className="order-form-container">
      <div className="customer-details-form">
     <h3>Customer Details</h3>
-    <label>Name:</label>
+    
+
+    <label >Name:</label>
     <input
       type="text"
       value={customerDetails.name}
@@ -639,13 +641,12 @@ const handleSearchproduct =()=>{
     <label>Total Amount:</label>
     <input type="text" value={selectedProduct.price * selectedProduct.quantity} readOnly />
 
-    <button onClick={handleAddToOrder}>Add to Order</button>
+    <button className="add" onClick={handleAddToOrder}>Add </button>
   </div>
 
   {/* Submit and Get Bill Buttons */}
   <div className="order-buttons">
-    <button onClick={handleSubmitOrder}>Submit Order</button>
-    <button onClick={handleGetBill}>Get Bill</button>
+    <button onClick={handleSubmitOrder}>Submit&GetBill</button>
     <button onClick={closeManageOrder}>Close</button>
   </div>
   </div>
