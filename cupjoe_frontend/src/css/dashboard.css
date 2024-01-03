@@ -853,6 +853,58 @@ button.user:hover{
 .add:hover{
   background-color: #0056b3;
 }
+/* Add this to your existing CSS file or create a new one */
+
+/* Add this to your existing CSS file or create a new one */
+
+.change-password-form {
+  font-family: 'Poppins', sans-serif;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 300px; /* Adjust the maximum width as needed */
+  margin: 20px auto; /* Center the form horizontally */
+  text-align: center;
+}
+
+.change-password-form label {
+  font-family: 'Poppins', sans-serif;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.change-password-form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+.change-password-form button {
+  font-family: 'Poppins', sans-serif;
+  background-color: whitesmoke;
+  color: black;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.change-password-form button:last-child {
+  background-color: whitesmoke;
+  color: #000;
+  margin-left: 8px;
+}
+.change-password-form button:hover{
+  background-color: #0056b3;
+}
+
+/* ... (existing styles) */
+
+
+
 
 
 

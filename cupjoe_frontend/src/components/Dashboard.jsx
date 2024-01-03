@@ -319,6 +319,22 @@ const handleSearchproduct =()=>{
             <button className='button2 icon-button' onClick={handleLogout}>Logout</button>
           </div>
         )}
+        {changePasswordVisible && (
+  <div className="change-password-form">
+    <label htmlFor="changePasswordEmail">Email:</label>
+    <input
+      type="text"
+      id="changePasswordEmail"
+      placeholder="Enter email"
+      value={customerDetails.email}
+      onChange={(e) => handleCustomerDetailsChange('email', e.target.value)}
+    />
+
+    <button onClick={handleChangePassword}>Send</button>
+    <button onClick={toggleChangePassword}>Close</button>
+  </div>
+)}
+
 
 
       <nav>
