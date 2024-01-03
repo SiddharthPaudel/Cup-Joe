@@ -1,0 +1,101 @@
+/* front.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  overflow: hidden; /* Prevent scrolling caused by the background image */
+}
+
+/* Background Image Styles */
+.new-background-image {
+  background-image: url("../Images/Depositphotos_106586660_xl-2015 copy 3.jpeg");
+  background-size: cover;
+  background-position: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  filter: brightness(50%); /* Adjust the brightness of the background image */
+}
+
+/* Header Styles */
+.new-header {
+  color: rgb(255, 204, 0);
+  padding: 1em;
+  text-align: center;
+}
+
+/* Navigation Styles */
+.new-nav {
+  padding: 1em;
+  display: flex;
+  justify-content: flex-end;
+  transform: translateX(30%);
+}
+
+.new-nav a {
+  text-decoration: none;
+  color: #b5deb5;
+  padding: 0.5em 1em;
+  margin-left: 1em; /* Adjust margin for spacing */
+}
+
+.new-nav a:hover {
+  background-color: rgba(255, 204, 0, 0.431);
+}
+
+/* Main Content Styles */
+.new-main {
+  padding: 2em;
+  color: #b5deb5;
+  font-weight: bold;
+  text-align: left;
+  transform: translateX(-30%);
+}
+
+/* Footer Styles */
+.new-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 204, 0, 0.431);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 1em;
+  border-radius: 10px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  /* Adjust styles for screens up to 768 pixels wide */
+
+  /* Logo Styles */
+  .new-logo {
+    top: 5px; /* Adjust top position for smaller screens */
+    left: 5px; /* Adjust left position for smaller screens */
+  }
+
+  /* Navigation Styles */
+  .new-nav {
+    justify-content: flex-start; /* Align navigation links to the left for smaller screens */
+  }
+
+  .new-nav a {
+    margin-left: 0.5em; /* Adjust margin for spacing on smaller screens */
+  }
+
+  /* Main Content Styles */
+  .new-main {
+    transform: translateX(0); /* Reset the transformation for smaller screens */
+  }
+
+  /* Footer Styles */
+  .new-footer {
+    border-radius: 0; /* Remove border-radius for smaller screens */
+  }
+}
