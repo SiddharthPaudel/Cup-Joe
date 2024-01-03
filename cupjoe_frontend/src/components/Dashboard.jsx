@@ -30,14 +30,69 @@ const Dashboard = () => {
   const [billList, setBillList] = useState([]); // Assuming bill data structure
   const [manageUsersVisible, setManageUsersVisible] = useState(false);
   const [userList, setUserList] = useState([]);
- 
-  const handleSearchCategory = () => {
-    
-  };
-   
-
+  const [customerDetails, setCustomerDetails] = useState({
+    name: '',
+    email: '',
+    contactNumber: '',
+    paymentMethod: 'cash', // Default value, you can change it based on your requirements
+  });
+  
+  const [selectedProduct, setSelectedProduct] = useState({
+    category: '',
+    productName: '',
+    price: 0,
+    quantity: 1,
+  });
+  const [orderList, setOrderList] = useState([]);
+  const [orderFormVisible, setOrderFormVisible] = useState(false);
 
   
+  const handleCustomerDetailsChange = (field, value) => {
+    setCustomerDetails({ ...customerDetails, [field]: value });
+  };
+  
+  const handleProductChange = (field, value) => {
+    setSelectedProduct({ ...selectedProduct, [field]: value });
+  };
+  
+  const handleAddToOrder = () => {
+    // Add the selected product to the order list
+    setOrderList([...orderList, selectedProduct]);
+  
+    // Reset the selected product state for the next selection
+    setSelectedProduct({
+      category: '',
+      productName: '',
+      price: 0,
+      quantity: 1,
+    });
+  };
+  
+  const handleSubmitOrder = () => {
+    // Implement logic to submit the order (e.g., send data to the server)
+    alert('Order submitted successfully!');
+  };
+  
+  const handleGetBill = () => {
+    // Implement logic to generate and display the bill
+    alert('Bill generated successfully!');
+  };
+  const openManageOrder = () => {
+    setOrderFormVisible(true);
+  };
+  const closeManageOrder = () => {
+    setOrderFormVisible(false);
+
+  };
+  
+  
+  
+
+
+
+
+  const handleSearchCategory = () => {
+};
   // Function to reset the searched categories and close the manage category modal
   
 
@@ -275,7 +330,7 @@ const handleSearchproduct =()=>{
           Manage category
         </a>
         
-        <a href="#" className="order-link">
+        <a href="#" onClick={openManageOrder} className="order-link">
           <span className="text">Manage Order</span>
         </a>
         
@@ -513,6 +568,89 @@ const handleSearchproduct =()=>{
             <button  className='user' onClick={closeManageUsers}>Close</button>
           </div>
         )}
+
+{orderFormVisible && (
+  <div className="order-form-container">
+     <div className="customer-details-form">
+    <h3>Customer Details</h3>
+    <label>Name:</label>
+    <input
+      type="text"
+      value={customerDetails.name}
+      onChange={(e) => handleCustomerDetailsChange('name', e.target.value)}
+    />
+    <label>Email:</label>
+    <input
+      type="text"
+      value={customerDetails.email}
+      onChange={(e) => handleCustomerDetailsChange('email', e.target.value)}
+    />
+    <label>Contact Number:</label>
+    <input
+      type="text"
+      value={customerDetails.contactNumber}
+      onChange={(e) => handleCustomerDetailsChange('contactNumber', e.target.value)}
+    />
+    <label>Payment Method:</label>
+    <select
+      value={customerDetails.paymentMethod}
+      onChange={(e) => handleCustomerDetailsChange('paymentMethod', e.target.value)}
+    >
+      <option value="cash">Cash</option>
+      <option value="card">Card</option>
+    </select>
+  </div>
+
+  {/* Product Details Form */}
+  <div className="product-details-form">
+    <h3>Product Details</h3>
+    {/* Add dropdowns for category and product name based on your data */}
+    <label>Category:</label>
+    <select>
+      {/* Add options dynamically based on your category data */}
+      {categoryList.map((category) => (
+        <option key={category.id} value={category.name}>
+          {category.name}
+        </option>
+      ))}
+    </select>
+
+    <label>Product Name:</label>
+    <select>
+      {/* Add options dynamically based on selected category and product data */}
+      {/* You can filter products based on the selected category */}
+      {productList.map((product) => (
+        <option key={product.id} value={product.name}>
+          {product.name}
+        </option>
+      ))}
+    </select>
+
+    <label>Price:</label>
+    <input type="text" value={selectedProduct.price} readOnly />
+
+    <label>Quantity:</label>
+    <input
+      type="number"
+      value={selectedProduct.quantity}
+      onChange={(e) => handleProductChange('quantity', e.target.value)}
+    />
+
+    <label>Total Amount:</label>
+    <input type="text" value={selectedProduct.price * selectedProduct.quantity} readOnly />
+
+    <button onClick={handleAddToOrder}>Add to Order</button>
+  </div>
+
+  {/* Submit and Get Bill Buttons */}
+  <div className="order-buttons">
+    <button onClick={handleSubmitOrder}>Submit Order</button>
+    <button onClick={handleGetBill}>Get Bill</button>
+    <button onClick={closeManageOrder}>Close</button>
+  </div>
+  </div>
+)}
+
   
       </main>
     </div>
