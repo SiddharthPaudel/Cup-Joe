@@ -45,6 +45,11 @@ const Dashboard = () => {
   });
   const [orderList, setOrderList] = useState([]);
   const [orderFormVisible, setOrderFormVisible] = useState(false);
+   const [oldPassword, setOldPassword] = useState('');
+   const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+
 
   
   const handleCustomerDetailsChange = (field, value) => {
@@ -300,7 +305,12 @@ const handleSearchproduct =()=>{
 
     setCategoryModalVisible(false);
   };
-  
+  const handleChangePasswordSubmit=() =>{
+
+  }
+  const handlePasswordChange=()=>{
+
+  }
   
   return (
     <div>
@@ -319,21 +329,36 @@ const handleSearchproduct =()=>{
             <button className='button2 icon-button' onClick={handleLogout}>Logout</button>
           </div>
         )}
-        {changePasswordVisible && (
-  <div className="change-password-form">
-    <label htmlFor="changePasswordEmail">Email:</label>
-    <input
-      type="text"
-      id="changePasswordEmail"
-      placeholder="Enter email"
-      value={customerDetails.email}
-      onChange={(e) => handleCustomerDetailsChange('email', e.target.value)}
-    />
-
-    <button onClick={handleChangePassword}>Send</button>
-    <button onClick={toggleChangePassword}>Close</button>
-  </div>
-)}
+      {changePasswordVisible && (
+        <div className="change-password-form">
+          <h3>Change Password</h3>
+          <label htmlFor="oldPassword">Old Password:</label>
+          <input
+            type="password"
+            id="oldPassword"
+            value={oldPassword}
+            onChange={(e) => handlePasswordChange('oldPassword', e.target.value)}
+          />
+          <label htmlFor="newPassword">New Password:</label>
+          <input
+            type="password"
+            id="newPassword"
+            value={newPassword}
+            onChange={(e) => handlePasswordChange('newPassword', e.target.value)}
+          />
+          <label htmlFor="confirmPassword">Confirm Password:</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => handlePasswordChange('confirmPassword', e.target.value)}
+          />
+          <div className="password-buttons">
+            <button onClick={handleChangePasswordSubmit}>Update</button>
+            <button onClick={toggleChangePassword}>Close</button>
+          </div>
+        </div>
+      )}
 
 
 
@@ -538,7 +563,6 @@ const handleSearchproduct =()=>{
     <button onClick={closeBillModal}>Close</button>
   </div>
 
-  
 )}
 
 {manageUsersVisible && (
@@ -577,10 +601,9 @@ const handleSearchproduct =()=>{
                       <button className='user'>Delete</button>
                     </td>
                   </tr>
-                ))}
+               ))}
               </tbody>
             </table>
-
             <button  className='user' onClick={closeManageUsers}>Close</button>
           </div>
         )}
