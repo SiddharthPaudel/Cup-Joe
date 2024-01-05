@@ -13,7 +13,7 @@ function Front() {
       </header>
 
       <nav className="new-nav">
-        <a href="#">Sign-up/Login?</a>
+        <a href="/">Sign-up/Login?</a>
       </nav>
 
       <main className="new-main">
