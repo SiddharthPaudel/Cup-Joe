@@ -169,4 +169,27 @@ public class BillServiceImpl implements BillService {
                 requestMap.containsKey("productDetails") &&
                 requestMap.containsKey("totalAmount");
     }
+
+    @Override
+    public ResponseEntity<byte[]> getPdf(Map<String, Object> requestMap) {
+        try {
+            byte[] bytes = new byte[0];
+            if(!requestMap.containsKey("uuid") && this.validateRequestMap(requestMap)){
+                return new ResponseEntity<>(bytes, HttpStatus.BAD_REQUEST);
+            }
+            String filePath = CafeConstants.STORE_LOCATION+"/"+(String) requestMap.get("uuid") + ".pdf";
+            if(CafeUtils.isFileExists(filePath)){
+                bytes = this.getByteArray(filePath);
+                return new ResponseEntity<>(bytes, HttpStatus.OK);
+            } else {
+                requestMap.put("isGenerate", false);
+                this.generateReport(requestMap);
+                bytes = this.getByteArray(filePath);
+                return new ResponseEntity<>(bytes, HttpStatus.OK);
+            }
+        } catch (Exception exception){
+            exception.printStackTrace();
+        }
+        return null;
+    }
 }
