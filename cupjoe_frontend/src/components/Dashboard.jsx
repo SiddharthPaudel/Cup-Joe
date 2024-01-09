@@ -36,7 +36,6 @@ const Dashboard = () => {
     contactNumber: '',
     paymentMethod: 'cash', // Default value, you can change it based on your requirements
   });
-  
   const [selectedProduct, setSelectedProduct] = useState({
     category: '',
     productName: '',
@@ -84,6 +83,11 @@ const Dashboard = () => {
   };
   const openManageOrder = () => {
     setOrderFormVisible(true);
+    closeProductModal();
+    closeBillModal();
+    closeCategoryModal();
+    closeManageUsers();
+    
   };
   const closeManageOrder = () => {
     setOrderFormVisible(false);
@@ -126,6 +130,10 @@ const Dashboard = () => {
 
   const openManageUsers = () => {
     setManageUsersVisible(true);
+    closeBillModal();
+    closeCategoryModal();
+    closeManageOrder();
+    closeProductModal();
   };
   const closeManageUsers=()=>{
     setManageUsersVisible(false);
@@ -152,6 +160,9 @@ const Dashboard = () => {
 
     // Show product-related elements
     closeCategoryModal(true);
+    closeBillModal();
+    closeManageOrder();
+    closeManageUsers();
     setProductModalVisible(true);
     
   };
@@ -226,6 +237,9 @@ const handleSearchproduct =()=>{
     event.preventDefault();
     setCategoryModalVisible(true);
     closeProductModal(true);
+    closeBillModal();
+    closeManageOrder();
+    closeManageUsers();
     
   };
 
@@ -275,6 +289,8 @@ const handleSearchproduct =()=>{
    
     closeCategoryModal();
     closeProductModal();
+    closeManageOrder();
+    closeManageUsers();
     setBillModalVisible(true);
    
   };
@@ -311,6 +327,7 @@ const handleSearchproduct =()=>{
   const handlePasswordChange=()=>{
 
   }
+  //hitting server on port 
   
   return (
     <div>
@@ -382,7 +399,6 @@ const handleSearchproduct =()=>{
         <a href="#" onClick={showTotalBill} className="Bill-link">
           View Bill
         </a>
-        
         <a href="#" onClick={openManageUsers} className="user-link">
           <span className="text">Manage User</span>
         </a>
@@ -397,11 +413,9 @@ const handleSearchproduct =()=>{
           <h2>Total product </h2>
           <p></p>
         </div>
-
         <div className="dashboard-card" id="totalBillCard">
           <h2>Total bill</h2>
         </div>
-
         {categoryModalVisible && (
       <div className="category-modal">
      
@@ -412,6 +426,8 @@ const handleSearchproduct =()=>{
         <button onClick={handleSearchCategory} className="barsearch">Search</button>
         <button className="add-category" onClick={() => setAddCategoryFormVisible(!addCategoryFormVisible)}>Add Category</button>
       </div>
+
+
       {addCategoryFormVisible && (
   <div className="add-category-form">
     <label htmlFor="categoryName">Category Name:</label>
@@ -443,7 +459,7 @@ const handleSearchproduct =()=>{
         </tbody>
       </table>
       <button className='close-category' onClick={closeCategoryModal}>Close</button>
-      <h3>hello</h3>
+     
     </div>
 
    
@@ -561,7 +577,7 @@ const handleSearchproduct =()=>{
     </table>
 
     {/* Close button */}
-    <button onClick={closeBillModal}>Close</button>
+    <button className='closebill' onClick={closeBillModal}>Close</button>
   </div>
 
 )}
@@ -605,7 +621,7 @@ const handleSearchproduct =()=>{
                ))}
               </tbody>
             </table>
-            <button  className='user' onClick={closeManageUsers}>Close</button>
+            <button  className='user1' onClick={closeManageUsers}>Close</button>
           </div>
         )}
 
@@ -643,6 +659,7 @@ const handleSearchproduct =()=>{
     </select>
   </div>
 
+
   {/* Product Details Form */}
   <div className="product-details-form">
     <h3>Product Details</h3>
@@ -678,8 +695,8 @@ const handleSearchproduct =()=>{
       onChange={(e) => handleProductChange('quantity', e.target.value)}
     />
 
-    <label>Total Amount:</label>
-    <input type="text" value={selectedProduct.price * selectedProduct.quantity} readOnly />
+    <label for="total" class="move-right">Total Amount:</label>
+    <input type="text" class="move-right"value={selectedProduct.price * selectedProduct.quantity} readOnly  />
 
     <button className="add" onClick={handleAddToOrder}>Add </button>
   </div>

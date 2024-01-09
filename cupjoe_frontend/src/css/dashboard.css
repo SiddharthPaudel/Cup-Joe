@@ -316,10 +316,8 @@
     flex-direction: column;
     align-items: center;
     position: fixed;
-    width: 800px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-40%, -40%);
+    width: 755px;
+    transform: translate(10%);
     background-color: #ecf0f1;
     padding: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -471,7 +469,7 @@
   transform: translate(20%,5%);
   width: 650px;
   border-radius: 8px;
-  background-color: #edf3f3;
+  background-color: white;
   height:auto;
   
 }
@@ -517,7 +515,7 @@ transform: translate(-5%,2%);
 }
 
 .add-category:hover {
-  background-color: #27ae60;
+  background-color: #2980b9;
 }
 
 .category-table {
@@ -590,7 +588,7 @@ transform: translate(-5%,2%);
 }
 
 .add-category-form button:hover {
-  background-color: #45a049;
+  background-color: #2980b9;
 }
 
 .add-category-form button:last-child {
@@ -621,17 +619,19 @@ transform: translate(-5%,2%);
 /* Add these styles to your existing CSS or create a new CSS file */
 
 /* Styles for the entire bill modal */
-bill-modal {
+.bill-modal {
   font-family: 'Poppins', sans-serif;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  /* top: 50%; */
+  /* left: 50%; */
+  transform: translate(5%);
   padding: 20px;
   border: 1px solid #ccc;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  width: 80%; /* Set a default width for larger screens */
+  width: 55%; /* Set a default width for larger screens */
+  background-color: white;
+
 }
 
 /* Styles for the header */
@@ -700,8 +700,20 @@ bill-modal {
 
 /* Add hover effect to buttons */
 .bill-table button:hover, .bill-modal button:hover {
-  background-color: #0056b3;
+  background-color: #2980b9;
 }
+.closebill{
+  font-family: 'Poppins', sans-serif;
+  width: 50px; /* Set full width for smaller screens */
+  padding: 10px 0;
+  color:black;
+  border: none;
+  cursor: pointer;
+  border-radius: 7px;
+  transform: translate(700%);
+
+}
+
 /* Manageuser */
 .manage-users-container {
   font-family: 'Poppins', sans-serif;
@@ -740,7 +752,7 @@ button.usersearch {
   border-radius: 10px;
 }
 button.usersearch:hover{
-  background-color: #0056b3;
+  background-color: #2980b9;
   
 }
 
@@ -778,11 +790,28 @@ button.user{
   background-color: whitesmoke;
   border:none;
   border-radius:10px ;
+ 
 
 }
 button.user:hover{
-  background-color: #0056b3 ;
+  background-color: #2980b9;
 }
+button.user1{
+  font-family: 'Poppins','sans-seriff';
+  background-color: whitesmoke;
+  border:none;
+  border-radius:10px ;
+  transform: translateX(610%);
+
+}
+button.user1:hover{
+  background-color: #2980b9;
+
+}
+
+
+
+
 .order-form-container {
   font-family: 'Poppins', sans-serif;
   display: grid;
@@ -829,7 +858,7 @@ button.user:hover{
   font-family: 'Poppins', sans-serif;
   display: flex;
   justify-content: space-between;
-  margin-top:-70px; /* Add some top margin to separate buttons from fields */
+  margin-top:-100px; /* Add some top margin to separate buttons from fields */
   height: 30px;
 }
 
@@ -842,17 +871,32 @@ button.user:hover{
   border:none;
 }
 .order-buttons :hover{
-  background-color: #0056b3 ;
+  background-color: #2980b9;
 }
 .add{
   font-family: 'Poppins', sans-serif;
   background-color: whitesmoke;
   border-radius:10px ;
   border:none;
+  height: 30px;
+  transform: translateY(-95%);
 }
 .add:hover{
-  background-color: #0056b3;
+  background-color: #2980b9;
 }
+.product-details-form label.move-right {
+  text-align: right;
+  margin-right: 10px; /* Adjust the right margin as needed */
+  transform: translate(70%,-1300%);
+}
+.product-details-form input.move-right {
+  text-align: right;
+  margin-right: 1px; 
+  transform: translate(120%,-800%);/* Adjust the right margin for the input */
+}
+
+
+
 .change-password-form {
   font-family: 'Poppins', sans-serif;
   background-color: #f9f9f9;
@@ -901,7 +945,7 @@ button.user:hover{
 }
 
 .password-buttons button:hover {
-  background-color: #0056b3;
+  background-color: #2980b9;
 }
 
 
