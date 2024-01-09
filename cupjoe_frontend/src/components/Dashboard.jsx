@@ -9,6 +9,7 @@ const Dashboard = () => {
   const [categoryModalVisible, setCategoryModalVisible] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // Add this line for error message
   const [productModalVisible, setProductModalVisible] = useState(false);
+
  // Add these state variables
   const [addProductName, setAddProductName] = useState('');
   const [addProductDescription, setAddProductDescription] = useState('');
@@ -48,6 +49,7 @@ const Dashboard = () => {
    const [oldPassword, setOldPassword] = useState('');
    const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
 
 
 
@@ -142,6 +144,7 @@ const Dashboard = () => {
   
 
   const showTotalProduct = () => {
+
     // Add logic to fetch and set product list (e.g., from the server)
     // For now, let's assume productList is an array of product objects
     setProductList([
@@ -153,7 +156,7 @@ const Dashboard = () => {
     // Show product-related elements
     closeCategoryModal(true);
     setProductModalVisible(true);
-    
+
   };
   const closeProductModal = () => {
     setProductModalVisible(false);
@@ -317,12 +320,14 @@ const handleSearchproduct =()=>{
       <header>
         <img src={Logo} alt="Icon" />
         <h1>Cup Joe</h1>
+        
       </header>
       
       <div className="logo-container">
         <img src={Profile} alt="Logo" id="logo" onClick={toggleProfile} />
         
       </div>
+
       {profilePopUpVisible && (
           <div className="profile-popup">
             <button onClick={toggleChangePassword}>Change Password</button>
@@ -357,6 +362,7 @@ const handleSearchproduct =()=>{
             <button onClick={handleChangePasswordSubmit}>Update</button>
             <button onClick={toggleChangePassword}>Close</button>
           </div>
+
         </div>
       )}
 
@@ -691,6 +697,7 @@ const handleSearchproduct =()=>{
   </div>
   </div>
 )}
+
 
   
       </main>
