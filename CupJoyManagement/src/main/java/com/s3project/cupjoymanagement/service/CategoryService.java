@@ -8,6 +8,7 @@ import java.util.Map;
 
 public interface CategoryService {
     ResponseEntity<String> addCategory(Map<String, String> requesttap);
+    ResponseEntity<List<Category>> getCategories(String filterValue);
 
   
 }
