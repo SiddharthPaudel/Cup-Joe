@@ -1,17 +1,18 @@
+// App.jsx
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
-import Home from './components/Home'
+// import Dashboardpage from './Pages/dashboard';
 
 const App = () => {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dash" element={<Dashboard />} />
+      <Switch>
+        <Route path="/" exact component={Dashboard} />
+        <Route path="/dash" exact component={Dashboard}/>
         {/* Add more routes as needed */}
-      </Routes>
+      </Switch>
     </Router>
   );
 };
