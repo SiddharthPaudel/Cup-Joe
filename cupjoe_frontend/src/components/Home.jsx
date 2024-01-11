@@ -3,8 +3,9 @@ import axios from 'axios';
 import React from "react";
 import "../css/home.css"; // Import your styles if needed
 import Logo from "../Images/Depositphotos_106586660_xl-2015 copy 3.jpeg";
-import jwtDecode from 'jwt-decode';
-import { useHistory } from 'react-router-dom';
+import {jwtDecode} from 'jwt-decode';
+// import { useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 
 
@@ -98,10 +99,12 @@ class Home extends React.Component {
       };
       console.log("Login successful:", response.data);
       if (decodedToken.role === 'admin') {
-        history.push('/admindash');
-        
+        console.log("admin:");
+        this.props.history.push('/dash');
+       
       } else {
-        history.push('/admindash');
+        console.log("user:");
+        this.props.history.push('/dash');
         
       }
     } catch (error) {
