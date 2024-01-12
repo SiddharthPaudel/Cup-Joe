@@ -47,8 +47,49 @@ const Dashboard = () => {
    const [oldPassword, setOldPassword] = useState('');
    const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [editCategoryId, setEditCategoryId] = useState(null);
+  const [editProductId, setEditProductId] = useState(null);
 
 
+  const editProduct = (product) => {
+    setEditProductId(product.id);
+    // Populate the form fields with the details of the product being edited
+    setAddProductName(product.name);
+    setAddProductDescription(product.description);
+    setAddProductCategory(product.category);
+    setAddProductPrice(product.price.toString()); // Convert price to string for better user experience
+  };
+
+  const handleEditProduct = () => {
+    // Implement logic to update the product on the server or wherever you store your data
+    alert('Product edited successfully!');
+    // Reset the state variables
+    setEditProductId(null);
+    setAddProductName('');
+    setAddProductDescription('');
+    setAddProductCategory('');
+    setAddProductPrice('');
+    // Close the product modal after editing
+    closeProductModal();
+  };
+
+
+  const editCategory = (category) => {
+    setEditCategoryId(category.id);
+    // Populate the form fields with the details of the category being edited
+    setCategoryName(category.name);
+  };
+
+  // Function to handle category form submission
+  const handleEditCategory = () => {
+    // Implement logic to update the category on the server or wherever you store your data
+    alert('Category edited successfully!');
+    // Reset the state variables
+    setEditCategoryId(null);
+    setCategoryName('');
+    // Close the category modal after editing
+    closeCategoryModal();
+  };
 
   
   const handleCustomerDetailsChange = (field, value) => {
@@ -258,10 +299,6 @@ const handleSearchproduct =()=>{
   }
 
  
-  const editCategory =()=>{
-    alert("Edit category functionality to be implemented.");
-    closeCategoryModal();
-  }
   const showTotalBill = () => {
     // Fetch bill data or simulate fetching
     setBillList([
@@ -458,6 +495,13 @@ const handleSearchproduct =()=>{
           ))}
         </tbody>
       </table>
+      {editCategoryId !== null && (
+                <div className="edit-category-form">
+                  <label htmlFor="categoryName">Category Name:</label>
+                  <input type="text" id="categoryName" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} />
+                  <button onClick={handleEditCategory}>Save Changes</button>
+                </div>
+              )}
       <button className='close-category' onClick={closeCategoryModal}>Close</button>
      
     </div>
@@ -484,7 +528,7 @@ const handleSearchproduct =()=>{
             <input type="text" id="addProductName" value={addProductName} onChange={(e) => setAddProductName(e.target.value)} />
 
             <label htmlFor="addProductDescription">Description:</label>
-            <textarea type="text" id="addProductDescription" value={addProductDescription} onChange={(e) => setAddProductDescription(e.target.value)} />
+            <input type="text" id="addProductDescription" value={addProductDescription} onChange={(e) => setAddProductDescription(e.target.value)} />
 
             <label htmlFor="addProductCategory">Category:</label>
             <select id="addProductCategory" value={addProductCategory} onChange={(e) => setAddProductCategory(e.target.value)}>
@@ -521,13 +565,57 @@ const handleSearchproduct =()=>{
                     <td>{product.category}</td>
                     <td>${product.price.toFixed(2)}</td>
                     <td>
-                      <button>Edit</button>
+                    <button onClick={() => editProduct(product)}>Edit</button>
                       <button>Delete</button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+         {/* Edit product form */}
+         {editProductId !== null && (
+            <div className="edit-product-form">
+              <label htmlFor="addProductName">Name:</label>
+              <input
+                type="text"
+                id="addProductName"
+                value={addProductName}
+                onChange={(e) => setAddProductName(e.target.value)}
+              />
+
+              <label htmlFor="addProductDescription">Description:</label>
+              <input
+                type="text"
+                id="addProductDescription"
+                value={addProductDescription}
+                onChange={(e) => setAddProductDescription(e.target.value)}
+              />
+
+              <label htmlFor="addProductCategory">Category:</label>
+              <select
+                id="addProductCategory"
+                value={addProductCategory}
+                onChange={(e) => setAddProductCategory(e.target.value)}
+              >
+                {/* Add options dynamically based on your category data */}
+                {categoryList.map((category) => (
+                  <option key={category.id} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+
+              <label htmlFor="addProductPrice">Price:</label>
+              <input
+                type="text"
+                id="addProductPrice"
+                value={addProductPrice}
+                onChange={(e) => setAddProductPrice(e.target.value)}
+              />
+
+              <button onClick={handleEditProduct}>Save Changes</button>
+            </div>
+         )}
 
             {/* Add product button */}
             <div>
