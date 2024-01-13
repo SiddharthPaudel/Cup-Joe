@@ -1,13 +1,15 @@
 // Dashboard.jsx
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import '../css/dashboard.css'; // Make sure to import your CSS file
 import Profile from '../Images/profile.png';
 import Logo from '../Images/cup.png';
 // import {useForm} from "react-hook-form";
 import {useQuery,useMutation} from "@tanstack/react-query";
 import axios from "axios";
+import { useHistory } from 'react-router-dom';
 const Dashboard = () => {
+  const history = useHistory();  
 
   const [profileVisible, setProfileVisible] = useState("");
   const [categoryModalVisible, setCategoryModalVisible] = useState("");
@@ -19,15 +21,14 @@ const Dashboard = () => {
   const [addProductCategory, setAddProductCategory] = useState('');
   const [addProductPrice, setAddProductPrice] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [productList, setProductList] = useState([]); 
+  const [productList, setProductList] = useState([]);
+  
+  
+  
   const [addProductFormVisible, setAddProductFormVisible] = useState(false);
   const [profilePopUpVisible, setProfilePopUpVisible] = useState(false);
   const [changePasswordVisible, setChangePasswordVisible] = useState(false);
-  const [categoryList, setCategoryList] = useState([
-    { id: 1, name: 'Food' },
-    { id: 2, name: 'Beverage' },
-    // Add more categories as needed
-  ]);
+  const [categoryList, setCategoryList] = useState([]);
   const [addCategoryFormVisible, setAddCategoryFormVisible] = useState(false);
   const [categoryName, setCategoryName] = useState('');
   const [billModalVisible, setBillModalVisible] = useState(false);
@@ -54,8 +55,8 @@ const Dashboard = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
 
-
   
+
   const handleCustomerDetailsChange = (field, value) => {
     setCustomerDetails({ ...customerDetails, [field]: value });
   };
@@ -88,6 +89,9 @@ const Dashboard = () => {
   };
   const openManageOrder = () => {
     setOrderFormVisible(true);
+    setCategoryList([
+      ...getCatogory.data.map((category) => ({ id: category.id, name: category.name })),
+    ]);
   };
   const closeManageOrder = () => {
     setOrderFormVisible(false);
@@ -209,7 +213,8 @@ const handleSearchproduct =()=>{
 
   const handleLogout = () => {
     // Implement logic for logout (e.g., redirect to login page, clear session)
-    alert('Logged out successfully!');
+    localStorage.removeItem("token"); 
+    history.push('/Home');
   };
  
   const showDashboard = () => {
@@ -319,6 +324,7 @@ const handleSearchproduct =()=>{
     }})
 
   }
+  //api calling
   const useChangePassword=useMutation({
     mutationKey:["Change password"],
     mutationFn:(payload)=>{
@@ -334,6 +340,21 @@ const handleSearchproduct =()=>{
     // }
     ,
   })
+  const getCatogory = useQuery({
+    queryKey: ["GET Category"],
+    queryFn: async () => {
+      try {
+        const response = await axios.get("http://localhost:8087/category/get", {
+          headers: { authorization: "Bearer " + localStorage.getItem("token") },
+        });
+  
+        return response.data;
+      } catch (error) {
+        throw new Error("Error fetching categories: " + error.message);
+      }
+    },
+  });
+   
   
   return (
     <div>
