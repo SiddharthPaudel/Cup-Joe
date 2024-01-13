@@ -4,7 +4,11 @@ import React, { useState } from 'react';
 import '../css/dashboard.css'; // Make sure to import your CSS file
 import Profile from '../Images/profile.png';
 import Logo from '../Images/cup.png';
+// import {useForm} from "react-hook-form";
+import {useQuery,useMutation} from "@tanstack/react-query";
+import axios from "axios";
 const Dashboard = () => {
+
   const [profileVisible, setProfileVisible] = useState("");
   const [categoryModalVisible, setCategoryModalVisible] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // Add this line for error message
@@ -305,12 +309,31 @@ const handleSearchproduct =()=>{
 
     setCategoryModalVisible(false);
   };
-  const handleChangePasswordSubmit=() =>{
+  const handleChangePasswordSubmit=async()  =>{
+    if (newPassword !== confirmPassword) {
+      setErrorMessage('Passwords do not match');
+      return;
+    }
+    await useChangePassword.mutate({oldPassword,newPassword},{onSuccess(){
+      setChangePasswordVisible(false);
+    }})
 
   }
-  const handlePasswordChange=()=>{
+  const useChangePassword=useMutation({
+    mutationKey:["Change password"],
+    mutationFn:(payload)=>{
+      console.log(payload)
+      return axios.post("http://localhost:8087/user/change-password",payload,{
+        headers:{authorization:"Bearer "+localStorage.getItem("token")}
+      })
+    }
+    // ,onSuccess:()=>{
+    //   reset()
+    //   refetch()
 
-  }
+    // }
+    ,
+  })
   
   return (
     <div>
@@ -337,21 +360,21 @@ const handleSearchproduct =()=>{
             type="password"
             id="oldPassword"
             value={oldPassword}
-            onChange={(e) => handlePasswordChange('oldPassword', e.target.value)}
+            onChange={(e) => setOldPassword( e.target.value)}
           />
           <label htmlFor="newPassword">New Password:</label>
           <input
             type="password"
             id="newPassword"
             value={newPassword}
-            onChange={(e) => handlePasswordChange('newPassword', e.target.value)}
+            onChange={(e) => setNewPassword(e.target.value)}
           />
           <label htmlFor="confirmPassword">Confirm Password:</label>
           <input
             type="password"
             id="confirmPassword"
             value={confirmPassword}
-            onChange={(e) => handlePasswordChange('confirmPassword', e.target.value)}
+            onChange={(e) => setConfirmPassword( e.target.value)}
           />
           <div className="password-buttons">
             <button onClick={handleChangePasswordSubmit}>Update</button>
