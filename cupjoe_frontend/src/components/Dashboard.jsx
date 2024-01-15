@@ -22,13 +22,17 @@ const Dashboard = () => {
   const [addProductPrice, setAddProductPrice] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [productList, setProductList] = useState([]);
+  // useEffect(()=>{
+    
+  // },[categoryList])
   
-  
-  
+
   const [addProductFormVisible, setAddProductFormVisible] = useState(false);
   const [profilePopUpVisible, setProfilePopUpVisible] = useState(false);
   const [changePasswordVisible, setChangePasswordVisible] = useState(false);
   const [categoryList, setCategoryList] = useState([]);
+
+
   const [addCategoryFormVisible, setAddCategoryFormVisible] = useState(false);
   const [categoryName, setCategoryName] = useState('');
   const [billModalVisible, setBillModalVisible] = useState(false);
@@ -53,12 +57,19 @@ const Dashboard = () => {
    const [oldPassword, setOldPassword] = useState('');
    const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
-
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const handleCategoryChange = (event) => {
+    const selectedValue = event.target.value;
+    const selectedCategory = categoryList.find(category => category.name === selectedValue);
+    setSelectedCategoryId(selectedCategory ? selectedCategory.id : null);
+  
+    // Log the value for debugging
+    console.log("Selected Category ID:", selectedCategory ? selectedCategory.id : null);
+  };
   
 
   const handleCustomerDetailsChange = (field, value) => {
-    setCustomerDetails({ ...customerDetails, [field]: value });
+    setCustomerDetails({ ...customerDetails, [field]: value });  
   };
   
   const handleProductChange = (field, value) => {
@@ -91,7 +102,9 @@ const Dashboard = () => {
     setOrderFormVisible(true);
     setCategoryList([
       ...getCatogory.data.map((category) => ({ id: category.id, name: category.name })),
+      
     ]);
+    ha
   };
   const closeManageOrder = () => {
     setOrderFormVisible(false);
@@ -138,7 +151,7 @@ const Dashboard = () => {
   const closeManageUsers=()=>{
     setManageUsersVisible(false);
   }
-
+  
 
 
   
@@ -351,6 +364,26 @@ const handleSearchproduct =()=>{
         return response.data;
       } catch (error) {
         throw new Error("Error fetching categories: " + error.message);
+      }
+    },
+  });
+  const fetchProductsByCategory = useQuery({
+    queryKey: ["GET Product"],
+    queryFn: async () => {
+      try {
+        if (!Number.isNaN(selectedCategoryId)) {
+          const response = await axios.get(`http://localhost:8087/product/category/${parseInt(selectedCategoryId)}`, {
+            headers: { authorization: "Bearer " + localStorage.getItem("token") },
+          });
+  
+          return response.data;
+        } else {
+          // Handle the case when selectedCategoryId is not a valid number
+          console.error("Invalid category id");
+          return [];
+        }
+      } catch (error) {
+        throw new Error("Error fetching products: " + error.message);
       }
     },
   });
