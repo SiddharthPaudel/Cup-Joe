@@ -22,10 +22,6 @@ const Dashboard = () => {
   const [addProductPrice, setAddProductPrice] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [productList, setProductList] = useState([]);
-  // useEffect(()=>{
-    
-  // },[categoryList])
-  
 
   const [addProductFormVisible, setAddProductFormVisible] = useState(false);
   const [profilePopUpVisible, setProfilePopUpVisible] = useState(false);
@@ -57,15 +53,61 @@ const Dashboard = () => {
    const [oldPassword, setOldPassword] = useState('');
    const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(1);
+  const [selectedProductID, setSelectedProductID] = useState(null);
+  useEffect(() => {
+    // Fetch products when the selected category changes
+    if (selectedCategoryId !== null) {
+      fetchProductsByCategory.refetch();
+      axios
+        .get(`http://localhost:8087/product/category/${selectedCategoryId}`, {
+          headers: { authorization: "Bearer " + localStorage.getItem("token") },
+        })
+        .then((response) => {
+          setProductList([
+            ...response.data.map((product) => ({ id: product.id, name: product.name })),
+          ])
+          // Update your productList state or do other processing
+        })
+        .catch((error) => {
+          console.error("Error fetching products:", error.message);
+        });
+    }
+  }, [selectedCategoryId]);
+  useEffect(() => {
+    // Fetch products when the selected category changes
+    if (selectedProductID !== null) {
+      fetchProductsByCategory.refetch();
+      axios
+        .get(`http://localhost:8087/product/get/${selectedProductID}`, {
+          headers: { authorization: "Bearer " + localStorage.getItem("token") },
+        })
+        .then((response) => {
+          
+          // insert the data to price
+        })
+        .catch((error) => {
+          console.error("Error fetching price:", error.message);
+        });
+    }
+  }, [selectedProductID]);
+
+
   const handleCategoryChange = (event) => {
-    const selectedValue = event.target.value;
-    const selectedCategory = categoryList.find(category => category.name === selectedValue);
-    setSelectedCategoryId(selectedCategory ? selectedCategory.id : null);
+    const selectedCategoryId = parseInt(event.target.value, 10);
+    console.log("Newly selected category ID:", selectedCategoryId);
   
-    // Log the value for debugging
-    console.log("Selected Category ID:", selectedCategory ? selectedCategory.id : null);
+    // Set the selected category ID
+    setSelectedCategoryId(selectedCategoryId);
   };
+  const handleProductIDChange = (event) => {
+    const selectedCProductId = parseInt(event.target.value, 10);
+    console.log("Newly selected product ID:", selectedCProductId);
+    // Set the selected category ID
+    setSelectedProductID(selectedCProductId);
+  };
+
+    
   
 
   const handleCustomerDetailsChange = (field, value) => {
@@ -102,9 +144,10 @@ const Dashboard = () => {
     setOrderFormVisible(true);
     setCategoryList([
       ...getCatogory.data.map((category) => ({ id: category.id, name: category.name })),
-      
     ]);
-    ha
+
+    ;
+    
   };
   const closeManageOrder = () => {
     setOrderFormVisible(false);
@@ -371,8 +414,9 @@ const handleSearchproduct =()=>{
     queryKey: ["GET Product"],
     queryFn: async () => {
       try {
-        if (!Number.isNaN(selectedCategoryId)) {
-          const response = await axios.get(`http://localhost:8087/product/category/${parseInt(selectedCategoryId)}`, {
+        if (selectedCategoryId!==null) {
+          console.log(selectedCategoryId)
+          const response = await axios.get(`http://localhost:8087/product/category/${selectedCategoryId}`, {
             headers: { authorization: "Bearer " + localStorage.getItem("token") },
           });
   
@@ -725,17 +769,17 @@ const handleSearchproduct =()=>{
     <h3>Product Details</h3>
     {/* Add dropdowns for category and product name based on your data */}
     <label>Category:</label>
-    <select>
-      {/* Add options dynamically based on your category data */}
-      {categoryList.map((category) => (
-        <option key={category.id} value={category.name}>
-          {category.name}
-        </option>
-      ))}
-    </select>
+   <select onChange={handleCategoryChange} value={selectedCategoryId}>
+          {/* Add options dynamically based on your category data */}
+          {categoryList.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
 
     <label>Product Name:</label>
-    <select>
+    <select onChange={handleProductIDChange} value={selectedProductID}>
       {/* Add options dynamically based on selected category and product data */}
       {/* You can filter products based on the selected category */}
       {productList.map((product) => (
