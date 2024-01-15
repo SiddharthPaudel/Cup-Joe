@@ -46,7 +46,7 @@ const Dashboard = () => {
     category: '',
     productName: '',
     price: 0,
-    quantity: 1,
+    quantity: 0,
   });
   const [orderList, setOrderList] = useState([]);
   const [orderFormVisible, setOrderFormVisible] = useState(false);
@@ -83,7 +83,7 @@ const Dashboard = () => {
           headers: { authorization: "Bearer " + localStorage.getItem("token") },
         })
         .then((response) => {
-          
+          setSelectedProduct(response.data)
           // insert the data to price
         })
         .catch((error) => {
@@ -100,6 +100,7 @@ const Dashboard = () => {
     // Set the selected category ID
     setSelectedCategoryId(selectedCategoryId);
   };
+  
   const handleProductIDChange = (event) => {
     const selectedCProductId = parseInt(event.target.value, 10);
     console.log("Newly selected product ID:", selectedCProductId);
@@ -116,6 +117,9 @@ const Dashboard = () => {
   
   const handleProductChange = (field, value) => {
     setSelectedProduct({ ...selectedProduct, [field]: value });
+    // if (field === 'quantity') {  
+    //   const totalPrice = selectedProduct.price * parseFloat(value || 0); // Convert value to a number
+    //   setSelectedProduct((prevProduct) => ({ ...prevProduct, total: totalPrice }));
   };
   
   const handleAddToOrder = () => {
@@ -783,7 +787,7 @@ const handleSearchproduct =()=>{
       {/* Add options dynamically based on selected category and product data */}
       {/* You can filter products based on the selected category */}
       {productList.map((product) => (
-        <option key={product.id} value={product.name}>
+        <option key={product.id} value={product.id}>
           {product.name}
         </option>
       ))}
@@ -800,7 +804,7 @@ const handleSearchproduct =()=>{
     />
 
     <label>Total Amount:</label>
-    <input type="text" value={selectedProduct.price * selectedProduct.quantity} readOnly />
+    <input type="text" value={selectedProduct.price *1* selectedProduct.quantity} readOnly />
 
     <button className="add" onClick={handleAddToOrder}>Add </button>
   </div>
