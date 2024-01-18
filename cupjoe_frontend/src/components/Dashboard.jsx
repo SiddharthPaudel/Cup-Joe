@@ -167,10 +167,7 @@ const Dashboard = () => {
     });
   };
   
-  const handleSubmitOrder = () => {
-    // Implement logic to submit the order (e.g., send data to the server)
-    alert('Order submitted successfully!');
-  };
+
   
   const handleGetBill = () => {
     // Implement logic to generate and display the bill
@@ -437,7 +434,54 @@ const handleSearchproduct =()=>{
     delete updatedOrderObject[productId];
     setOrderObject(updatedOrderObject);
   };
-
+  const handleSubmitOrder = async () => {
+    try {
+      // Assuming you have the necessary data to generate the bill
+      const billPayload = {
+        fileName: "BillFileName", // Replace with an actual file name
+        contactNumber: customerDetails.contactNumber,
+        email: customerDetails.email,
+        name: customerDetails.name,
+        paymentMethod: customerDetails.paymentMethod,
+        productDetails: JSON.stringify(orderItems),
+        totalAmount: calculateTotalAmount(orderItems), // You need to implement this function
+      };
+  
+      // Call the generateBIll mutation
+      await generateBIll.mutate(billPayload, {
+        onSuccess: () => {
+          // Reset the order form and close the manage order section
+          setOrderItems([]);
+          setCustomerDetails({
+            name: '',
+            email: '',
+            contactNumber: '',
+            paymentMethod: 'cash',
+          });
+          setSelectedProduct({
+            category: '',
+            productName: '',
+            price: 0,
+            quantity: 0,
+          });
+          setOrderFormVisible(false);
+  
+          // You can add additional logic here, such as showing a success message
+          alert('Bill generated successfully!');
+        },
+      });
+    } catch (error) {
+      // Handle any errors that occur during the bill generation
+      console.error('Error generating bill:', error.message);
+      // You may want to display an error message to the user
+      alert('Error generating bill. Please try again.');
+    }
+  };
+  
+  // Function to calculate the total amount of the order
+  const calculateTotalAmount = (items) => {
+    return items.reduce((total, item) => total + item.total, 0);
+  };
   //api calling
   const useChangePassword=useMutation({
     mutationKey:["Change password"],
@@ -509,6 +553,21 @@ const handleSearchproduct =()=>{
     mutationFn:(payload)=>{
       // console.log(payload)
       return axios.post("http://localhost:8087/user/update",payload,{
+        headers:{authorization:"Bearer "+localStorage.getItem("token")}
+      })
+    }
+    // ,onSuccess:()=>{
+    //   reset()
+    //   refetch()
+
+    // }
+    ,
+  })
+  const generateBIll=useMutation({
+    mutationKey:["Generate BIll"],
+    mutationFn:(payload)=>{
+      // console.log(payload)
+      return axios.post("http://localhost:8087/bill/generate-report",payload,{
         headers:{authorization:"Bearer "+localStorage.getItem("token")}
       })
     }
@@ -894,9 +953,10 @@ const handleSearchproduct =()=>{
 <input
   type="text"
   value={
-    selectedProduct.quantity !== null && selectedProduct.quantity !== undefined
-      ? selectedProduct.price * selectedProduct.quantity
-      : 0
+    calculateTotalAmount(orderItems)  
+    // selectedProduct.quantity !== null && selectedProduct.quantity !== undefined
+    //   ? selectedProduct.price * selectedProduct.quantity
+    //   : 0
   }
   readOnly
 />
