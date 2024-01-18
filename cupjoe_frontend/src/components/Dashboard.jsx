@@ -109,8 +109,7 @@ const Dashboard = () => {
   };
 
     
-  
-
+ 
   const handleCustomerDetailsChange = (field, value) => {
     setCustomerDetails({ ...customerDetails, [field]: value });  
   };
@@ -193,6 +192,7 @@ const Dashboard = () => {
  
 
   const openManageUsers = () => {
+    setUserList(getuser.data)
     setManageUsersVisible(true);
   };
   const closeManageUsers=()=>{
@@ -384,6 +384,22 @@ const handleSearchproduct =()=>{
     }})
 
   }
+  const handleToggleActivation = (user) => {
+    // Implement your logic for toggling user activation status
+    console.log(`${user.id} toggled activation status`);
+    
+    // Assuming the user object has an 'isActive' property, toggle it
+    user.isActive = !user.isActive;
+  
+    // If you need to perform an API call to update the activation status, do it here
+    useChangestatus.mutate({ id: user.id, status: user.isActive.toString() });
+    // Force a re-render by updating the user list (assuming userList is state)
+    setUserList([...userList]);
+  
+    // You may toggle the visibility of the user management section if needed
+    // toggleManageUsers();
+  };
+
   //api calling
   const useChangePassword=useMutation({
     mutationKey:["Change password"],
@@ -435,7 +451,37 @@ const handleSearchproduct =()=>{
       }
     },
   });
-   
+  const getuser = useQuery({
+    queryKey: ["GET USER"],
+    queryFn: async () => {
+      try {
+        const response = await axios.get("http://localhost:8087/user/get", {
+          headers: { authorization: "Bearer " + localStorage.getItem("token") },
+        });
+  
+        return response.data;
+      } catch (error) {
+        throw new Error("Error fetching user: " + error.message);
+      }
+    },
+  });
+
+  const useChangestatus=useMutation({
+    mutationKey:["Change Status"],
+    mutationFn:(payload)=>{
+      console.log(payload)
+      return axios.post("http://localhost:8087/user/update",payload,{
+        headers:{authorization:"Bearer "+localStorage.getItem("token")}
+      })
+    }
+    // ,onSuccess:()=>{
+    //   reset()
+    //   refetch()
+
+    // }
+    ,
+  })
+  
   
   return (
     <div>
@@ -723,8 +769,9 @@ const handleSearchproduct =()=>{
                     <td>{user.email}</td>
                     <td>{user.contactNumber}</td>
                     <td>
-                      <button className='user'>Edit</button>
-                      <button className='user'>Delete</button>
+                    <button className='user' onClick={() => handleToggleActivation(user)}>
+                     {user.isActive ? "Deactivate" : "Activate"}
+                     </button>
                     </td>
                   </tr>
                ))}
