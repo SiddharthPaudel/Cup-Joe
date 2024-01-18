@@ -10,7 +10,8 @@ import axios from "axios";
 import { useHistory } from 'react-router-dom';
 const Dashboard = () => {
   const history = useHistory();  
-
+  const [orderItems, setOrderItems] = useState([]);
+  const [orderObject, setOrderObject] = useState({});
   const [profileVisible, setProfileVisible] = useState("");
   const [categoryModalVisible, setCategoryModalVisible] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // Add this line for error message
@@ -95,7 +96,7 @@ const Dashboard = () => {
 
   const handleCategoryChange = (event) => {
     const selectedCategoryId = parseInt(event.target.value, 10);
-    console.log("Newly selected category ID:", selectedCategoryId);
+    // console.log("Newly selected category ID:", selectedCategoryId);
   
     // Set the selected category ID
     setSelectedCategoryId(selectedCategoryId);
@@ -103,7 +104,7 @@ const Dashboard = () => {
   
   const handleProductIDChange = (event) => {
     const selectedCProductId = parseInt(event.target.value, 10);
-    console.log("Newly selected product ID:", selectedCProductId);
+    // console.log("Newly selected product ID:", selectedCProductId);
     // Set the selected category ID
     setSelectedProductID(selectedCProductId);
   };
@@ -116,21 +117,53 @@ const Dashboard = () => {
   
   const handleProductChange = (field, value) => {
     setSelectedProduct({ ...selectedProduct, [field]: value });
-    // if (field === 'quantity') {  
-    //   const totalPrice = selectedProduct.price * parseFloat(value || 0); // Convert value to a number
-    //   setSelectedProduct((prevProduct) => ({ ...prevProduct, total: totalPrice }));
+  
+    if (field === 'quantity') {
+      const quantity = parseFloat(value) || 0;
+      const price = parseFloat(selectedProduct.price) || 0;
+  
+      const totalPrice = isNaN(quantity) || isNaN(price) ? 0 : price * quantity;
+      
+      setSelectedProduct((prevProduct) => ({ ...prevProduct, total: totalPrice }));
+    }
+  
   };
-  
   const handleAddToOrder = () => {
-    // Add the selected product to the order list
-    setOrderList([...orderList, selectedProduct]);
+    const selectedCategory = categoryList.find(category => category.id === selectedCategoryId);
   
-    // Reset the selected product state for the next selection
+    if (!selectedCategory) {
+      console.error("Selected category not found");
+      return;
+    }
+    console.log(selectedProduct.quantity);
+    const newOrderItem = {
+      id: selectedProduct.id,
+      category: selectedCategory.name,
+      productName: selectedProduct.name,
+      price: selectedProduct.price,
+      quantity: selectedProduct.quantity,
+      total: selectedProduct.price * selectedProduct.quantity,
+    };
+    console.log(newOrderItem.quantity);
+    setOrderItems([...orderItems, newOrderItem]);
+  
+    const newOrderObject = {
+      ...orderObject,
+      [selectedProduct.id]: {
+        category: selectedCategory.name,
+        productName: selectedProduct.name,
+        price: selectedProduct.price,
+        quantity: selectedProduct.quantity,
+        total: selectedProduct.price * selectedProduct.quantity,
+      },
+    };
+    setOrderObject(newOrderObject);
+  
     setSelectedProduct({
-      category: '',
-      productName: '',
+      category: '---',
+      name: '----',
       price: 0,
-      quantity: 1,
+      quantity: 0,
     });
   };
   
@@ -211,12 +244,7 @@ const Dashboard = () => {
 
   const showTotalProduct = () => {
     // Add logic to fetch and set product list (e.g., from the server)
-    // For now, let's assume productList is an array of product objects
-    setProductList([
-      { id: 1, name: 'Coffee', category: 'Category 1', description: 'Description 1', price: 10.0 },
-      { id: 2, name: 'Noodles', category: 'Category 2', description: 'Description 2', price: 15.0 },
-      // Add more products as needed
-    ]);
+    // For now, let's assume productList is an array of product objects;
 
     // Show product-related elements
     closeCategoryModal(true);
@@ -399,12 +427,22 @@ const handleSearchproduct =()=>{
     // You may toggle the visibility of the user management section if needed
     // toggleManageUsers();
   };
+  const handleRemoveFromOrder = (productId) => {
+    // Remove the item from the order items
+    const updatedOrderItems = orderItems.filter((item) => item.id !== productId);
+    setOrderItems(updatedOrderItems);
+  
+    // Remove the item from the order object
+    const updatedOrderObject = { ...orderObject };
+    delete updatedOrderObject[productId];
+    setOrderObject(updatedOrderObject);
+  };
 
   //api calling
   const useChangePassword=useMutation({
     mutationKey:["Change password"],
     mutationFn:(payload)=>{
-      console.log(payload)
+      // console.log(payload)
       return axios.post("http://localhost:8087/user/change-password",payload,{
         headers:{authorization:"Bearer "+localStorage.getItem("token")}
       })
@@ -435,7 +473,7 @@ const handleSearchproduct =()=>{
     queryFn: async () => {
       try {
         if (selectedCategoryId!==null) {
-          console.log(selectedCategoryId)
+          // console.log(selectedCategoryId)
           const response = await axios.get(`http://localhost:8087/product/category/${selectedCategoryId}`, {
             headers: { authorization: "Bearer " + localStorage.getItem("token") },
           });
@@ -469,7 +507,7 @@ const handleSearchproduct =()=>{
   const useChangestatus=useMutation({
     mutationKey:["Change Status"],
     mutationFn:(payload)=>{
-      console.log(payload)
+      // console.log(payload)
       return axios.post("http://localhost:8087/user/update",payload,{
         headers:{authorization:"Bearer "+localStorage.getItem("token")}
       })
@@ -850,8 +888,20 @@ const handleSearchproduct =()=>{
       onChange={(e) => handleProductChange('quantity', e.target.value)}
     />
 
+{selectedProduct && (
+  <>
     <label>Total Amount:</label>
-    <input type="text" value={selectedProduct.price *1* selectedProduct.quantity} readOnly />
+<input
+  type="text"
+  value={
+    selectedProduct.quantity !== null && selectedProduct.quantity !== undefined
+      ? selectedProduct.price * selectedProduct.quantity
+      : 0
+  }
+  readOnly
+/>
+  </>
+)}
 
     <button className="add" onClick={handleAddToOrder}>Add </button>
   </div>
@@ -861,6 +911,38 @@ const handleSearchproduct =()=>{
     <button onClick={handleSubmitOrder}>Submit&GetBill</button>
     <button onClick={closeManageOrder}>Close</button>
   </div>
+
+
+  <div className="order-table">
+  <h3>Order Items</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    {orderItems.map((item) => (
+  <tr key={item.id}>
+    <td>{item.category}</td>
+    <td>{item.productName}</td>
+    <td>${item.price.toFixed(2)}</td>
+    <td>{item.quantity}</td>
+    <td>${item.total.toFixed(2)}</td>
+    <td>
+      <button onClick={() => handleRemoveFromOrder(item.id)}>Remove</button>
+    </td>
+  </tr>
+))}
+</tbody>
+  </table>
+</div>
+
   </div>
 )}
 
