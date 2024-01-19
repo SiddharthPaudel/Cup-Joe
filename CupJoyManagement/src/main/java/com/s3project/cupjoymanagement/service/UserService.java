@@ -9,6 +9,8 @@ import java.util.Map;
 public interface UserService {
    
 
+    ResponseEntity<String> signUp(Map<String,String> requestMap);
+
     public ResponseEntity<String> checkToken();
 
     public ResponseEntity<String> changePassword(Map<String, String> requestMap);

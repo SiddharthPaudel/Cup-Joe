@@ -13,5 +13,8 @@ public interface BillRest {
     public ResponseEntity<String> generateReport(@RequestBody Map<String, Object> requestMap);
     @GetMapping
     public ResponseEntity<List<Bill>> getBills();
+
+    @PostMapping("/get-pdf")
+    public ResponseEntity<byte[]> getPdf(@RequestBody Map<String, Object> requestMap);
    
 }
