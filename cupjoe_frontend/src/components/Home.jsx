@@ -3,6 +3,11 @@ import axios from 'axios';
 import React from "react";
 import "../css/home.css"; // Import your styles if needed
 import Logo from "../Images/Depositphotos_106586660_xl-2015 copy 3.jpeg";
+import {jwtDecode} from 'jwt-decode';
+// import { useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+
+
 
 class Home extends React.Component {
   constructor(props) {
@@ -79,9 +84,29 @@ class Home extends React.Component {
 
     try {
       const response = await axios.post("http://localhost:8087/user/login",{"email":username,"password":password});
+      const token = response.data.token;
 
+      const decodedToken = jwtDecode(token);
+      localStorage.setItem('token', token);
+      const decodeToken = (token) => {
+        try {
+          const decodedToken = jwtDecode(token);
+          return decodedToken;
+        } catch (error) {
+          console.error('Error decoding token:', error);
+          return null;
+        }
+      };
       console.log("Login successful:", response.data);
-      
+      if (decodedToken.role === 'admin') {
+        console.log("admin:");
+        this.props.history.push('/dash');
+       
+      } else {
+        console.log("user:");
+        this.props.history.push('/dash');
+        
+      }
     } catch (error) {
       console.error("Login failed:", error.response.data);
       

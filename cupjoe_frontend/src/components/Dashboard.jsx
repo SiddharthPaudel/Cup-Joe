@@ -1,10 +1,17 @@
 // Dashboard.jsx
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import '../css/dashboard.css'; // Make sure to import your CSS file
 import Profile from '../Images/profile.png';
 import Logo from '../Images/cup.png';
+// import {useForm} from "react-hook-form";
+import {useQuery,useMutation} from "@tanstack/react-query";
+import axios from "axios";
+import { useHistory } from 'react-router-dom';
 const Dashboard = () => {
+  const history = useHistory();  
+  const [orderItems, setOrderItems] = useState([]);
+  const [orderObject, setOrderObject] = useState({});
   const [profileVisible, setProfileVisible] = useState("");
   const [categoryModalVisible, setCategoryModalVisible] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // Add this line for error message
@@ -16,15 +23,14 @@ const Dashboard = () => {
   const [addProductCategory, setAddProductCategory] = useState('');
   const [addProductPrice, setAddProductPrice] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [productList, setProductList] = useState([]); 
+  const [productList, setProductList] = useState([]);
+
   const [addProductFormVisible, setAddProductFormVisible] = useState(false);
   const [profilePopUpVisible, setProfilePopUpVisible] = useState(false);
   const [changePasswordVisible, setChangePasswordVisible] = useState(false);
-  const [categoryList, setCategoryList] = useState([
-    { id: 1, name: 'Food' },
-    { id: 2, name: 'Beverage' },
-    // Add more categories as needed
-  ]);
+  const [categoryList, setCategoryList] = useState([]);
+
+
   const [addCategoryFormVisible, setAddCategoryFormVisible] = useState(false);
   const [categoryName, setCategoryName] = useState('');
   const [billModalVisible, setBillModalVisible] = useState(false);
@@ -42,7 +48,7 @@ const Dashboard = () => {
     category: '',
     productName: '',
     price: 0,
-    quantity: 1,
+    quantity: 0,
   });
   const [orderList, setOrderList] = useState([]);
   const [orderFormVisible, setOrderFormVisible] = useState(false);
@@ -50,35 +56,121 @@ const Dashboard = () => {
    const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const [selectedCategoryId, setSelectedCategoryId] = useState(1);
+  const [selectedProductID, setSelectedProductID] = useState(null);
+  useEffect(() => {
+    // Fetch products when the selected category changes
+    if (selectedCategoryId !== null) {
+      fetchProductsByCategory.refetch();
+      axios
+        .get(`http://localhost:8087/product/category/${selectedCategoryId}`, {
+          headers: { authorization: "Bearer " + localStorage.getItem("token") },
+        })
+        .then((response) => {
+          setProductList([
+            ...response.data.map((product) => ({ id: product.id, name: product.name })),
+          ])
+          // Update your productList state or do other processing
+        })
+        .catch((error) => {
+          console.error("Error fetching products:", error.message);
+        });
+    }
+  }, [selectedCategoryId]);
+  useEffect(() => {
+    // Fetch products when the selected category changes
+    if (selectedProductID !== null) {
+      fetchProductsByCategory.refetch();
+      axios
+        .get(`http://localhost:8087/product/get/${selectedProductID}`, {
+          headers: { authorization: "Bearer " + localStorage.getItem("token") },
+        })
+        .then((response) => {
+          setSelectedProduct(response.data)
+          // insert the data to price
+        })
+        .catch((error) => {
+          console.error("Error fetching price:", error.message);
+        });
+    }
+  }, [selectedProductID]);
 
 
+  const handleCategoryChange = (event) => {
+    const selectedCategoryId = parseInt(event.target.value, 10);
+    // console.log("Newly selected category ID:", selectedCategoryId);
+  
+    // Set the selected category ID
+    setSelectedCategoryId(selectedCategoryId);
+  };
 
   
+  const handleProductIDChange = (event) => {
+    const selectedCProductId = parseInt(event.target.value, 10);
+    // console.log("Newly selected product ID:", selectedCProductId);
+    // Set the selected category ID
+    setSelectedProductID(selectedCProductId);
+  };
+
+    
+ 
   const handleCustomerDetailsChange = (field, value) => {
-    setCustomerDetails({ ...customerDetails, [field]: value });
+    setCustomerDetails({ ...customerDetails, [field]: value });  
   };
   
   const handleProductChange = (field, value) => {
     setSelectedProduct({ ...selectedProduct, [field]: value });
+  
+    if (field === 'quantity') {
+      const quantity = parseFloat(value) || 0;
+      const price = parseFloat(selectedProduct.price) || 0;
+  
+      const totalPrice = isNaN(quantity) || isNaN(price) ? 0 : price * quantity;
+      
+      setSelectedProduct((prevProduct) => ({ ...prevProduct, total: totalPrice }));
+    }
+  
   };
-  
   const handleAddToOrder = () => {
-    // Add the selected product to the order list
-    setOrderList([...orderList, selectedProduct]);
+    const selectedCategory = categoryList.find(category => category.id === selectedCategoryId);
   
-    // Reset the selected product state for the next selection
+    if (!selectedCategory) {
+      console.error("Selected category not found");
+      return;
+    }
+    console.log(selectedProduct.quantity);
+    const newOrderItem = {
+      id: selectedProduct.id,
+      category: selectedCategory.name,
+      productName: selectedProduct.name,
+      price: selectedProduct.price,
+      quantity: selectedProduct.quantity,
+      total: selectedProduct.price * selectedProduct.quantity,
+    };
+    console.log(newOrderItem.quantity);
+    setOrderItems([...orderItems, newOrderItem]);
+  
+    const newOrderObject = {
+      ...orderObject,
+      [selectedProduct.id]: {
+        category: selectedCategory.name,
+        productName: selectedProduct.name,
+        price: selectedProduct.price,
+        quantity: selectedProduct.quantity,
+        total: selectedProduct.price * selectedProduct.quantity,
+      },
+    };
+    setOrderObject(newOrderObject);
+  
     setSelectedProduct({
-      category: '',
-      productName: '',
+      category: '---',
+      name: '----',
       price: 0,
-      quantity: 1,
+      quantity: 0,
     });
   };
   
-  const handleSubmitOrder = () => {
-    // Implement logic to submit the order (e.g., send data to the server)
-    alert('Order submitted successfully!');
-  };
+
   
   const handleGetBill = () => {
     // Implement logic to generate and display the bill
@@ -86,6 +178,12 @@ const Dashboard = () => {
   };
   const openManageOrder = () => {
     setOrderFormVisible(true);
+    setCategoryList([
+      ...getCatogory.data.map((category) => ({ id: category.id, name: category.name })),
+    ]);
+
+    ;
+    
   };
   const closeManageOrder = () => {
     setOrderFormVisible(false);
@@ -127,12 +225,13 @@ const Dashboard = () => {
  
 
   const openManageUsers = () => {
+    setUserList(getuser.data)
     setManageUsersVisible(true);
   };
   const closeManageUsers=()=>{
     setManageUsersVisible(false);
   }
-
+  
 
 
   
@@ -146,12 +245,7 @@ const Dashboard = () => {
   const showTotalProduct = () => {
 
     // Add logic to fetch and set product list (e.g., from the server)
-    // For now, let's assume productList is an array of product objects
-    setProductList([
-      { id: 1, name: 'Coffee', category: 'Category 1', description: 'Description 1', price: 10.0 },
-      { id: 2, name: 'Noodles', category: 'Category 2', description: 'Description 2', price: 15.0 },
-      // Add more products as needed
-    ]);
+    // For now, let's assume productList is an array of product objects;
 
     // Show product-related elements
     closeCategoryModal(true);
@@ -208,7 +302,8 @@ const handleSearchproduct =()=>{
 
   const handleLogout = () => {
     // Implement logic for logout (e.g., redirect to login page, clear session)
-    alert('Logged out successfully!');
+    localStorage.removeItem("token"); 
+    history.push('/Home');
   };
  
   const showDashboard = () => {
@@ -308,12 +403,186 @@ const handleSearchproduct =()=>{
 
     setCategoryModalVisible(false);
   };
-  const handleChangePasswordSubmit=() =>{
+  const handleChangePasswordSubmit=async()  =>{
+    if (newPassword !== confirmPassword) {
+      setErrorMessage('Passwords do not match');
+      return;
+    }
+    await useChangePassword.mutate({oldPassword,newPassword},{onSuccess(){
+      setChangePasswordVisible(false);
+    }})
 
   }
-  const handlePasswordChange=()=>{
+  const handleToggleActivation = (user) => {
+    // Implement your logic for toggling user activation status
+    console.log(`${user.id} toggled activation status`);
+    
+    // Assuming the user object has an 'isActive' property, toggle it
+    user.isActive = !user.isActive;
+  
+    // If you need to perform an API call to update the activation status, do it here
+    useChangestatus.mutate({ id: user.id, status: user.isActive.toString() });
+    // Force a re-render by updating the user list (assuming userList is state)
+    setUserList([...userList]);
+  
+    // You may toggle the visibility of the user management section if needed
+    // toggleManageUsers();
+  };
+  const handleRemoveFromOrder = (productId) => {
+    // Remove the item from the order items
+    const updatedOrderItems = orderItems.filter((item) => item.id !== productId);
+    setOrderItems(updatedOrderItems);
+  
+    // Remove the item from the order object
+    const updatedOrderObject = { ...orderObject };
+    delete updatedOrderObject[productId];
+    setOrderObject(updatedOrderObject);
+  };
+  const handleSubmitOrder = async () => {
+    try {
+      // Assuming you have the necessary data to generate the bill
+      const billPayload = {
+        fileName: "BillFileName", // Replace with an actual file name
+        contactNumber: customerDetails.contactNumber,
+        email: customerDetails.email,
+        name: customerDetails.name,
+        paymentMethod: customerDetails.paymentMethod,
+        productDetails: JSON.stringify(orderItems),
+        totalAmount: calculateTotalAmount(orderItems), // You need to implement this function
+      };
+  
+      // Call the generateBIll mutation
+      await generateBIll.mutate(billPayload, {
+        onSuccess: () => {
+          // Reset the order form and close the manage order section
+          setOrderItems([]);
+          setCustomerDetails({
+            name: '',
+            email: '',
+            contactNumber: '',
+            paymentMethod: 'cash',
+          });
+          setSelectedProduct({
+            category: '',
+            productName: '',
+            price: 0,
+            quantity: 0,
+          });
+          setOrderFormVisible(false);
+  
+          // You can add additional logic here, such as showing a success message
+          alert('Bill generated successfully!');
+        },
+      });
+    } catch (error) {
+      // Handle any errors that occur during the bill generation
+      console.error('Error generating bill:', error.message);
+      // You may want to display an error message to the user
+      alert('Error generating bill. Please try again.');
+    }
+  };
+  
+  // Function to calculate the total amount of the order
+  const calculateTotalAmount = (items) => {
+    return items.reduce((total, item) => total + item.total, 0);
+  };
+  //api calling
+  const useChangePassword=useMutation({
+    mutationKey:["Change password"],
+    mutationFn:(payload)=>{
+      // console.log(payload)
+      return axios.post("http://localhost:8087/user/change-password",payload,{
+        headers:{authorization:"Bearer "+localStorage.getItem("token")}
+      })
+    }
+    // ,onSuccess:()=>{
+    //   reset()
+    //   refetch()
 
-  }
+    // }
+    ,
+  })
+  const getCatogory = useQuery({
+    queryKey: ["GET Category"],
+    queryFn: async () => {
+      try {
+        const response = await axios.get("http://localhost:8087/category/get", {
+          headers: { authorization: "Bearer " + localStorage.getItem("token") },
+        });
+  
+        return response.data;
+      } catch (error) {
+        throw new Error("Error fetching categories: " + error.message);
+      }
+    },
+  });
+  const fetchProductsByCategory = useQuery({
+    queryKey: ["GET Product"],
+    queryFn: async () => {
+      try {
+        if (selectedCategoryId!==null) {
+          // console.log(selectedCategoryId)
+          const response = await axios.get(`http://localhost:8087/product/category/${selectedCategoryId}`, {
+            headers: { authorization: "Bearer " + localStorage.getItem("token") },
+          });
+  
+          return response.data;
+        } else {
+          // Handle the case when selectedCategoryId is not a valid number
+          console.error("Invalid category id");
+          return [];
+        }
+      } catch (error) {
+        throw new Error("Error fetching products: " + error.message);
+      }
+    },
+  });
+  const getuser = useQuery({
+    queryKey: ["GET USER"],
+    queryFn: async () => {
+      try {
+        const response = await axios.get("http://localhost:8087/user/get", {
+          headers: { authorization: "Bearer " + localStorage.getItem("token") },
+        });
+  
+        return response.data;
+      } catch (error) {
+        throw new Error("Error fetching user: " + error.message);
+      }
+    },
+  });
+
+  const useChangestatus=useMutation({
+    mutationKey:["Change Status"],
+    mutationFn:(payload)=>{
+      // console.log(payload)
+      return axios.post("http://localhost:8087/user/update",payload,{
+        headers:{authorization:"Bearer "+localStorage.getItem("token")}
+      })
+    }
+    // ,onSuccess:()=>{
+    //   reset()
+    //   refetch()
+
+    // }
+    ,
+  })
+  const generateBIll=useMutation({
+    mutationKey:["Generate BIll"],
+    mutationFn:(payload)=>{
+      // console.log(payload)
+      return axios.post("http://localhost:8087/bill/generate-report",payload,{
+        headers:{authorization:"Bearer "+localStorage.getItem("token")}
+      })
+    }
+    // ,onSuccess:()=>{
+    //   reset()
+    //   refetch()
+
+    // }
+    ,
+  })
+  
   
   return (
     <div>
@@ -342,21 +611,21 @@ const handleSearchproduct =()=>{
             type="password"
             id="oldPassword"
             value={oldPassword}
-            onChange={(e) => handlePasswordChange('oldPassword', e.target.value)}
+            onChange={(e) => setOldPassword( e.target.value)}
           />
           <label htmlFor="newPassword">New Password:</label>
           <input
             type="password"
             id="newPassword"
             value={newPassword}
-            onChange={(e) => handlePasswordChange('newPassword', e.target.value)}
+            onChange={(e) => setNewPassword(e.target.value)}
           />
           <label htmlFor="confirmPassword">Confirm Password:</label>
           <input
             type="password"
             id="confirmPassword"
             value={confirmPassword}
-            onChange={(e) => handlePasswordChange('confirmPassword', e.target.value)}
+            onChange={(e) => setConfirmPassword( e.target.value)}
           />
           <div className="password-buttons">
             <button onClick={handleChangePasswordSubmit}>Update</button>
@@ -604,8 +873,9 @@ const handleSearchproduct =()=>{
                     <td>{user.email}</td>
                     <td>{user.contactNumber}</td>
                     <td>
-                      <button className='user'>Edit</button>
-                      <button className='user'>Delete</button>
+                    <button className='user' onClick={() => handleToggleActivation(user)}>
+                     {user.isActive ? "Deactivate" : "Activate"}
+                     </button>
                     </td>
                   </tr>
                ))}
@@ -654,21 +924,21 @@ const handleSearchproduct =()=>{
     <h3>Product Details</h3>
     {/* Add dropdowns for category and product name based on your data */}
     <label>Category:</label>
-    <select>
-      {/* Add options dynamically based on your category data */}
-      {categoryList.map((category) => (
-        <option key={category.id} value={category.name}>
-          {category.name}
-        </option>
-      ))}
-    </select>
+   <select onChange={handleCategoryChange} value={selectedCategoryId}>
+          {/* Add options dynamically based on your category data */}
+          {categoryList.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
 
     <label>Product Name:</label>
-    <select>
+    <select onChange={handleProductIDChange} value={selectedProductID}>
       {/* Add options dynamically based on selected category and product data */}
       {/* You can filter products based on the selected category */}
       {productList.map((product) => (
-        <option key={product.id} value={product.name}>
+        <option key={product.id} value={product.id}>
           {product.name}
         </option>
       ))}
@@ -684,8 +954,21 @@ const handleSearchproduct =()=>{
       onChange={(e) => handleProductChange('quantity', e.target.value)}
     />
 
+{selectedProduct && (
+  <>
     <label>Total Amount:</label>
-    <input type="text" value={selectedProduct.price * selectedProduct.quantity} readOnly />
+<input
+  type="text"
+  value={
+    calculateTotalAmount(orderItems)  
+    // selectedProduct.quantity !== null && selectedProduct.quantity !== undefined
+    //   ? selectedProduct.price * selectedProduct.quantity
+    //   : 0
+  }
+  readOnly
+/>
+  </>
+)}
 
     <button className="add" onClick={handleAddToOrder}>Add </button>
   </div>
@@ -695,6 +978,38 @@ const handleSearchproduct =()=>{
     <button onClick={handleSubmitOrder}>Submit&GetBill</button>
     <button onClick={closeManageOrder}>Close</button>
   </div>
+
+
+  <div className="order-table">
+  <h3>Order Items</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    {orderItems.map((item) => (
+  <tr key={item.id}>
+    <td>{item.category}</td>
+    <td>{item.productName}</td>
+    <td>${item.price.toFixed(2)}</td>
+    <td>{item.quantity}</td>
+    <td>${item.total.toFixed(2)}</td>
+    <td>
+      <button onClick={() => handleRemoveFromOrder(item.id)}>Remove</button>
+    </td>
+  </tr>
+))}
+</tbody>
+  </table>
+</div>
+
   </div>
 )}
 
