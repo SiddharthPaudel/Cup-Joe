@@ -1,9 +1,12 @@
+// // Dashboard.jsx
 // Dashboard.jsx
 
-import React, { useState } from 'react';
+// Dashboard.js
+import React, { useEffect, useState } from 'react';
 import '../css/dashboard.css'; // Make sure to import your CSS file
 import Profile from '../Images/profile.png';
 import Logo from '../Images/cup.png';
+import { Container } from '@mui/material';
 const Dashboard = () => {
   const [profileVisible, setProfileVisible] = useState("");
   const [categoryModalVisible, setCategoryModalVisible] = useState("");
@@ -49,8 +52,70 @@ const Dashboard = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [editCategoryId, setEditCategoryId] = useState(null);
   const [editProductId, setEditProductId] = useState(null);
+  const [editUserId, setEditUserId] = useState(null);
+  const [userName, setUserName] = useState(''); // Add these state variables
+  const [userEmail, setUserEmail] = useState('');
+  const [userContactNumber, setUserContactNumber] = useState('');
+  const [editBillId, setEditBillId] = useState(null);
+  const [editBillName, setEditBillName] = useState('');
+  const [editBillEmail, setEditBillEmail] = useState('');
+  const [editBillContactNumber, setEditBillContactNumber] = useState('');
+  const [editBillPaymentMethod, setEditBillPaymentMethod] = useState('');
+  const [editBillTotal, setEditBillTotal] = useState();
+
+  // Function to handle the click of the "Edit" button in the bill table
+  const editBill = (bill) => {
+    // Set the state variables with the data of the selected bill
+    setEditBillId(bill.id);
+    setEditBillName(bill.name);
+    setEditBillEmail(bill.email);
+    setEditBillContactNumber(bill.contactNumber);
+    setEditBillPaymentMethod(bill.paymentMethod);
+    setEditBillTotal(bill.total);
+
+  };
+
+  // Function to handle the submission of the edited bill
+  const handleEditBillSubmit = () => {
+    // Implement logic to update the bill on the server or wherever you store your data
+    alert('Bill edited successfully!');
+
+    // Reset the state variables
+    setEditBillId(null);
+    setEditBillName('');
+    setEditBillEmail('');
+    setEditBillContactNumber('');
+    setEditBillPaymentMethod('');
+    setEditBillTotal(0);
+
+  };
+
+  const editUser = (user) => {
+    setEditUserId(user.id);
+    // Populate the form fields with the details of the user being edited
+    // Assuming you have similar state variables for user details
+    setUserName(user.name);
+    setUserEmail(user.email);
+    setUserContactNumber(user.contactNumber);
+    // Add more fields as needed
+  };
+
+  const handleEditUser = () => {
+    // Implement logic to update the user on the server or wherever you store your data
+    alert('User edited successfully!');
+    // Reset the state variables
+    setEditUserId(null);
+    setUserName('');
+    setUserEmail('');
+    setUserContactNumber('');
+    // Close the user modal after editing
+    closeManageUsers();
+  };
 
 
+
+  
+  
   const editProduct = (product) => {
     setEditProductId(product.id);
     // Populate the form fields with the details of the product being edited
@@ -377,6 +442,9 @@ const handleSearchproduct =()=>{
         <img src={Profile} alt="Logo" id="logo" onClick={toggleProfile} />
         
       </div>
+    
+      
+      
       {profilePopUpVisible && (
           <div className="profile-popup">
             <button onClick={toggleChangePassword}>Change Password</button>
@@ -453,6 +521,8 @@ const handleSearchproduct =()=>{
         <div className="dashboard-card" id="totalBillCard">
           <h2>Total bill</h2>
         </div>
+
+      
         {categoryModalVisible && (
       <div className="category-modal">
      
@@ -495,6 +565,7 @@ const handleSearchproduct =()=>{
           ))}
         </tbody>
       </table>
+      <button className='close-category' onClick={closeCategoryModal}>Close</button>
       {editCategoryId !== null && (
                 <div className="edit-category-form">
                   <label htmlFor="categoryName">Category Name:</label>
@@ -502,8 +573,6 @@ const handleSearchproduct =()=>{
                   <button onClick={handleEditCategory}>Save Changes</button>
                 </div>
               )}
-      <button className='close-category' onClick={closeCategoryModal}>Close</button>
-     
     </div>
 
    
@@ -572,6 +641,7 @@ const handleSearchproduct =()=>{
                 ))}
               </tbody>
             </table>
+            <button onClick={closeProductModal}>Close</button>
          {/* Edit product form */}
          {editProductId !== null && (
             <div className="edit-product-form">
@@ -619,7 +689,7 @@ const handleSearchproduct =()=>{
 
             {/* Add product button */}
             <div>
-              <button onClick={closeProductModal}>Close</button>
+             
             </div>
           </div>
         )}
@@ -656,13 +726,34 @@ const handleSearchproduct =()=>{
             <td>{bill.paymentMethod}</td>
             <td>${bill.total.toFixed(2)}</td>
             <td>
-              <button>Edit</button>
+              <button onClick={() => editBill(bill)}>Edit</button>
               <button>Delete</button>
             </td>
           </tr>
         ))}
       </tbody>
     </table>
+    {editBillId !== null && (
+    <div className="edit-bill-form">
+      <h3>Edit Bill</h3>
+      <label>Name:</label>
+      <input type="text" value={editBillName} onChange={(e) => setEditBillName(e.target.value)} />
+      <label>Email:</label>
+      <input type="text" value={editBillEmail} onChange={(e) => setEditBillEmail(e.target.value)} />
+      <label>Contact Number:</label>
+      <input type="text" value={editBillContactNumber} onChange={(e) => setEditBillContactNumber(e.target.value)} />
+      <label>Payment Method:</label>
+      <select value={editBillPaymentMethod} onChange={(e) => setEditBillPaymentMethod(e.target.value)}>
+        <option value="cash">Cash</option>
+        <option value="card">Card</option>
+      </select>
+      <label>Total:</label>
+      <input type="text" value={editBillTotal} onChange={(e) => setEditBillTotal(e.target.value)} />
+
+      <button onClick={handleEditBillSubmit}>Save Changes</button>
+    </div>
+  )}
+    
 
     {/* Close button */}
     <button className='closebill' onClick={closeBillModal}>Close</button>
@@ -702,7 +793,7 @@ const handleSearchproduct =()=>{
                     <td>{user.email}</td>
                     <td>{user.contactNumber}</td>
                     <td>
-                      <button className='user'>Edit</button>
+                    <button className='user' onClick={() => editUser(user)}>Edit</button>
                       <button className='user'>Delete</button>
                     </td>
                   </tr>
@@ -710,6 +801,39 @@ const handleSearchproduct =()=>{
               </tbody>
             </table>
             <button  className='user1' onClick={closeManageUsers}>Close</button>
+            {/* Edit user form */}
+          {editUserId !== null && (
+            <div className="edit-user-form">
+              <label htmlFor="userName">Name:</label>
+              <input
+                type="text"
+                id="userName"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+              />
+
+              <label htmlFor="userEmail">Email:</label>
+              <input
+                type="text"
+                id="userEmail"
+                value={userEmail}
+                onChange={(e) => setUserEmail(e.target.value)}
+              />
+
+              <label htmlFor="userContactNumber">Contact Number:</label>
+              <input
+                type="text"
+                id="userContactNumber"
+                value={userContactNumber}
+                onChange={(e) => setUserContactNumber(e.target.value)}
+              />
+
+              {/* Add more fields as needed */}
+
+              <button onClick={handleEditUser}>Save Changes</button>
+            </div>
+          )}
+            
           </div>
         )}
 

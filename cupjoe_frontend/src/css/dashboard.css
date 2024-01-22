@@ -6,14 +6,15 @@
              display: none;
              max-height: 80vh; /* Adjust the maximum height as needed */
              overflow-y: auto;
+            
          }
- 
-         body {
+     body {
              font-family: Arial, sans-serif;
              margin: 0; /* Remove default margin */
              padding: 0; /* Remove default padding */
          }
- 
+        
+
          header {
              font-family:  Georgia;
              display: flex;
@@ -22,29 +23,28 @@
              padding: 20px;
              align-items: center; /* Center align items */
              border-radius: 20px;
+            
+             
+             
          }
          
          header img {
              width: 100px;
-             height: 100px;
+             height: auto;
              margin-right: 20px; /* Adjusted margin for better spacing */
-         }
-
-
+         } 
         
-    
-         
- .logo-container {
-     cursor: pointer;
-     border-radius: 50%;
-     transform: translate(96%,-90%);
-
- }
- 
- #logo {
-     width: 30px;
-     height: 30px;
- }
+         .logo-container {
+          cursor: pointer;
+          border-radius: 50%;
+          transform: translate(96%,-90%);
+     
+      }
+      
+      #logo {
+          width: 30px;
+          height: 30px;
+      }
  /* Add this CSS to your existing dashboard.css or create a new CSS file */
 
 .profile-popup {
@@ -465,7 +465,7 @@
   display: flex;
   flex-direction: column;
   transform: translate(20%,5%);
-  width: 650px;
+width:685px;
   border-radius: 8px;
   background-color: white;
   height:auto;
@@ -955,7 +955,7 @@ button.user1:hover{
   max-width: 250px;
   margin: 15px auto;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  transform: translate(-10%,-130%);
+  transform: translate(-10%,-150%);
 }
 
 .edit-category-form label {
@@ -1030,6 +1030,112 @@ button.user1:hover{
   /* Enable vertical scrolling if content exceeds the container height */
   overflow-y: auto;
 }
+/* Add this to your existing CSS file or create a new one */
+
+/* Edit user form styles */
+.edit-user-form {
+  max-width: 300px;
+  margin: 20px auto;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  transform: translate(-0%,-75%);
+}
+
+.edit-user-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.edit-user-form input {
+  width: calc(100% - 16px);
+  padding: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.edit-user-form button {
+  background-color:whitesmoke;
+  color:black;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-user-form button:hover {
+  background-color: #2980b9;
+}
+/* Add this to your existing stylesheet or create a new CSS file for the edit form styling */
+
+.edit-bill-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 300px;
+}
+
+.edit-bill-form h3 {
+  margin-top: 0;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.edit-bill-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.edit-bill-form input,
+.edit-bill-form select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+.edit-bill-form select {
+  width: calc(100% + 2px); /* Adjust for select box width */
+}
+
+.edit-bill-form button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-bill-form button:hover {
+  background-color: #0056b3;
+}
+
+.edit-bill-form .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: #888;
+}
+
+.edit-bill-form .close-btn:hover {
+  color: #555;
+}
+
 
 
 
@@ -1055,13 +1161,19 @@ button.user1:hover{
 
  
  @media only screen and (max-width: 768px) {
-   header {
-       padding: 0.5rem;
-   }
- 
-   h3 {
-       padding-right: 10px;
-   }
+  header {
+    padding: 10px; /* Adjust padding for smaller screens */
+}
+
+header img {
+    width: 50px; /* Adjust as needed for small screens */
+    margin-right: 10px; /* Adjust margin for better spacing on small screens */
+}
+
+#logo {
+    margin-left: 10px; /* Adjust margin for small screens */
+    margin-top: 10px; /* Adjust margin for small screens */
+}
  
    .logo-container {
        margin-left: 10px;
