@@ -1,4 +1,6 @@
+// // Dashboard.jsx
 // Dashboard.jsx
+
 
 import React, { useState,useEffect } from 'react';
 import '../css/dashboard.css'; // Make sure to import your CSS file
@@ -8,6 +10,7 @@ import Logo from '../Images/cup.png';
 import {useQuery,useMutation} from "@tanstack/react-query";
 import axios from "axios";
 import { useHistory } from 'react-router-dom';
+
 const Dashboard = () => {
   const history = useHistory();  
   const [orderItems, setOrderItems] = useState([]);
@@ -43,7 +46,6 @@ const Dashboard = () => {
     contactNumber: '',
     paymentMethod: 'cash', // Default value, you can change it based on your requirements
   });
-  
   const [selectedProduct, setSelectedProduct] = useState({
     category: '',
     productName: '',
@@ -55,6 +57,111 @@ const Dashboard = () => {
    const [oldPassword, setOldPassword] = useState('');
    const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [editCategoryId, setEditCategoryId] = useState(null);
+  const [editProductId, setEditProductId] = useState(null);
+  const [editUserId, setEditUserId] = useState(null);
+  const [userName, setUserName] = useState(''); // Add these state variables
+  const [userEmail, setUserEmail] = useState('');
+  const [userContactNumber, setUserContactNumber] = useState('');
+  const [editBillId, setEditBillId] = useState(null);
+  const [editBillName, setEditBillName] = useState('');
+  const [editBillEmail, setEditBillEmail] = useState('');
+  const [editBillContactNumber, setEditBillContactNumber] = useState('');
+  const [editBillPaymentMethod, setEditBillPaymentMethod] = useState('');
+  const [editBillTotal, setEditBillTotal] = useState();
+
+  // Function to handle the click of the "Edit" button in the bill table
+  const editBill = (bill) => {
+    // Set the state variables with the data of the selected bill
+    setEditBillId(bill.id);
+    setEditBillName(bill.name);
+    setEditBillEmail(bill.email);
+    setEditBillContactNumber(bill.contactNumber);
+    setEditBillPaymentMethod(bill.paymentMethod);
+    setEditBillTotal(bill.total);
+
+  };
+
+  // Function to handle the submission of the edited bill
+  const handleEditBillSubmit = () => {
+    // Implement logic to update the bill on the server or wherever you store your data
+    alert('Bill edited successfully!');
+
+    // Reset the state variables
+    setEditBillId(null);
+    setEditBillName('');
+    setEditBillEmail('');
+    setEditBillContactNumber('');
+    setEditBillPaymentMethod('');
+    setEditBillTotal(0);
+
+  };
+
+  const editUser = (user) => {
+    setEditUserId(user.id);
+    // Populate the form fields with the details of the user being edited
+    // Assuming you have similar state variables for user details
+    setUserName(user.name);
+    setUserEmail(user.email);
+    setUserContactNumber(user.contactNumber);
+    // Add more fields as needed
+  };
+
+  const handleEditUser = () => {
+    // Implement logic to update the user on the server or wherever you store your data
+    alert('User edited successfully!');
+    // Reset the state variables
+    setEditUserId(null);
+    setUserName('');
+    setUserEmail('');
+    setUserContactNumber('');
+    // Close the user modal after editing
+    closeManageUsers();
+  };
+
+
+
+  
+  
+  const editProduct = (product) => {
+    setEditProductId(product.id);
+    // Populate the form fields with the details of the product being edited
+    setAddProductName(product.name);
+    setAddProductDescription(product.description);
+    setAddProductCategory(product.category);
+    setAddProductPrice(product.price.toString()); // Convert price to string for better user experience
+  };
+
+  const handleEditProduct = () => {
+    // Implement logic to update the product on the server or wherever you store your data
+    alert('Product edited successfully!');
+    // Reset the state variables
+    setEditProductId(null);
+    setAddProductName('');
+    setAddProductDescription('');
+    setAddProductCategory('');
+    setAddProductPrice('');
+    // Close the product modal after editing
+    closeProductModal();
+  };
+
+
+
+  const editCategory = (category) => {
+    setEditCategoryId(category.id);
+    // Populate the form fields with the details of the category being edited
+    setCategoryName(category.name);
+  };
+
+  // Function to handle category form submission
+  const handleEditCategory = () => {
+    // Implement logic to update the category on the server or wherever you store your data
+    alert('Category edited successfully!');
+    // Reset the state variables
+    setEditCategoryId(null);
+    setCategoryName('');
+    // Close the category modal after editing
+    closeCategoryModal();
 
   const [selectedCategoryId, setSelectedCategoryId] = useState(1);
   const [selectedProductID, setSelectedProductID] = useState(null);
@@ -102,6 +209,7 @@ const Dashboard = () => {
   
     // Set the selected category ID
     setSelectedCategoryId(selectedCategoryId);
+
   };
 
   
@@ -178,11 +286,18 @@ const Dashboard = () => {
   };
   const openManageOrder = () => {
     setOrderFormVisible(true);
+
+    closeProductModal();
+    closeBillModal();
+    closeCategoryModal();
+    closeManageUsers();
+
     setCategoryList([
       ...getCatogory.data.map((category) => ({ id: category.id, name: category.name })),
     ]);
 
     ;
+
     
   };
   const closeManageOrder = () => {
@@ -227,6 +342,10 @@ const Dashboard = () => {
   const openManageUsers = () => {
     setUserList(getuser.data)
     setManageUsersVisible(true);
+    closeBillModal();
+    closeCategoryModal();
+    closeManageOrder();
+    closeProductModal();
   };
   const closeManageUsers=()=>{
     setManageUsersVisible(false);
@@ -249,6 +368,9 @@ const Dashboard = () => {
 
     // Show product-related elements
     closeCategoryModal(true);
+    closeBillModal();
+    closeManageOrder();
+    closeManageUsers();
     setProductModalVisible(true);
 
   };
@@ -324,6 +446,9 @@ const handleSearchproduct =()=>{
     event.preventDefault();
     setCategoryModalVisible(true);
     closeProductModal(true);
+    closeBillModal();
+    closeManageOrder();
+    closeManageUsers();
     
   };
 
@@ -342,10 +467,6 @@ const handleSearchproduct =()=>{
   }
 
  
-  const editCategory =()=>{
-    alert("Edit category functionality to be implemented.");
-    closeCategoryModal();
-  }
   const showTotalBill = () => {
     // Fetch bill data or simulate fetching
     setBillList([
@@ -373,6 +494,8 @@ const handleSearchproduct =()=>{
    
     closeCategoryModal();
     closeProductModal();
+    closeManageOrder();
+    closeManageUsers();
     setBillModalVisible(true);
    
   };
@@ -552,6 +675,7 @@ const handleSearchproduct =()=>{
     },
   });
 
+
   const useChangestatus=useMutation({
     mutationKey:["Change Status"],
     mutationFn:(payload)=>{
@@ -583,6 +707,7 @@ const handleSearchproduct =()=>{
     ,
   })
   
+
   
   return (
     <div>
@@ -657,7 +782,6 @@ const handleSearchproduct =()=>{
         <a href="#" onClick={showTotalBill} className="Bill-link">
           View Bill
         </a>
-        
         <a href="#" onClick={openManageUsers} className="user-link">
           <span className="text">Manage User</span>
         </a>
@@ -672,11 +796,11 @@ const handleSearchproduct =()=>{
           <h2>Total product </h2>
           <p></p>
         </div>
-
         <div className="dashboard-card" id="totalBillCard">
           <h2>Total bill</h2>
         </div>
 
+      
         {categoryModalVisible && (
       <div className="category-modal">
      
@@ -687,6 +811,8 @@ const handleSearchproduct =()=>{
         <button onClick={handleSearchCategory} className="barsearch">Search</button>
         <button className="add-category" onClick={() => setAddCategoryFormVisible(!addCategoryFormVisible)}>Add Category</button>
       </div>
+
+
       {addCategoryFormVisible && (
   <div className="add-category-form">
     <label htmlFor="categoryName">Category Name:</label>
@@ -718,7 +844,13 @@ const handleSearchproduct =()=>{
         </tbody>
       </table>
       <button className='close-category' onClick={closeCategoryModal}>Close</button>
-      <h3>hello</h3>
+      {editCategoryId !== null && (
+                <div className="edit-category-form">
+                  <label htmlFor="categoryName">Category Name:</label>
+                  <input type="text" id="categoryName" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} />
+                  <button onClick={handleEditCategory}>Save Changes</button>
+                </div>
+              )}
     </div>
 
    
@@ -743,7 +875,7 @@ const handleSearchproduct =()=>{
             <input type="text" id="addProductName" value={addProductName} onChange={(e) => setAddProductName(e.target.value)} />
 
             <label htmlFor="addProductDescription">Description:</label>
-            <textarea type="text" id="addProductDescription" value={addProductDescription} onChange={(e) => setAddProductDescription(e.target.value)} />
+            <input type="text" id="addProductDescription" value={addProductDescription} onChange={(e) => setAddProductDescription(e.target.value)} />
 
             <label htmlFor="addProductCategory">Category:</label>
             <select id="addProductCategory" value={addProductCategory} onChange={(e) => setAddProductCategory(e.target.value)}>
@@ -780,17 +912,62 @@ const handleSearchproduct =()=>{
                     <td>{product.category}</td>
                     <td>${product.price.toFixed(2)}</td>
                     <td>
-                      <button>Edit</button>
+                    <button onClick={() => editProduct(product)}>Edit</button>
                       <button>Delete</button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+            <button onClick={closeProductModal}>Close</button>
+         {/* Edit product form */}
+         {editProductId !== null && (
+            <div className="edit-product-form">
+              <label htmlFor="addProductName">Name:</label>
+              <input
+                type="text"
+                id="addProductName"
+                value={addProductName}
+                onChange={(e) => setAddProductName(e.target.value)}
+              />
+
+              <label htmlFor="addProductDescription">Description:</label>
+              <input
+                type="text"
+                id="addProductDescription"
+                value={addProductDescription}
+                onChange={(e) => setAddProductDescription(e.target.value)}
+              />
+
+              <label htmlFor="addProductCategory">Category:</label>
+              <select
+                id="addProductCategory"
+                value={addProductCategory}
+                onChange={(e) => setAddProductCategory(e.target.value)}
+              >
+                {/* Add options dynamically based on your category data */}
+                {categoryList.map((category) => (
+                  <option key={category.id} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+
+              <label htmlFor="addProductPrice">Price:</label>
+              <input
+                type="text"
+                id="addProductPrice"
+                value={addProductPrice}
+                onChange={(e) => setAddProductPrice(e.target.value)}
+              />
+
+              <button onClick={handleEditProduct}>Save Changes</button>
+            </div>
+         )}
 
             {/* Add product button */}
             <div>
-              <button onClick={closeProductModal}>Close</button>
+             
             </div>
           </div>
         )}
@@ -827,16 +1004,37 @@ const handleSearchproduct =()=>{
             <td>{bill.paymentMethod}</td>
             <td>${bill.total.toFixed(2)}</td>
             <td>
-              <button>Edit</button>
+              <button onClick={() => editBill(bill)}>Edit</button>
               <button>Delete</button>
             </td>
           </tr>
         ))}
       </tbody>
     </table>
+    {editBillId !== null && (
+    <div className="edit-bill-form">
+      <h3>Edit Bill</h3>
+      <label>Name:</label>
+      <input type="text" value={editBillName} onChange={(e) => setEditBillName(e.target.value)} />
+      <label>Email:</label>
+      <input type="text" value={editBillEmail} onChange={(e) => setEditBillEmail(e.target.value)} />
+      <label>Contact Number:</label>
+      <input type="text" value={editBillContactNumber} onChange={(e) => setEditBillContactNumber(e.target.value)} />
+      <label>Payment Method:</label>
+      <select value={editBillPaymentMethod} onChange={(e) => setEditBillPaymentMethod(e.target.value)}>
+        <option value="cash">Cash</option>
+        <option value="card">Card</option>
+      </select>
+      <label>Total:</label>
+      <input type="text" value={editBillTotal} onChange={(e) => setEditBillTotal(e.target.value)} />
+
+      <button onClick={handleEditBillSubmit}>Save Changes</button>
+    </div>
+  )}
+    
 
     {/* Close button */}
-    <button onClick={closeBillModal}>Close</button>
+    <button className='closebill' onClick={closeBillModal}>Close</button>
   </div>
 
 )}
@@ -873,15 +1071,50 @@ const handleSearchproduct =()=>{
                     <td>{user.email}</td>
                     <td>{user.contactNumber}</td>
                     <td>
+
                     <button className='user' onClick={() => handleToggleActivation(user)}>
                      {user.isActive ? "Deactivate" : "Activate"}
                      </button>
+
                     </td>
                   </tr>
                ))}
               </tbody>
             </table>
-            <button  className='user' onClick={closeManageUsers}>Close</button>
+            <button  className='user1' onClick={closeManageUsers}>Close</button>
+            {/* Edit user form */}
+          {editUserId !== null && (
+            <div className="edit-user-form">
+              <label htmlFor="userName">Name:</label>
+              <input
+                type="text"
+                id="userName"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+              />
+
+              <label htmlFor="userEmail">Email:</label>
+              <input
+                type="text"
+                id="userEmail"
+                value={userEmail}
+                onChange={(e) => setUserEmail(e.target.value)}
+              />
+
+              <label htmlFor="userContactNumber">Contact Number:</label>
+              <input
+                type="text"
+                id="userContactNumber"
+                value={userContactNumber}
+                onChange={(e) => setUserContactNumber(e.target.value)}
+              />
+
+              {/* Add more fields as needed */}
+
+              <button onClick={handleEditUser}>Save Changes</button>
+            </div>
+          )}
+            
           </div>
         )}
 
@@ -918,6 +1151,7 @@ const handleSearchproduct =()=>{
       <option value="card">Card</option>
     </select>
   </div>
+
 
   {/* Product Details Form */}
   <div className="product-details-form">
@@ -969,6 +1203,7 @@ const handleSearchproduct =()=>{
 />
   </>
 )}
+
 
     <button className="add" onClick={handleAddToOrder}>Add </button>
   </div>
