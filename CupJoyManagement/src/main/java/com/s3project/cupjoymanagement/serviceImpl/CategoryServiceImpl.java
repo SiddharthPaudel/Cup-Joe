@@ -1,0 +1,72 @@
+package com.s3project.cupjoymanagement.serviceImpl;
+
+import com.google.common.base.Strings;
+import com.s3project.cupjoymanagement.constents.CafeConstants;
+import com.s3project.cupjoymanagement.dao.CategoryDao;
+import com.s3project.cupjoymanagement.jwt.JwtFilter;
+import com.s3project.cupjoymanagement.pojo.Category;
+import com.s3project.cupjoymanagement.service.CategoryService;
+import com.s3project.cupjoymanagement.utils.CafeUtils;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class CategoryServiceImpl implements CategoryService {
+    private final CategoryDao categoryDao;
+    private final JwtFilter jwtFilter;
+    @Override
+    public ResponseEntity<String> addCategory(Map<String, String> requestMap) {
+        try {
+            if(jwtFilter.isAdmin()){
+                if(this.validateCategoryMap(requestMap, false)){
+                    categoryDao.save(getCategoryFromMap(requestMap, false));
+                    return CafeUtils.getResponseEntity("Category was added successfully", HttpStatus.OK);
+                }
+            }else {
+                return CafeUtils.getResponseEntity(CafeConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception exception){
+            exception.printStackTrace();
+        }
+        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
+    private boolean validateCategoryMap(Map<String, String> requestMap, boolean validateId) {
+        if(requestMap.containsKey("name")){
+            if(requestMap.containsKey("id") && validateId){
+                return true;
+            }
+            return !validateId;
+        }
+        return false;
+    }
+    private Category getCategoryFromMap(Map<String, String> requestMap, Boolean isAdd){
+        Category category = new Category();
+        if(isAdd){
+            category.setId(Integer.parseInt(requestMap.get("id")));
+        }
+        category.setName(requestMap.get("name"));
+        return category;
+    }
+    @Override
+    public ResponseEntity<List<Category>> getCategories(String filterValue) {
+        try {
+            if(!Strings.isNullOrEmpty(filterValue) && filterValue.equalsIgnoreCase("true"))
+                return new ResponseEntity<>(categoryDao.getCategories(), HttpStatus.OK);
+            return new ResponseEntity<>(categoryDao.findAll(), HttpStatus.OK);
+        } catch (Exception exception){
+            exception.printStackTrace();
+        }
+        return new ResponseEntity<List<Category>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+}

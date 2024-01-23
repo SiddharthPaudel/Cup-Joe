@@ -363,6 +363,7 @@
     color:black /* Use a different color for the "Close" button */
   }
   
+
   .product-modal button:hover {
     background-color: #2980b9;
   }
@@ -374,6 +375,7 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   } */
+
   
   
   .google-search-wide {
@@ -1253,6 +1255,5 @@ header img {
    
  
  
- 
- 
+
    
