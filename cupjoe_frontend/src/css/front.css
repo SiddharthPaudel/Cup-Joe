@@ -1,11 +1,9 @@
-/* front.css */
-
-body {
+front.css body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
-  overflow: hidden; /* Prevent scrolling caused by the background image */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 /* Background Image Styles */
@@ -19,11 +17,14 @@ body {
   bottom: 0;
   left: 0;
   z-index: -1;
-  filter: brightness(50%); /* Adjust the brightness of the background image */
+  filter: brightness(50%);
+  height: 100vh; /* Full height */
 }
 
 /* Header Styles */
+/* Header Styles */
 .new-header {
+  font-size: 2em; /* Example size, adjust as needed */
   color: rgb(255, 204, 0);
   padding: 1em;
   text-align: center;
@@ -31,25 +32,16 @@ body {
 
 /* Navigation Styles */
 .new-nav {
+  font-size: 1em; /* Example size, adjust as needed */
   padding: 1em;
   display: flex;
   justify-content: flex-end;
   transform: translateX(30%);
 }
 
-.new-nav a {
-  text-decoration: none;
-  color: #b5deb5;
-  padding: 0.5em 1em;
-  margin-left: 1em; /* Adjust margin for spacing */
-}
-
-.new-nav a:hover {
-  background-color: rgba(255, 204, 0, 0.431);
-}
-
 /* Main Content Styles */
 .new-main {
+  font-size: 1.2em; /* Example size, adjust as needed */
   padding: 2em;
   color: #b5deb5;
   font-weight: bold;
@@ -59,6 +51,7 @@ body {
 
 /* Footer Styles */
 .new-footer {
+  font-size: 0.8em; /* Example size, adjust as needed */
   position: fixed;
   bottom: 0;
   left: 0;

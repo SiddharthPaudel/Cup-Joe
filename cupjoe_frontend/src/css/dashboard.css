@@ -1,0 +1,1191 @@
+/* General styles for the entire page */
+/* Add Google Fonts import */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+.dashboard-card {
+  display: none;
+  max-height: 80vh; /* Adjust the maximum height as needed */
+  overflow-y: auto;
+}
+
+/* styles.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  font-family: Georgia;
+  display: flex;
+  background-color: #ecf0f1;
+  color: black;
+  padding: 20px;
+  align-items: center;
+  border-radius: 20px;
+}
+
+header img {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+.logo-container {
+  cursor: pointer;
+  border-radius: 50%;
+  transform: translate(96%, -90%);
+}
+
+#logo {
+  width: 30px;
+  height: 30px;
+}
+
+/* Add this CSS to your existing dashboard.css or create a new CSS file */
+
+.profile-popup {
+  position: absolute;
+  top: 150px; /* Adjust the top position as needed */
+  right: 100px; /* Adjust the right position as needed */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.profile-popup label {
+  margin-bottom: 5px;
+}
+
+.profile-popup input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.profile-popup button {
+  padding: 8px 12px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: rgb(214, 214, 214);
+  color: black;
+  border: none;
+  border-radius: 4px;
+  font-family: "Poppins", sans-serif;
+}
+
+.profile-popup button:hover {
+  background-color: #45a049;
+}
+/* Sidebar navigation styles */
+nav {
+  font-family: "Poppins", sans-serif;
+  width: 250px;
+  border-radius: 10px;
+  background-color: #ecf0f1;
+  color: #34495e;
+  padding-left: 30px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  top: 180px; /* Adjust the top property to move the navigation */
+  transition: top 0.3s ease; /* Add a transition effect */
+}
+
+nav a {
+  color: #34495e;
+  text-decoration: none;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #bdc3c7;
+  transform: scale(1.05);
+}
+
+/* Main content area styles */
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left: 270px;
+  padding: 20px;
+}
+
+/* Styles for dashboard cards */
+.dashboard-card {
+  background-color: #ecf0f1;
+  box-shadow: 100px;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  flex-basis: calc(33.333% - 20px);
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+.dashboard-link {
+  display: inline-block;
+  padding-left: 30px; /* Adjust the padding according to your preference */
+  background-image: url("../Images/dash.jpg");
+  background-size: 20px 20px; /* Adjust the size of the icon */
+  background-repeat: no-repeat;
+  background-position: 10px center; /* Adjust the position of the icon */
+  text-decoration: none; /* Remove underline from the link */
+  transition: background-color 0.3s ease;
+}
+
+.dashboard-link:hover {
+  /* Optionally, add styles for hover state */
+  background-color: #bdc3c7;
+}
+
+.category-link {
+  display: inline-block;
+  font-family: "Poppins", sans-serif;
+  padding-left: 30px; /* Adjust the padding according to your preference */
+  background-image: url(../Images/category.png);
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: 1vh; /* Adjust the position of the icon */
+  text-decoration: none; /* Remove underline from the link */
+  transition: background-color 0.3s ease; /* Add smooth transition */
+}
+.category-link:hover {
+  background-color: #bdc3c7; /* Change background color on hover */
+}
+.product-link {
+  display: inline-block;
+  padding-left: 30px; /* Adjust the padding according to your preference */
+  background-image: url("../Images/order.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: 1vh; /* Adjust the position of the icon */
+  text-decoration: none; /* Remove underline from the link */
+  transition: background-color 0.3s ease; /* Add smooth transition */
+}
+.product-link:hover {
+  background-color: #bdc3c7;
+}
+.order-link {
+  display: inline-block;
+  padding-left: 30px; /* Adjust the padding according to your preference */
+  background-image: url("../Images/cart.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: 1vh; /* Adjust the position of the icon */
+  text-decoration: none; /* Remove underline from the link */
+  transition: background-color 0.3s ease; /* Add smooth transition */
+}
+.order-link:hover {
+  background-color: #bdc3c7;
+}
+.Bill-link {
+  display: inline-block;
+  padding-left: 30px; /* Adjust the padding according to your preference */
+  background-image: url(../Images/Bill.png);
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: 1vh; /* Adjust the position of the icon */
+  text-decoration: none; /* Remove underline from the link */
+  transition: background-color 0.3s ease; /* Add smooth transition */
+}
+.Bill-link:hover {
+  background-color: #bdc3c7;
+}
+.user-link {
+  display: inline-block;
+  padding-left: 30px; /* Adjust the padding according to your preference */
+  background-image: url("../Images/Manage\ user.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: 1vh; /* Adjust the position of the icon */
+  text-decoration: none; /* Remove underline from the link */
+  transition: background-color 0.3s ease; /* Add smooth transition */
+}
+.user-link:hover {
+  background-color: #bdc3c7;
+}
+
+.centered-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 120vh; /* Ensure the box takes at least the full height of the viewport */
+}
+
+.box {
+  width: 300px;
+  padding: 30px;
+  background-color: #ffffff;
+  border: 1px solid #e1e1e1;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.box h3 {
+  color: #333;
+}
+
+.box label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.box button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 0 5px;
+  transition: background-color 0.3s ease;
+}
+
+.box button:hover {
+  background-color: #45a049;
+}
+/* .categorypart h3{
+  
+    margin-left: 70px;
+ }
+ .categorypart input{
+    margin-left: 30px;
+ }
+ .categorypart label{
+
+    margin-left: 70px;
+ } */
+
+/* Adjust the styles based on your design preferences */
+
+/* Adjust the styles based on your design preferences */
+
+.product-modal {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  width: 755px;
+  transform: translate(10%);
+  background-color: #ecf0f1;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  /* Set the width as per your design */
+  border-radius: 20px;
+}
+
+.product-modal h3 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  display: flex;
+}
+
+.product-modal label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.product-modal input,
+.product-modal textarea,
+.product-modal select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.product-modal button {
+  font-family: "Poppins", sans-serif;
+  color: black;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.product-modal button:last-child {
+  color: black; /* Use a different color for the "Close" button */
+}
+
+.product-modal button:hover {
+  background-color: #2980b9;
+}
+
+.product-modal {
+  background-color: #f8f8f8;
+  color: black;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+*/ .google-search-wide {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.google-search-wide input {
+  flex-grow: 10; /* Adjusted flex-grow for a wider search input */
+  padding: 15px;
+  font-size: 16px;
+}
+
+.google-search-wide button {
+  font-family: "Poppins", sans-serif;
+  padding: 5px;
+
+  color: black;
+
+  border: none;
+  cursor: pointer;
+}
+
+.product-table-wide {
+  font-family: "Poppins", sans-serif;
+  width: 95%;
+  border-collapse: collapse;
+  margin-bottom: 30px; /* Increased margin for more separation */
+}
+
+.product-table-wide th,
+.product-table-wide td {
+  font-family: "Poppins", sans-serif;
+  border: 1px solid #ddd;
+  padding: 15px; /* Increased padding for better spacing */
+  text-align: left;
+}
+
+.product-table-wide th {
+  background-color: #f9f9f9;
+  color: black;
+}
+
+.product-table-wide tr:nth-child(even) {
+  font-family: "Poppins", sans-serif;
+  background-color: #f9f9f9;
+  color: black;
+}
+
+.product-table-wide tr:hover {
+  font-family: "Poppins", sans-serif;
+  background-color: #f1f1f1;
+  color: black;
+}
+
+.success-box {
+  font-family: "Poppins", sans-serif;
+  background-color: #d4edda;
+
+  border: 1px solid #c3e6cb;
+  padding: 15px; /* Increased padding for better spacing */
+  margin-top: 15px; /* Increased margin for more separation */
+}
+
+.success-box p {
+  margin: 0;
+}
+
+/* dashboard.css */
+
+.search-and-button-container {
+  display: flex;
+
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.add-product-button {
+  transform: translate(500%, -180%);
+}
+.search-product-button {
+  transform: translate(300%, -20%);
+}
+
+.category-form {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  transform: translate(20%, 5%);
+  width: 650px;
+  border-radius: 8px;
+  background-color: white;
+  height: auto;
+}
+
+.search-category {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+#searchCategory {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.barsearch {
+  /* Add these styles to your existing CSS or create a new CSS file */
+  padding: 10px 15px;
+  transform: translate(-5%, 2%);
+  color: black;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-category button:hover {
+  background-color: #2980b9;
+}
+
+.add-category {
+  font-family: "Poppins", sans-serif;
+  padding: 10px 15px;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-category:hover {
+  background-color: #2980b9;
+}
+
+.category-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.category-table th,
+.category-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+  border-radius: 20px;
+}
+
+.category-table th {
+  color: black;
+}
+
+.category-table td button {
+  font-family: "Poppins", sans-serif;
+  margin-right: 5px;
+  padding: 8px 15px;
+  color: blak;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.category-table td button:hover {
+  background-color: #2980b9;
+}
+
+/* dashboard.css */
+
+.add-category-form {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  transform: translate(-5%, -40%);
+}
+
+.add-category-form label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.add-category-form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+.add-category-form button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.add-category-form button:hover {
+  background-color: #2980b9;
+}
+
+.add-category-form button:last-child {
+  background-color: #ccc;
+  color: #333;
+}
+
+.add-category-form button:last-child:hover {
+  background-color: #bbb;
+}
+
+.close-category {
+  font-family: "Poppins", sans-serif;
+  margin-right: 5px;
+  padding: 3px 3px;
+  color: black;
+  width: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  transform: translate(700%);
+}
+.close-category:hover {
+  background-color: #2980b9;
+}
+
+/* Add these styles to your existing CSS or create a new CSS file */
+
+/* Styles for the entire bill modal */
+.bill-modal {
+  font-family: "Poppins", sans-serif;
+  position: fixed;
+  /* top: 50%; */
+  /* left: 50%; */
+  transform: translate(5%);
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 55%; /* Set a default width for larger screens */
+  background-color: white;
+}
+
+/* Styles for the header */
+.bill-modal h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+/* Styles for the search bar */
+.bill-search {
+  margin-bottom: 15px;
+}
+
+.bill-search input {
+  width: 70%; /* Adjust the width based on your design */
+  padding: 8px;
+  margin-right: 8px;
+  border: 1px solid #ccc;
+}
+
+.bill-search button {
+  /* Adjust the width based on your design */
+
+  color: whitesmoke;
+  border: none;
+  cursor: pointer;
+}
+
+/* Styles for the bill table */
+.bill-table {
+  font-family: "Poppins", sans-serif;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.bill-table th,
+.bill-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+/* Styles for action buttons in the table */
+.bill-table button {
+  font-family: "Poppins", sans-serif;
+  width: 40px; /* Adjust the width based on your design */
+  padding: 8px 12px;
+  margin-right: 5px;
+  background-color: whitesmoke;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* Style for the close button */
+.bill-modal button {
+  font-family: "Poppins", sans-serif;
+  width: 50px; /* Set full width for smaller screens */
+  padding: 10px 0;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 7px;
+}
+
+/* Add hover effect to buttons */
+.bill-table button:hover,
+.bill-modal button:hover {
+  background-color: #2980b9;
+}
+.closebill {
+  font-family: "Poppins", sans-serif;
+  width: 50px; /* Set full width for smaller screens */
+  padding: 10px 0;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 7px;
+  transform: translate(700%);
+}
+
+/* Manageuser */
+.manage-users-container {
+  font-family: "Poppins", sans-serif;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.search-users {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+h3 {
+  margin: 0;
+}
+
+input[type="text"] {
+  width: 60%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+button.usersearch {
+  font-family: "Poppins", sans-serif;
+  padding: 8px;
+  background-color: whitesmoke;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+}
+button.usersearch:hover {
+  background-color: #2980b9;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table th,
+.user-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.user-table th {
+  background-color: #f2f2f2;
+}
+
+.user-table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.user-table-button {
+  font-family: "Poppins", sans-serif;
+  padding: 8px;
+  background-color: whitesmoke;
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+button.user {
+  font-family: "Poppins", "sans-seriff";
+  background-color: whitesmoke;
+  border: none;
+  border-radius: 10px;
+}
+button.user:hover {
+  background-color: #2980b9;
+}
+button.user1 {
+  font-family: "Poppins", "sans-seriff";
+  background-color: whitesmoke;
+  border: none;
+  border-radius: 10px;
+  transform: translateX(610%);
+}
+button.user1:hover {
+  background-color: #2980b9;
+}
+
+.order-form-container {
+  font-family: "Poppins", sans-serif;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 800px; /* Adjust the maximum width as needed */
+  margin: 0 auto; /* Center the form horizontally */
+  padding: 20px;
+}
+
+/* Add this to your existing CSS */
+
+.customer-details-form h3,
+.product-details-form h3 {
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 10px;
+}
+
+.customer-details-form,
+.product-details-form {
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 20px;
+}
+
+.customer-details-form label,
+.product-details-form label {
+  font-family: "Poppins", sans-serif;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.customer-details-form input,
+.customer-details-form select,
+.product-details-form input,
+.product-details-form select {
+  font-family: "Poppins", sans-serif;
+  width: calc(
+    100% - 10px
+  ); /* Take up full width with some margin on the right */
+  margin-bottom: 10px; /* Adjust margin for spacing between rows */
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.order-buttons {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: space-between;
+  margin-top: -100px; /* Add some top margin to separate buttons from fields */
+  height: 30px;
+}
+
+.order-buttons button {
+  font-family: "Poppins", sans-serif;
+  flex: 1; /* Each button takes up equal space */
+  margin-right: 10px; /* Adjust margin between buttons */
+  background-color: whitesmoke;
+  border-radius: 10px;
+  border: none;
+}
+.order-buttons :hover {
+  background-color: #2980b9;
+}
+.add {
+  font-family: "Poppins", sans-serif;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  border: none;
+  height: 30px;
+  transform: translateY(-95%);
+}
+.add:hover {
+  background-color: #2980b9;
+}
+.product-details-form label.move-right {
+  text-align: right;
+  margin-right: 10px; /* Adjust the right margin as needed */
+  transform: translate(70%, -1300%);
+}
+.product-details-form input.move-right {
+  text-align: right;
+  margin-right: 1px;
+  transform: translate(120%, -800%); /* Adjust the right margin for the input */
+}
+
+.change-password-form {
+  font-family: "Poppins", sans-serif;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  padding: 25px;
+  width: 300px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: auto; /* Center the form */
+}
+
+.change-password-form h3 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.change-password-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.change-password-form input {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.password-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.password-buttons button {
+  font-family: "Poppins", sans-serif;
+  padding: 12px 20px;
+  cursor: pointer;
+  background-color: whitesmoke;
+  color: black;
+  border: none;
+  border-radius: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.password-buttons button:hover {
+  background-color: #2980b9;
+}
+/* Add this CSS to your 'dashboard.css' file */
+
+.edit-category-form {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  max-width: 250px;
+  margin: 15px auto;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  transform: translate(-10%, -150%);
+}
+
+.edit-category-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.edit-category-form input {
+  width: 100%;
+  padding: 6px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.edit-category-form button {
+  font-family: "Poppins", sans-serif;
+  background-color: #bdc3c7;
+  color: black;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-category-form button:hover {
+  background-color: #2980b9;
+}
+/* Add this CSS to your 'dashboard.css' file or create a new CSS file for the edit product form styles */
+
+.edit-product-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  transform: translate(-10%, -90%);
+  border-radius: 10px;
+}
+
+.edit-product-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.edit-product-form input,
+.edit-product-form select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.edit-product-form button {
+  font-family: "Poppins", sans-serif;
+  background-color: whitesmoke;
+  color: black;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-product-form button:hover {
+  background-color: #2980b9;
+}
+.edit-product-form {
+  /* Other styles */
+
+  /* Enable vertical scrolling if content exceeds the container height */
+  overflow-y: auto;
+}
+/* Add this to your existing CSS file or create a new one */
+
+/* Edit user form styles */
+.edit-user-form {
+  max-width: 300px;
+  margin: 20px auto;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  transform: translate(-0%, -75%);
+}
+
+.edit-user-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.edit-user-form input {
+  width: calc(100% - 16px);
+  padding: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.edit-user-form button {
+  background-color: whitesmoke;
+  color: black;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-user-form button:hover {
+  background-color: #2980b9;
+}
+/* Add this to your existing stylesheet or create a new CSS file for the edit form styling */
+
+.edit-bill-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 300px;
+}
+
+.edit-bill-form h3 {
+  margin-top: 0;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.edit-bill-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.edit-bill-form input,
+.edit-bill-form select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+.edit-bill-form select {
+  width: calc(100% + 2px); /* Adjust for select box width */
+}
+
+.edit-bill-form button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-bill-form button:hover {
+  background-color: #0056b3;
+}
+
+.edit-bill-form .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: #888;
+}
+
+.edit-bill-form .close-btn:hover {
+  color: #555;
+}
+
+/* Add additional styling as needed */
+
+@media only screen and (max-width: 768px) {
+  header {
+    padding: 0.5rem;
+  }
+
+  h3 {
+    padding-right: 10px;
+  }
+
+  .logo-container {
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #333;
+  }
+
+  nav {
+    top: 0;
+    width: 100%;
+    position: static;
+  }
+
+  main {
+    margin-left: 0;
+    padding: 10px;
+  }
+
+  .dashboard-card {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+
+  .profile-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile {
+    width: 100%;
+    text-align: center;
+  }
+  .bill-modal {
+    width: 90%; /* Adjust the width for smaller screens */
+  }
+
+  .bill-search input,
+  .bill-search button,
+  .bill-table button {
+    width: 100%; /* Set full width for smaller screens */
+  }
+
+  .search-users {
+    flex-direction: column;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .customer-details-form label,
+  .product-details-form label {
+    flex-basis: calc(50% - 10px);
+    margin-right: 10px;
+  }
+
+  .order-buttons {
+    flex-direction: row;
+  }
+
+  .order-buttons button {
+    width: calc(50% - 5px);
+    margin-right: 5px;
+    margin-bottom: 0;
+  }
+  .change-password-form {
+    width: 90%; /* Adjust width for small screens */
+  }
+
+  .password-buttons {
+    flex-direction: column; /* Stack buttons vertically on small screens */
+  }
+
+  .password-buttons button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
