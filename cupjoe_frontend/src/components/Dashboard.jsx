@@ -116,17 +116,21 @@ const Dashboard = () => {
   };
   
   const handleProductChange = (field, value) => {
-    setSelectedProduct({ ...selectedProduct, [field]: value });
+    const newQuantity = Math.max(0, parseInt(value, 10) || 0);
+  
+    setSelectedProduct((prevProduct) => ({
+      ...prevProduct,
+      [field]: newQuantity,
+    }));
   
     if (field === 'quantity') {
-      const quantity = parseFloat(value) || 0;
+      const quantity = parseFloat(newQuantity) || 0;  // Use newQuantity here
       const price = parseFloat(selectedProduct.price) || 0;
   
       const totalPrice = isNaN(quantity) || isNaN(price) ? 0 : price * quantity;
-      
+  
       setSelectedProduct((prevProduct) => ({ ...prevProduct, total: totalPrice }));
     }
-  
   };
   const handleAddToOrder = () => {
     const selectedCategory = categoryList.find(category => category.id === selectedCategoryId);
@@ -211,7 +215,7 @@ const Dashboard = () => {
   const handleSearchUser = () => {
     // Filter the userList based on the search query
     const query = searchQuery.toLowerCase();
-    const filteredUsers = getUserList().filter(
+    const filteredUsers = userList.filter(
       (user) =>
         user.name.toLowerCase().includes(query) ||
         user.email.toLowerCase().includes(query) ||
@@ -223,6 +227,7 @@ const Dashboard = () => {
 
   const openManageUsers = () => {
     setUserList(getuser.data)
+    console.log(userList);
     setManageUsersVisible(true);
   };
   const closeManageUsers=()=>{
@@ -414,10 +419,14 @@ const handleSearchproduct =()=>{
     console.log(`${user.id} toggled activation status`);
     
     // Assuming the user object has an 'isActive' property, toggle it
-    user.isActive = !user.isActive;
+    if(user.status==="true"){
+      user.status="false";
+    }else{
+      user.status="true";
+    }
   
     // If you need to perform an API call to update the activation status, do it here
-    useChangestatus.mutate({ id: user.id, status: user.isActive.toString() });
+    useChangestatus.mutate({ id: user.id, status: user.status });
     // Force a re-render by updating the user list (assuming userList is state)
     setUserList([...userList]);
   
@@ -711,7 +720,6 @@ const handleSearchproduct =()=>{
         </tbody>
       </table>
       <button className='close-category' onClick={closeCategoryModal}>Close</button>
-      <h3>hello</h3>
     </div>
 
    
@@ -867,7 +875,8 @@ const handleSearchproduct =()=>{
                     <td>{user.contactNumber}</td>
                     <td>
                     <button className='user' onClick={() => handleToggleActivation(user)}>
-                     {user.isActive ? "Deactivate" : "Activate"}
+                         {user.status==="true"? "Deactivate" : "Activate"}
+                     {/* {user.status ? "Deactivate" : "Activate"} */}
                      </button>
                     </td>
                   </tr>
@@ -963,12 +972,16 @@ const handleSearchproduct =()=>{
   </>
 )}
 
-    <button className="add" onClick={handleAddToOrder}>Add </button>
+    <button className="add" onClick={handleAddToOrder} disabled={selectedProduct.quantity === 0}>Add </button>
   </div>
 
   {/* Submit and Get Bill Buttons */}
   <div className="order-buttons">
-    <button onClick={handleSubmitOrder}>Submit&GetBill</button>
+    <button onClick={handleSubmitOrder}  disabled={
+      !customerDetails.name ||
+      !customerDetails.email ||
+      !customerDetails.contactNumber
+    }>Submit&GetBill</button>
     <button onClick={closeManageOrder}>Close</button>
   </div>
 

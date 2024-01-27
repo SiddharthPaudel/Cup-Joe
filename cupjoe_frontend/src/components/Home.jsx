@@ -6,6 +6,9 @@ import Logo from "../Images/Depositphotos_106586660_xl-2015 copy 3.jpeg";
 import {jwtDecode} from 'jwt-decode';
 // import { useHistory } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
@@ -38,7 +41,6 @@ class Home extends React.Component {
   showLogin = () => {
     this.setState({ showRegistration: false, forgotPassword: false });
   };
-
   showForgotPassword = () => {
     this.setState({
       forgotPassword: true,
@@ -72,8 +74,10 @@ class Home extends React.Component {
       const response = await axios.post("http://localhost:8087/user/signup",  {"name":username,"contactNumber":parseInt(phone),"email":email,"password":password});
       console.log(response);
       console.log("Registration successful:", response.data);
+      toast.success(response.data);
     } catch (error) {
       console.error("Registration failed:", error.response.data); 
+      toast.error("Registration failed:"+error.response.data+". Please try again.");
     }
   };
 
@@ -98,6 +102,7 @@ class Home extends React.Component {
         }
       };
       console.log("Login successful:", response.data);
+      toast.success(response.data);
       if (decodedToken.role === 'admin') {
         console.log("admin:");
         this.props.history.push('/dash');
@@ -108,7 +113,8 @@ class Home extends React.Component {
         
       }
     } catch (error) {
-      console.error("Login failed:", error.response.data);
+      console.error("Login failed:", error.response.data.message);
+      toast.error(error.response.data.message);
       
     }
   };
@@ -359,6 +365,7 @@ class Home extends React.Component {
             </div>
           )}
         </div>
+        <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl pauseOnFocusLoss draggable pauseOnHover />
       </>
     );
   }
