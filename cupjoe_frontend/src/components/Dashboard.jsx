@@ -273,6 +273,7 @@ const handleAddProduct = () => {
   
   
 };
+
 const handleSearchproduct =()=>{
 
   const query = searchQuery.toLowerCase();
