@@ -28,5 +28,16 @@ public class CategoryRestImpl implements CategoryRest {
         return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @Override
+    public ResponseEntity<List<Category>> getCategories(String filterValue) {
+        try {
+            return categoryService.getCategories(filterValue);
+        } catch (Exception exception){
+            exception.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
   
 }

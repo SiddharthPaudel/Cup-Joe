@@ -57,5 +57,16 @@ public class CategoryServiceImpl implements CategoryService {
         category.setName(requestMap.get("name"));
         return category;
     }
+    @Override
+    public ResponseEntity<List<Category>> getCategories(String filterValue) {
+        try {
+            if(!Strings.isNullOrEmpty(filterValue) && filterValue.equalsIgnoreCase("true"))
+                return new ResponseEntity<>(categoryDao.getCategories(), HttpStatus.OK);
+            return new ResponseEntity<>(categoryDao.findAll(), HttpStatus.OK);
+        } catch (Exception exception){
+            exception.printStackTrace();
+        }
+        return new ResponseEntity<List<Category>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 }
