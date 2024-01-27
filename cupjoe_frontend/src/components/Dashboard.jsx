@@ -354,25 +354,7 @@ const handleSearchproduct =()=>{
   }
   const showTotalBill = () => {
     // Fetch bill data or simulate fetching
-    setBillList([
-      {
-        id: 1,
-        name: 'Siddharth',
-        email: 'sid@gail',
-        contactNumber: '123343',
-        paymentMethod: 'Credit Card',
-        total: 50.0,
-      },
-      {
-        id:2,
-        name: 'Ram',
-        email: 'ram@gmail.com',
-        contactNumber: '122341',
-        paymentMethod: 'Credit Card',
-        total: 50.0,
-      }
-      // Add more bills as needed
-    ]);
+    setBillList(getbill.data);
     
   
     // Update the bill list with the formatted values
@@ -592,6 +574,20 @@ const handleSearchproduct =()=>{
     // }
     ,
   })
+  const getbill  = useQuery({
+    queryKey: ["GET BILL"],
+    queryFn: async () => {
+      try {
+        const response = await axios.get("http://localhost:8087/bill/get", {
+          headers: { authorization: "Bearer " + localStorage.getItem("token") },
+        });
+  
+        return response.data;
+      } catch (error) {
+        throw new Error("Error fetching bill: " + error.message);
+      }
+    },
+  });
   
   
   return (
