@@ -8,7 +8,7 @@ front.css body {
 
 /* Background Image Styles */
 .new-background-image {
-  background-image: url("../Images/Depositphotos_106586660_xl-2015 copy 3.jpeg");
+  background-image: url("../Images/download.jpeg");
   background-size: cover;
   background-position: center;
   position: fixed;
@@ -25,9 +25,10 @@ front.css body {
 /* Header Styles */
 .new-header {
   font-size: 2em; /* Example size, adjust as needed */
-  color: rgb(255, 204, 0);
+  color: #e1d721;
   padding: 1em;
   text-align: center;
+  text-decoration: underline;
 }
 
 /* Navigation Styles */
@@ -37,6 +38,15 @@ front.css body {
   display: flex;
   justify-content: flex-end;
   transform: translateX(30%);
+  color: #fff;
+}
+.new-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
+}
+.new-nav a:hover {
+  color: #b5deb5;
 }
 
 /* Main Content Styles */
@@ -48,7 +58,9 @@ front.css body {
   text-align: left;
   transform: translateX(-30%);
 }
-
+.new-main p {
+  font-style: bold;
+}
 /* Footer Styles */
 .new-footer {
   font-size: 0.8em; /* Example size, adjust as needed */

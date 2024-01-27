@@ -2,7 +2,7 @@
 
 import React from "react";
 import "../css/home.css"; // Import your styles if needed
-import Logo from "../Images/Depositphotos_106586660_xl-2015 copy 3.jpeg";
+// import Logo from "../Images/Depositphotos_106586660_xl-2015 copy 3.jpeg";
 
 class Home extends React.Component {
   constructor(props) {

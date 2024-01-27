@@ -2,7 +2,7 @@
 
 import React from "react";
 import "../css/front.css"; // Import the CSS file
-
+import "../Images/download.jpeg";
 function Front() {
   return (
     <div>
