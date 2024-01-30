@@ -1,13 +1,9 @@
-front.css body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+.front_body {
+  overflow-x: hidden;
 }
 
 /* Background Image Styles */
-.new-background-image {
+.new_background_image {
   background-image: url("../Images/download.jpeg");
   background-size: cover;
   background-position: center;
@@ -23,7 +19,7 @@ front.css body {
 
 /* Header Styles */
 /* Header Styles */
-.new-header {
+.new_header {
   font-size: 2em; /* Example size, adjust as needed */
   color: #e1d721;
   padding: 1em;
@@ -32,25 +28,24 @@ front.css body {
 }
 
 /* Navigation Styles */
-.new-nav {
+.new_nav {
   font-size: 1em; /* Example size, adjust as needed */
   padding: 1em;
   display: flex;
   justify-content: flex-end;
-  transform: translateX(30%);
   color: #fff;
 }
-.new-nav a {
+.new_nav a {
   color: #fff;
   text-decoration: none;
   font-size: 20px;
 }
-.new-nav a:hover {
+.new_nav a:hover {
   color: #b5deb5;
 }
 
 /* Main Content Styles */
-.new-main {
+.new_main {
   font-size: 1.2em; /* Example size, adjust as needed */
   padding: 2em;
   color: #b5deb5;
@@ -58,11 +53,11 @@ front.css body {
   text-align: left;
   transform: translateX(-30%);
 }
-.new-main p {
+.new_main p {
   font-style: bold;
 }
 /* Footer Styles */
-.new-footer {
+.new_footer {
   font-size: 0.8em; /* Example size, adjust as needed */
   position: fixed;
   bottom: 0;
@@ -80,27 +75,27 @@ front.css body {
   /* Adjust styles for screens up to 768 pixels wide */
 
   /* Logo Styles */
-  .new-logo {
+  .new_logo {
     top: 5px; /* Adjust top position for smaller screens */
     left: 5px; /* Adjust left position for smaller screens */
   }
 
   /* Navigation Styles */
-  .new-nav {
+  .new_nav {
     justify-content: flex-start; /* Align navigation links to the left for smaller screens */
   }
 
-  .new-nav a {
+  .new_nav a {
     margin-left: 0.5em; /* Adjust margin for spacing on smaller screens */
   }
 
   /* Main Content Styles */
-  .new-main {
+  .new_main {
     transform: translateX(0); /* Reset the transformation for smaller screens */
   }
 
   /* Footer Styles */
-  .new-footer {
+  .new_footer {
     border-radius: 0; /* Remove border-radius for smaller screens */
   }
 }

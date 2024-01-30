@@ -1,22 +1,23 @@
 // / Front.jsx
 
 import React from "react";
-import "../css/front.css"; // Import the CSS file
+import styles from "./Front.module.css"; // Import the CSS file
 import "../Images/download.jpeg";
+import { style } from "@mui/system";
 function Front() {
   return (
-    <div>
-      <div className="new-background-image"></div>
+    <div className={styles.front_body}>
+      <div className={styles.new_background_image}></div>
 
       <header>
-        <h1 className="new-header">Welcome to Cup Joe!</h1>
+        <h1 className={styles.new_header}>Welcome to Cup Joe!</h1>
       </header>
 
-      <nav className="new-nav">
+      <nav className={styles.new_nav}>
         <a href="/">Sign-up/Login?</a>
       </nav>
 
-      <main className="new-main">
+      <main className={styles.new_main}>
         <p>
           "Discover a symphony of flavors at Cup Joe, where passion meets
           <br />
@@ -40,7 +41,9 @@ function Front() {
         </p>
       </main>
 
-      <footer className="new-footer">&copy; 2023 Cafe Management System</footer>
+      <footer className={styles.new_footer}>
+        &copy; 2023 Cafe Management System
+      </footer>
     </div>
   );
 }

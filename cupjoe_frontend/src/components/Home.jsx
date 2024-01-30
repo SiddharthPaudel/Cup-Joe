@@ -1,8 +1,7 @@
 // src/components/Home.jsx
 
 import React from "react";
-import "../css/home.css"; // Import your styles if needed
-// import Logo from "../Images/Depositphotos_106586660_xl-2015 copy 3.jpeg";
+import styles from "./Home.module.css"; // Import your styles if needed
 
 class Home extends React.Component {
   constructor(props) {
@@ -78,15 +77,15 @@ class Home extends React.Component {
     return (
       <>
         <noscript>You need to enable JavaScript to run this app.</noscript>
-        <div id="root">
+        <div className={styles.backdrop}>
           {forgotPassword ? (
             <div
-              className="container-forgotpassword"
+              className={`${styles.container} ${styles.forgotpassword}`}
               id="forgotPasswordContainer"
             >
-              <h1 className="sign-up">Forgot Password</h1>
+              <h1 className={styles.sign_up}>Forgot Password</h1>
               <form onSubmit={this.handleForgotPasswordSubmit}>
-                <div className="form-group">
+                <div className={styles.form_group}>
                   <label htmlFor="email">Email:</label>
                   <input
                     type="email"
@@ -107,10 +106,12 @@ class Home extends React.Component {
             </div>
           ) : (
             <div
-              className={`container ${showRegistration ? "signup" : "login"}`}
+              className={`${styles.container} ${
+                showRegistration ? styles.signup : styles.login
+              }`}
               id="mainContainer"
             >
-              <h1 className="sign-up">
+              <h1 className={styles.sign_up}>
                 {showRegistration ? "Sign Up" : "Login"}
               </h1>
 
@@ -123,7 +124,7 @@ class Home extends React.Component {
                 }
               >
                 {showRegistration && (
-                  <div className="form-group">
+                  <div className={styles.form_group}>
                     <label htmlFor="email">Email:</label>
                     <input
                       type="email"
@@ -138,7 +139,7 @@ class Home extends React.Component {
                 )}
 
                 {showRegistration && (
-                  <div className="form-group">
+                  <div className={styles.form_group}>
                     <label htmlFor="phone">Phone Number:</label>
                     <input
                       type="tel"
@@ -153,7 +154,7 @@ class Home extends React.Component {
                 )}
 
                 {showRegistration && (
-                  <div className="form-group">
+                  <div className={styles.form_group}>
                     <label htmlFor="username">Username:</label>
                     <input
                       type="text"
@@ -170,9 +171,9 @@ class Home extends React.Component {
                 )}
 
                 {showRegistration && (
-                  <div className="form-group">
+                  <div className={styles.form_group}>
                     <label htmlFor="password">Password:</label>
-                    <div className="password-container">
+                    <div className={styles.password_container}>
                       <input
                         type={passwordVisible ? "text" : "password"}
                         id="password"
@@ -185,7 +186,7 @@ class Home extends React.Component {
                         }
                       />
                       <span
-                        className="show-password-btn"
+                        className={styles.show_password_btn}
                         role="button"
                         tabIndex={0}
                         onClick={() =>
@@ -199,9 +200,9 @@ class Home extends React.Component {
                 )}
 
                 {showRegistration && (
-                  <div className="form-group">
+                  <div className={styles.form_group}>
                     <label htmlFor="confirmPassword">Confirm Password:</label>
-                    <div className="password-container">
+                    <div className={styles.password_container}>
                       <input
                         type={confirmPasswordVisible ? "text" : "password"}
                         id="confirmPassword"
@@ -214,7 +215,7 @@ class Home extends React.Component {
                         }
                       />
                       <span
-                        className="show-password-btn"
+                        className={styles.show_password_btn}
                         role="button"
                         tabIndex={0}
                         onClick={() =>
@@ -230,7 +231,7 @@ class Home extends React.Component {
                 )}
 
                 {!showRegistration && (
-                  <div className="form-group">
+                  <div className={styles.form_group}>
                     <label htmlFor="username">Username:</label>
                     <input
                       type="text"
@@ -247,9 +248,9 @@ class Home extends React.Component {
                 )}
 
                 {!showRegistration && (
-                  <div className="form-group">
+                  <div className={styles.form_group}>
                     <label htmlFor="password">Password:</label>
-                    <div className="password-container">
+                    <div className={styles.password_container}>
                       <input
                         type={passwordVisible ? "text" : "password"}
                         id="password"
@@ -262,7 +263,7 @@ class Home extends React.Component {
                         }
                       />
                       <span
-                        className="show-password-btn"
+                        className={styles.show_password_btn}
                         role="button"
                         tabIndex={0}
                         onClick={() =>
@@ -281,7 +282,7 @@ class Home extends React.Component {
               </form>
 
               {!showRegistration && (
-                <div className="forgot-password-link">
+                <div className={styles.forgot_password_link}>
                   <span
                     onClick={this.showForgotPassword}
                     style={{ cursor: "pointer" }}
@@ -291,8 +292,8 @@ class Home extends React.Component {
                 </div>
               )}
 
-              <div className="back-to-login">
-                <p className="already-have-an-account">
+              <div className={styles.back_to_login}>
+                <p className={styles.already_have_an_account}>
                   {showRegistration
                     ? "Already have an account?"
                     : "Don't have an account?"}

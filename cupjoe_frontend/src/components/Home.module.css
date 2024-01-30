@@ -1,11 +1,6 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* Home.module.css */
 
-body {
-  font-family: "Poppins", sans-serif;
+.backdrop {
   background: linear-gradient(
       to top,
       rgba(0, 0, 0, 0.5) 100%,
@@ -13,56 +8,54 @@ body {
     ),
     url("../Images/Depositphotos_106586660_xl-2015 copy 3.jpeg") center/cover
       no-repeat;
-  height: auto;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.container.signup {
+
+.container {
   background-color: rgba(248, 238, 238, 0.538);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 40px;
-  margin-top: 10px;
   border-radius: 40px;
   height: auto;
-  box-shadow: 100px;
-}
-.container.login {
-  background-color: rgba(248, 238, 238, 0.538);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 40px;
-  margin-top: 150px;
-  border-radius: 40px;
-}
-.container-forgotpassword {
-  background-color: rgba(248, 238, 238, 0.538);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 40px;
-  margin-top: 150px;
-  border-radius: 40px;
+  margin-top: 10px;
 }
 
-h1 {
+.signup {
+  margin-top: 10px;
+}
+
+.login {
+  margin-top: 150px;
+}
+
+.forgotpassword {
+  margin-top: 150px;
+}
+
+.container h1 {
   text-align: center;
   color: black;
   margin-bottom: 30px;
 }
 
-form {
+.container form {
   display: flex;
   flex-direction: column;
 }
 
-.form-group {
+.container .form_group {
   margin-bottom: 20px;
 }
 
-label {
+.container label {
   margin-bottom: 8px;
   color: rgb(12, 5, 5);
 }
 
-input {
+.container input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -71,11 +64,11 @@ input {
   margin-top: 4px;
 }
 
-.password-container {
+.password_container {
   position: relative;
 }
 
-.show-password-btn {
+.show_password_btn {
   position: absolute;
   top: 50%;
   right: 10px;
@@ -86,7 +79,7 @@ input {
   cursor: pointer;
 }
 
-button {
+.container button {
   background-color: #3498db;
   color: #fff;
   font-weight: bold;
@@ -98,40 +91,40 @@ button {
   margin-top: 10px; /* Added margin between the buttons */
 }
 
-button:hover {
+.container button:hover {
   background-color: #2980b9;
 }
 
-.back-to-login {
+.back_to_login {
   margin-top: 20px;
   text-align: center;
 }
 
-.back-to-login p {
+.back_to_login p {
   color: #555;
 }
 
-.back-to-login span {
+.back_to_login span {
   color: #3498db;
   cursor: pointer;
   text-decoration: underline;
 }
 
-.sign-up {
+.sign_up {
   margin-bottom: 30px;
 }
 
-.already-have-an-account {
+.already_have_an_account {
   margin-bottom: 10px;
 }
 
 /* Add styling for the forgot-password-link */
-.forgot-password-link {
+.forgot_password_link {
   text-align: left;
   margin-bottom: 15px;
 }
 
-.forgot-password-link span {
+.forgot_password_link span {
   color: #0d1b24;
   cursor: pointer;
   text-decoration: underline;
@@ -146,4 +139,11 @@ button:hover {
 
 #forgotPasswordContainer button[type="button"]:hover {
   background-color: #c0392b;
+}
+
+/* Media Query for Responsive Design */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
 }
