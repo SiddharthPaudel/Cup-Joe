@@ -17,4 +17,6 @@ public interface BillRest {
     @PostMapping("/get-pdf")
     public ResponseEntity<byte[]> getPdf(@RequestBody Map<String, Object> requestMap);
    
+    @PostMapping("/getAll-pdf")
+    public ResponseEntity<byte[]> getAllPdf(@RequestBody Map<String, Object> requestMap);
 }
