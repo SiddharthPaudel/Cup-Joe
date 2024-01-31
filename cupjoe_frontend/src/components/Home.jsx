@@ -15,7 +15,8 @@ class Home extends React.Component {
       username: "",
       password: "",
       confirmPassword: "",
-      phone: "", // Add phone state
+      phone: "",
+      wrongPassword: false,
     };
   }
 
@@ -58,7 +59,20 @@ class Home extends React.Component {
 
   handleLoginSubmit = (event) => {
     event.preventDefault();
-    // Implement user login logic here
+    const { username, password } = this.state;
+
+    // Simulating login logic (replace this with your actual login logic)
+    if (username === "demoUser" && password === "demoPassword") {
+      // Successful login logic
+      console.log("Login successful!");
+      // Reset the wrongPassword state if the login is successful
+      this.setState({ wrongPassword: false });
+    } else {
+      // Wrong password alert
+      alert("Wrong password. Please try again.");
+      // Set the wrongPassword state to true
+      this.setState({ wrongPassword: true });
+    }
   };
 
   render() {
@@ -72,6 +86,7 @@ class Home extends React.Component {
       password,
       confirmPassword,
       phone,
+      wrongPassword,
     } = this.state;
 
     return (
@@ -289,6 +304,12 @@ class Home extends React.Component {
                   >
                     Forgot Password?
                   </span>
+                </div>
+              )}
+
+              {wrongPassword && (
+                <div className={styles.wrong_password_alert}>
+                  Wrong password. Please try again.
                 </div>
               )}
 
