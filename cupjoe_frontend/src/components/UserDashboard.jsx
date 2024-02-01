@@ -1,10 +1,10 @@
 // Dashboard.jsx
 
 import React, { useState } from 'react';
-import '../css/dashboard.css'; // Make sure to import your CSS file
+import '../css/userdashboard.css'; // Make sure to import your CSS file
 import Profile from '../Images/profile.png';
 import Logo from '../Images/cup.png';
-const Dashboard = () => {
+const UserDashboard = () => {
   const [profileVisible, setProfileVisible] = useState("");
   const [categoryModalVisible, setCategoryModalVisible] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // Add this line for error message
@@ -806,4 +806,4 @@ const handleSearchproduct =()=>{
   );
 };
 
-export default Dashboard;
+export default UserDashboard;

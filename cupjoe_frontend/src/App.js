@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/UserDashboard';
 
 
 const App = () => {
@@ -11,7 +11,7 @@ const App = () => {
       <Switch>
         
         <Route path="/" exact component={Dashboard} />
-        <Route path="/dash" exact component={Dashboard}/>
+        <Route path="/userdash" exact component={Dashboard}/>
         
         
         {/* Add more routes as needed */}
