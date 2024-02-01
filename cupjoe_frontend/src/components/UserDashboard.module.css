@@ -1,0 +1,376 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+.dashboard_card {
+  max-height: 100vh; /* Adjust the maximum height as needed */
+  /* overflow-y: auto; */
+}
+
+.userdashboard_body header {
+  font-family: Georgia;
+  display: flex;
+  background-color: #ecf0f1;
+  color: black;
+  padding: 20px;
+  align-items: center; /* Center align items */
+  border-radius: 20px;
+}
+
+.userdashboard_body header img {
+  width: 100px;
+  height: auto;
+  margin-right: 20px; /* Adjusted margin for better spacing */
+}
+
+.logo_container {
+  cursor: pointer;
+  border-radius: 50%;
+  margin-left: 960px;
+}
+.logo_container img {
+  width: 30px;
+  height: 30px;
+  margin-left: 450px;
+}
+
+.userdashboard_body nav {
+  font-family: "Poppins", sans-serif;
+  width: 250px;
+  border-radius: 10px;
+  background-color: #ecf0f1;
+  color: #34495e;
+  padding-left: 30px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  top: 180px; /* Adjust the top property to move the navigation */
+  transition: top 0.3s ease; /* Add a transition effect */
+}
+
+.userdashboard_body nav a {
+  color: #34495e;
+  display: inline-block;
+  padding: 30px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.userdashboard_body nav a:hover {
+  background-color: #bdc3c7;
+  transform: scale(1.05);
+}
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left: 270px;
+  padding: 20px;
+}
+
+/* Styles for dashboard cards */
+.dashboard_card {
+  background-color: #ecf0f1;
+  box-shadow: 100px;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  flex-basis: calc(33.333% - 20px);
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.dashboard_link {
+  display: inline-block;
+  padding-left: 30px; /* Adjust the padding according to your preference */
+  background-image: url("../Images/dash.jpg");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: 10px center; /* Adjust the position of the icon */
+  text-decoration: none; /* Remove underline from the link */
+  transition: background-color 0.3s ease;
+}
+
+.dashboard_link:hover {
+  /* Optionally, add styles for hover state */
+  background-color: #bdc3c7;
+}
+.order_link {
+  display: inline-block;
+  padding-left: 30px; /* Adjust the padding according to your preference */
+  background-image: url("../Images/cart.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: 1vh; /* Adjust the position of the icon */
+  text-decoration: none; /* Remove underline from the link */
+  transition: background-color 0.3s ease; /* Add smooth transition */
+}
+.order_link:hover {
+  background-color: #bdc3c7;
+}
+.Bill_link {
+  display: inline-block;
+  padding-left: 30px; /* Adjust the padding according to your preference */
+  background-image: url(../Images/Bill.png);
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: 1vh; /* Adjust the position of the icon */
+  text-decoration: none; /* Remove underline from the link */
+  transition: background-color 0.3s ease; /* Add smooth transition */
+}
+.Bill_link:hover {
+  background-color: #bdc3c7;
+}
+.bill_modal {
+  font-family: "Poppins", sans-serif;
+  position: fixed;
+  /* top: 50%; */
+  /* left: 50%; */
+  transform: translate(5%);
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 55%; /* Set a default width for larger screens */
+  background-color: white;
+}
+
+/* Styles for the header */
+.bill_modal h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5em;
+  margin-bottom: 30px;
+}
+
+/* Styles for the search bar */
+.bill_search {
+  margin-bottom: 50px;
+  margin-left: 20px;
+}
+
+.bill_search input {
+  width: 70%;
+  padding: 8px;
+  margin-left: 10px;
+  border: 1px solid #ccc;
+}
+
+.bill_search button {
+  /* Adjust the width based on your design */
+
+  color: whitesmoke;
+  border: none;
+  cursor: pointer;
+  margin-left: 30px;
+}
+
+/* Styles for the bill table */
+.bill_table {
+  font-family: "Poppins", sans-serif;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.bill_table th,
+.bill_table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+/* Styles for action buttons in the table */
+.bill_table button {
+  font-family: "Poppins", sans-serif;
+  /* Adjust the width based on your design */
+  padding: 8px 12px;
+  margin-right: 5px;
+  background-color: whitesmoke;
+
+  border: none;
+  cursor: pointer;
+}
+
+/* Style for the close button */
+.bill_modal button {
+  font-family: "Poppins", sans-serif;
+  width: 50px; /* Set full width for smaller screens */
+  padding: 10px 0;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 7px;
+}
+
+/* Add hover effect to buttons */
+.bill_table button:hover,
+.bill_modal button:hover {
+  background-color: #2980b9;
+}
+.closebill {
+  font-family: "Poppins", sans-serif;
+  width: 50px; /* Set full width for smaller screens */
+  padding: 10px 0;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 7px;
+  transform: translate(700%);
+}
+.order_form_container {
+  font-family: "Poppins", sans-serif;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  margin: 0 auto; /* Center the form horizontally */
+  padding: 20px;
+  background-color: #bdc3c7;
+}
+.customer_details_form h3,
+.product_details_form h3 {
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 10px;
+}
+
+.customer_details_form,
+.product_details_form {
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 20px;
+}
+
+.customer_details_form label,
+.product_details_form label {
+  font-family: "Poppins", sans-serif;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.customer_details_form input,
+.customer_details_form select,
+.product_details_form input,
+.product_details_form select {
+  font-family: "Poppins", sans-serif;
+  width: calc(
+    100% - 10px
+  ); /* Take up full width with some margin on the right */
+  margin-bottom: 10px; /* Adjust margin for spacing between rows */
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.order_buttons {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: space-between;
+  height: 30px;
+  margin-top: -79px;
+}
+
+.order_buttons button {
+  font-family: "Poppins", sans-serif;
+  flex: 1;
+  margin-right: 50px; /* Adjust margin between buttons */
+  background-color: whitesmoke;
+  border-radius: 10px;
+  border: none;
+}
+.order_buttons :hover {
+  background-color: #2980b9;
+}
+.product_details_form label.move_right {
+  text-align: right;
+  margin-right: 10px; /* Adjust the right margin as needed */
+  transform: translate(70%, -1300%);
+}
+.product_details_form input.move_right {
+  text-align: right;
+  margin-right: 1px;
+  transform: translate(120%, -800%); /* Adjust the right margin for the input */
+}
+.change_password_form {
+  font-family: "Poppins", sans-serif;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  padding: 25px;
+  width: 300px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: auto; /* Center the form */
+}
+
+.change_password_form h3 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.change_password_form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.change_password_form input {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.password_buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.password_buttons button {
+  font-family: "Poppins", sans-serif;
+  padding: 12px 20px;
+  cursor: pointer;
+  background-color: whitesmoke;
+  color: black;
+  border: none;
+  border-radius: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.password_buttons button:hover {
+  background-color: #2980b9;
+}
+.profile_popup {
+  position: absolute;
+  top: 150px; /* Adjust the top position as needed */
+  right: 100px; /* Adjust the right position as needed */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.profile_popup label {
+  margin-bottom: 5px;
+}
+
+.profile_popup input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.profile_popup button {
+  padding: 8px 12px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: rgb(214, 214, 214);
+  color: black;
+  border: none;
+  border-radius: 4px;
+  font-family: "Poppins", sans_serif;
+}
+
+.profile_popup button:hover {
+  background-color: #45a049;
+}
