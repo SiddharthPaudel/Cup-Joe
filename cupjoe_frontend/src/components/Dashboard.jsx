@@ -211,6 +211,7 @@ const Dashboard = () => {
   };
 
   const openManageUsers = () => {
+    setUserList(getuser.data)
     setManageUsersVisible(true);
     closeBillModal();
     closeCategoryModal();
